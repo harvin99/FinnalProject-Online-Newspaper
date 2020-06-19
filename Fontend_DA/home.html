@@ -35,7 +35,8 @@
                     <input type="text" placeholder="Search...">
                     <button class="border-0 bg-transparent"><i class="fa fa-search" aria-hidden="true"></i></button>
                 </div>
-                <button class="border-0 bg-transparent text-uppercase">sign in</button>
+                <button class="border-0 bg-transparent text-uppercase sign_in" data-toggle="modal"
+                    data-target="#signin_box" onclick="loadModal()">sign in</button>
             </div>
         </header>
     </div>
@@ -140,7 +141,7 @@
     </div>
     <div class="container-fluid slider">
         <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
-            <div class="carousel-inner bg-light p-3">
+            <div class="carousel-inner bg--gray p-3">
                 <div class="carousel-item active">
                     <div class="text-center d-block w-100">
                         <span class="text-warning font-weight-bold"><i class="fa fa-star"
@@ -179,7 +180,9 @@
     <div class="container-fluid mt-4 banner">
         <div class="grid__list">
             <div class="grid__item">
-                <div class="gird__bg" style="background-image: url(https://images.pexels.com/photos/4121872/pexels-photo-4121872.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940);"></div>
+                <div class="gird__bg"
+                    style="background-image: url(https://images.pexels.com/photos/4121872/pexels-photo-4121872.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940);">
+                </div>
                 <div class="grid__content p-5">
                     <img class="rounded-circle"
                         src="https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
@@ -196,58 +199,135 @@
                 </div>
             </div>
             <div class="grid__item">
-                <div class="gird__bg" style="background-image: url(https://images.pexels.com/photos/1464143/pexels-photo-1464143.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500);"></div>
+                <div class="gird__bg"
+                    style="background-image: url(https://images.pexels.com/photos/1464143/pexels-photo-1464143.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500);">
+                </div>
                 <div class="grid__content p-4 justify-content-between text-white">
                     <div>
                         <p class="font-weight-bold">Thứ 7, 6/6/2020</p>
                         <h3 class="grid__title ">Mỹ dỡ lệnh cấm đổi với TQ</h3>
                     </div>
                     <div class="grid__content-bottom">
-                        <a href=""  class="mr-4  text-white">1 <i class="fa fa-eye" aria-hidden="true"></i></a>
+                        <a href="" class="mr-4  text-white">1 <i class="fa fa-eye" aria-hidden="true"></i></a>
                         <a href="" class=" text-white">2 <i class="fa fa-commenting-o" aria-hidden="true"></i></a>
-                        <a href="" class="float-right text-white grid__readmore"><h4>READ MORE</h4></a>
+                        <a href="" class="float-right text-white grid__readmore">
+                            <h4>READ MORE</h4>
+                        </a>
                     </div>
                 </div>
             </div>
             <div class="grid__item">
-                <div class="gird__bg" style="background-image: url(https://images.pexels.com/photos/1464143/pexels-photo-1464143.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500);"></div>
+                <div class="gird__bg"
+                    style="background-image: url(https://images.pexels.com/photos/1464143/pexels-photo-1464143.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500);">
+                </div>
                 <div class="grid__content p-4 justify-content-between text-white">
                     <div>
                         <p class="font-weight-bold">Thứ 7, 6/6/2020</p>
                         <h3 class="grid__title ">Mỹ dỡ lệnh cấm đổi với TQ</h3>
                     </div>
                     <div class="grid__content-bottom">
-                        <a href=""  class="mr-4  text-white">1 <i class="fa fa-eye" aria-hidden="true"></i></a>
+                        <a href="" class="mr-4  text-white">1 <i class="fa fa-eye" aria-hidden="true"></i></a>
                         <a href="" class=" text-white">2 <i class="fa fa-commenting-o" aria-hidden="true"></i></a>
-                        <a href="" class="float-right text-white grid__readmore"><h4>READ MORE</h4></a>
+                        <a href="" class="float-right text-white grid__readmore">
+                            <h4>READ MORE</h4>
+                        </a>
                     </div>
                 </div>
             </div>
             <div class="grid__item">
-                <div class="gird__bg" style="background-image: url(https://images.pexels.com/photos/1464143/pexels-photo-1464143.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500);"></div>
+                <div class="gird__bg"
+                    style="background-image: url(https://images.pexels.com/photos/1464143/pexels-photo-1464143.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500);">
+                </div>
                 <div class="grid__content p-4 justify-content-between text-white">
                     <div>
                         <p class="font-weight-bold">Thứ 7, 6/6/2020</p>
                         <h3 class="grid__title ">Mỹ dỡ lệnh cấm đổi với TQ</h3>
                     </div>
                     <div class="grid__content-bottom">
-                        <a href=""  class="mr-4  text-white">1 <i class="fa fa-eye" aria-hidden="true"></i></a>
+                        <a href="" class="mr-4  text-white">1 <i class="fa fa-eye" aria-hidden="true"></i></a>
                         <a href="" class=" text-white">2 <i class="fa fa-commenting-o" aria-hidden="true"></i></a>
-                        <a href="" class="float-right text-white grid__readmore"><h4>READ MORE</h4></a>
+                        <a href="" class="float-right text-white grid__readmore">
+                            <h4>READ MORE</h4>
+                        </a>
                     </div>
                 </div>
             </div>
             <div class="grid__item">
-                <div class="gird__bg" style="background-image: url(https://images.pexels.com/photos/1464143/pexels-photo-1464143.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500);"></div>
+                <div class="gird__bg"
+                    style="background-image: url(https://images.pexels.com/photos/1464143/pexels-photo-1464143.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500);">
+                </div>
                 <div class="grid__content p-4 justify-content-between text-white">
                     <div>
                         <p class="font-weight-bold">Thứ 7, 6/6/2020</p>
                         <h3 class="grid__title ">Mỹ dỡ lệnh cấm đổi với TQ</h3>
                     </div>
                     <div class="grid__content-bottom">
-                        <a href=""  class="mr-4  text-white">1 <i class="fa fa-eye" aria-hidden="true"></i></a>
+                        <a href="" class="mr-4  text-white">1 <i class="fa fa-eye" aria-hidden="true"></i></a>
                         <a href="" class=" text-white">2 <i class="fa fa-commenting-o" aria-hidden="true"></i></a>
-                        <a href="" class="float-right text-white grid__readmore"><h4>READ MORE</h4></a>
+                        <a href="" class="float-right text-white grid__readmore">
+                            <h4>READ MORE</h4>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Modal -->
+    <div class="modal fade" id="signin_box" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content rounded-0">
+                <div class="tabContainer">
+                    <div class="buttonContainer d-flex justify-content-between align-items-center">
+                        <div class="buttonContainer d-flex justify-content-start align-items-center">
+                            <button class="text-uppercase font-weight-bold tab__item" onclick="showPanel(0)">Login</button>
+                            <button class="text-uppercase font-weight-bold tab__item" onclick="showPanel(1)">ReGisTer</button>
+                        </div>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="tabPanel">
+                        <h1 class="tabPanel__title text-uppercase mb-3">login</h1>
+                        <form action="" class="tabPanel__form">
+                            <div class="d-flex flex-column">
+                                <input type="text" placeholder="Email">
+                                <input type="text" placeholder="Password">
+                            </div>
+                            <div class="d-flex justify-content-between mb-4 align-items-center">
+                                <a href="" class="font-weight-bold text-dark">Forget your password ?</a>
+                                <button class="sumit" type="submit">Sign in</button>
+                            </div>
+                            <div class="d-flex align-items-center justify-content-center">
+                                <span>Or login by: </span>
+                                <a class="form__link"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+                                <a class="form__link"><i class="fa fa-google-plus" aria-hidden="true"></i></a>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="tabPanel">
+                        <h1 class="tabPanel__title text-uppercase mb-3">register</h1>
+                        <form action="" class="tabPanel__form">
+                            <div class="d-flex flex-column">
+                                <input type="text" placeholder="Full name">
+                                <input type="text" placeholder="Email">
+                                <input type="text" placeholder="Password">
+                                <input type="text" placeholder="Confirm Password">
+                            </div>
+                            <div class="d-flex align-items-center justify-content-start">
+                                <input type="text" placeholder="Confirm Password">
+                                <p class="view-code">ABC123</p>
+                                <p class="newcode">New Code</p>
+                            </div>
+                            <div class="mb-4 mt-4">
+                                <button class="sumit" type="submit">Register</button>
+                            </div>
+                            <div class="d-flex align-items-center justify-content-center">
+                                <span>Or login by: </span>
+                                <a class="form__link"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+                                <a class="form__link"><i class="fa fa-google-plus" aria-hidden="true"></i></a>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>

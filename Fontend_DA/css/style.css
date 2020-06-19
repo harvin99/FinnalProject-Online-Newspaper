@@ -2,12 +2,21 @@ body {
   font-family: "Roboto", sans-serif;
 }
 
+.bg--gray {
+  background-color: #dddddd;
+}
+
+.text-gray {
+  color: #dddddd;
+}
+
 .header {
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 .header__link {
+  cursor: pointer;
   list-style: none;
   display: inline-block;
   width: 2rem;
@@ -33,6 +42,9 @@ body {
 }
 .header__item {
   width: 33.33%;
+}
+.header .sign_in {
+  outline: none;
 }
 
 #categories {
@@ -144,6 +156,192 @@ body {
   height: 10rem;
   object-fit: cover;
   margin: 0 auto;
+}
+
+.tabContainer {
+  width: 100%;
+}
+.tabContainer .buttonContainer .tab__item {
+  cursor: pointer;
+  width: 8rem;
+  border: none;
+  outline: none;
+  padding: 1rem;
+  margin: 0;
+  background-color: #d7d4d4;
+}
+.tabContainer .buttonContainer .close {
+  margin-right: 1rem;
+  color: black !important;
+  opacity: 1;
+  outline: none;
+}
+.tabContainer .tabPanel {
+  padding: 3rem 5rem;
+  height: 85%;
+  text-align: center;
+  display: none;
+}
+.tabContainer .tabPanel__form input {
+  padding: 0.5rem;
+  margin-bottom: 1rem;
+  border: none;
+  outline: none;
+  background-color: #dddddd;
+}
+.tabContainer .tabPanel__form input::placeholder {
+  color: black;
+}
+.tabContainer .tabPanel__form .sumit {
+  border: none;
+  background-color: #f0a500;
+  color: white;
+  font-weight: bold;
+  padding: 0.5rem 1.5rem;
+}
+.tabContainer .tabPanel__form .form__link {
+  cursor: pointer;
+  display: inline-block;
+  width: 2rem;
+  height: 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  margin-left: 0.5rem;
+  color: white;
+}
+.tabContainer .tabPanel__form .form__link:nth-last-child(2) {
+  background-color: #3d5b9a;
+}
+.tabContainer .tabPanel__form .form__link:last-child {
+  background-color: #cb3e2d;
+}
+.tabContainer .tabPanel__form .view-code {
+  padding: 0.5rem 1rem;
+  margin-left: 1rem;
+  background-color: #eeeeee;
+  color: red;
+}
+.tabContainer .tabPanel__form .newcode {
+  cursor: pointer;
+  padding: 0.5rem 1rem;
+  display: block;
+  position: relative;
+}
+.tabContainer .tabPanel__form .newcode::after {
+  content: "";
+  position: absolute;
+  width: 70%;
+  height: 2px;
+  top: 70%;
+  background-color: black;
+  left: 15%;
+  z-index: 1;
+  display: none;
+}
+.tabContainer .tabPanel__form .newcode:hover::after {
+  display: block;
+}
+
+.form input {
+  padding: 0.5rem;
+  margin-bottom: 1rem;
+  border: none;
+  outline: none;
+  background-color: #dddddd;
+}
+.form input::placeholder {
+  color: black;
+}
+.form .sumit {
+  border: none;
+  background-color: #f0a500;
+  color: white;
+  font-weight: bold;
+  padding: 0.5rem 1.5rem;
+}
+
+.modal-dialog {
+  max-width: 650px !important;
+}
+
+.tag__item {
+  cursor: pointer;
+  border-bottom: 1px solid transparent;
+  transition: border 0.25s linear;
+}
+.tag__item:hover {
+  border-bottom-color: black;
+}
+
+.bg-img {
+  background-position: center center !important;
+  background-repeat: no-repeat !important;
+  background-size: cover !important;
+}
+
+.bg-rbga {
+  background-color: rgba(0, 0, 0, 0.6);
+}
+
+.tabFilter {
+  width: 100%;
+}
+.tabFilter .buttonFilter .tab__item {
+  cursor: pointer;
+  border: none;
+  outline: none;
+  padding: 1rem;
+  margin: 0;
+  background-color: #d7d4d4;
+}
+.tabFilter .tabFilter__Panel {
+  height: 85%;
+  display: none;
+}
+.tabFilter .tabContent {
+  border: 3px solid #d7d4d4;
+  border-top: none;
+}
+.tabFilter .tabContent li {
+  border-bottom: 2px solid #d7d4d4;
+}
+.tabFilter .tabContent li a {
+  text-decoration: none;
+}
+.tabFilter .border-after {
+  position: relative;
+}
+.tabFilter .border-after::after {
+  position: absolute;
+  content: "";
+  height: 2px;
+  width: 70%;
+  background-color: #f0a500;
+  top: 100%;
+  left: 15%;
+}
+
+.author {
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+}
+.author__bg {
+  position: absolute;
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: -1;
+  transition: transform 0.25s;
+}
+.author:hover .author__bg {
+  transform: scale(1.2);
 }
 
 @media screen and (max-width: 1023px) {
