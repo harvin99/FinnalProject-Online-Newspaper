@@ -344,6 +344,60 @@ body {
   transform: scale(1.2);
 }
 
+.top-newspaper__list {
+  padding: 1rem 3rem;
+}
+.top-newspaper__list .slick-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  border: none;
+  background: none;
+  outline: none;
+  font-size: 1.8rem;
+}
+.top-newspaper__list .slick-arrow.slick-next {
+  right: 1%;
+}
+.top-newspaper__list .slick-arrow.slick-prev {
+  left: 1%;
+}
+.top-newspaper__item {
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+}
+.top-newspaper__item:not(:first-child) {
+  margin-left: 1rem;
+}
+.top-newspaper__item:hover .item__bg {
+  transform: scale(1.2);
+}
+.top-newspaper__item .item__bg {
+  position: absolute;
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: -1;
+  transition: transform 0.25s;
+}
+.top-newspaper__item .item__content {
+  display: flex;
+  flex-direction: column;
+  background-color: rgba(0, 0, 0, 0.4);
+  height: 100%;
+}
+.top-newspaper__item .item__content img {
+  width: 10rem;
+  height: 10rem;
+  object-fit: cover;
+  margin: 0 auto;
+}
+
 @media screen and (max-width: 1023px) {
   .header {
     flex-direction: column;
