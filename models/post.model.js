@@ -5,14 +5,16 @@ const postSchema = new mongoose.Schema({
     abstract : String,
     detail : String,
     author : String,
-    like : Number,
+    userLike : [],
+    userDislike : [],
     view : Number,
-    tagId :String,
+    tags : [],
     catId : String,
     status : String,
-    commentId : String,
+    comments : [],
     isPremium : Boolean,
-    avatarPostUrl : String
+    avatarPostUrl : String,
+    slugPost : String
     //timePost : Date
 })
 const Post = mongoose.model('Post', postSchema, 'posts')
