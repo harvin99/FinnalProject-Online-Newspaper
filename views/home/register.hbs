@@ -1,0 +1,38 @@
+<div class="login-wrap">
+    <div class="tabContainer">
+        <div class="buttonContainer d-flex justify-content-between align-items-center">
+            <div class="buttonContainer d-flex justify-content-start align-items-center">
+                <a href="/login" class="text-uppercase font-weight-bold tab__item tab__item--gray">Login</a>
+                <a href="/register" class="text-uppercase font-weight-bold tab__item tab__item--active ">ReGisTer</a>
+            </div>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+
+        <div class="tabPanel d-block">
+            <h1 class="tabPanel__title text-uppercase mb-3">register</h1>
+            <form action="" class="tabPanel__form">
+                <div class="d-flex flex-column">
+                    <input type="text" placeholder="Full name">
+                    <input type="text" placeholder="Username">
+                    <input type="text" placeholder="Password">
+                    <input type="text" placeholder="Confirm Password">
+                </div>
+                <div class="d-flex align-items-center justify-content-start">
+                    <input type="text" placeholder="Confirm Password">
+                    <p class="view-code">ABC123</p>
+                    <p class="newcode">New Code</p>
+                </div>
+                <div class="mb-4 mt-4">
+                    <button class="sumit" type="submit">Register</button>
+                </div>
+                <div class="d-flex align-items-center justify-content-center">
+                    <span>Or login by: </span>
+                    <a href="/facebook" class="form__link"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+                    <a href="/google" class="form__link"><i class="fa fa-google-plus" aria-hidden="true"></i></a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
