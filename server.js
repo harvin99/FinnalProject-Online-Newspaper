@@ -3,8 +3,20 @@ const express = require('express')
 const exphbs = require('express-handlebars')
 const cookieParser = require('cookie-parser')
 const path = require('path')
-const app = express()
+const mongoose = require('mongoose');
 
+//Connect db from mongodb
+mongoose.connect(process.env.MONGO_URI, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    useFindAndModify : false,
+})
+//Give a notification when connect success
+mongoose.connection.on('connected', () => {
+    console.log('Mongoose is connected !!!')
+})
+
+const app = express()
 const homeRouter = require('./routes/home.router')
 //For Cookie-parser
 app.use(cookieParser())
