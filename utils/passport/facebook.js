@@ -8,25 +8,19 @@ const strategy = (app) => {
     clientID: process.env.FACEBOOK_APP_ID,
     clientSecret: process.env.FACEBOOK_APP_SECRET,
     callbackURL: `${process.env.SERVER_API_URL}/facebook/cb`,
-    profileFields: [
-      "id",
-      "profileUrl",
-      "displayName",
-      "name",
-      "emails",
-      "photos",
-    ],
+    profileFields: ["id", "displayName", "name", "emails", "photos"],
   };
 
   const verifyCallback = async (accessToken, refreshToken, profile, done) => {
-    let { id, email, first_name, last_name, picture } = profile._json;
-   
+    let { id, email, first_name, last_name, picture, username } = profile._json;
+    console.log(profile);
     let user = await userModel.oAuthLogin({
       service: "facebook",
       id,
       email,
       fullName: `${first_name} ${last_name}`,
       avatar: `https://graph.facebook.com/${id}/picture?height=120&width=120`,
+      username,
     });
 
     return done(null, user);

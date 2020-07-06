@@ -6,6 +6,8 @@ const jwt = require("jsonwebtoken");
 const { errorFormatter } = require("../validator");
 const { userModel } = require("../models");
 const config = require("../config");
+const crypto = require("crypto");
+
 module.exports.getHome = (req, res) => {
   res.render("home/home");
 };
@@ -14,24 +16,19 @@ module.exports.login = (req, res) => {
   res.render("home/login");
 };
 module.exports.register = (req, res) => {
-  res.render("home/register");
+  res.render("home/register", { code: getRegisterCode() });
 };
 module.exports.login_post = async (req, res) => {
   let { retUrl } = req.query;
   let view = "home/login";
+  let { username, password } = req.body;
   try {
     let formError = validationResult(req);
     if (formError.isEmpty()) {
       //handle
-      let { username, password } = req.body;
 
       let user = await userModel.findOne({ username });
       if (user) {
-        let hash = await bcrypt.hash(
-          password,
-          config.authentication.saltRounds
-        );
-        console.log(hash);
         let comparePasswordResult = await bcrypt.compare(
           password,
           user.password
@@ -47,6 +44,8 @@ module.exports.login_post = async (req, res) => {
             formError: {
               submit: "Username or Password incorrect",
             },
+            username,
+            password,
           });
         }
       } else {
@@ -54,19 +53,66 @@ module.exports.login_post = async (req, res) => {
           formError: {
             submit: "Username or Password incorrect",
           },
+          username,
+          password,
         });
       }
     } else {
       formError = formError.formatWith(errorFormatter).mapped();
-      console.log(formError);
-      res.render(view, { formError });
+      res.render(view, { formError, username, password });
     }
   } catch (error) {
     res.render(view, { errors: error.toString() });
   }
 };
-module.exports.register_post = (req, res) => {
-  res.render("home/home");
+module.exports.register_post = async (req, res) => {
+  let view = "home/register";
+  console.log("run");
+  let {
+    username,
+    email,
+    password,
+    confirmPassword,
+    fullName,
+
+    confirmCode,
+  } = req.body;
+  try {
+    let formError = validationResult(req);
+    if (formError.isEmpty()) {
+      let newUser = await userModel.create({
+        username,
+        email,
+        password,
+        fullName,
+      });
+      res.render(view, {
+        success: "create user successfully",
+        formError,
+        username,
+        email,
+        password,
+        confirmPassword,
+        fullName,
+
+        confirmCode,
+      });
+    } else {
+      formError = formError.formatWith(errorFormatter).mapped();
+      res.render(view, {
+        formError,
+        username,
+        email,
+        password,
+        confirmPassword,
+        fullName,
+
+        confirmCode,
+      });
+    }
+  } catch (error) {
+    console.log(error);
+  }
 };
 module.exports.facebook = (req, res, next) => {
   passport.authenticate("facebook", function (err, user, info) {
@@ -108,4 +154,12 @@ module.exports.logout = async (req, res) => {
   res.cookie("token", "", { maxAge: Date.now() });
   res.clearCookie("token");
   res.redirect("/");
+};
+
+module.exports.getRegisterCode = async (req, res) => {
+  let length = 5;
+  console.log(crypto.randomBytes(length));
+  return res.json({
+    code: crypto.randomBytes(length).toString("hex"),
+  });
 };

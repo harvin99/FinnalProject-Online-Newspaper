@@ -26,11 +26,12 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.static("public"));
 //For view engine
 require("./middlewares/view.mdw")(app);
-require("./middlewares/locals.mdw")(app);
-//mdw
-app.use(require("./middlewares/auth.mdw").parseTokenToUser);
 //auth
 require("./utils/passport")(app);
+//mdw
+app.use(require("./middlewares/auth.mdw").parseTokenToUser);
+require("./middlewares/locals.mdw")(app);
+
 //Router
 app.use("/", router);
 

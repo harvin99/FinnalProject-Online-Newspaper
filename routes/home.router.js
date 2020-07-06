@@ -18,5 +18,7 @@ router.get(
 router.get("/google/cb", homeController.google);
 //passport.authenticate("facebook", { failureRedirect: "/login" }),
 router.get("/register", homeController.register);
+router.get("/register/code", homeController.getRegisterCode);
+router.post("/register", registerValidator(), homeController.register_post);
 router.get("/logout", homeController.logout);
 module.exports = router;

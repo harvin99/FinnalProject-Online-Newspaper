@@ -6,7 +6,6 @@ const parseTokenToUser = async (req, res, next) => {
     let { token } = req.cookies;
     if (token) {
       try {
-     
         var decoded = jwt.verify(token, authenticationConfig.jwtPrivateKey);
         let user = await userModel.findById(decoded.id).lean();
         req.user = user;
