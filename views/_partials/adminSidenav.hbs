@@ -1,0 +1,23 @@
+<div class="logo"><img src="/images/logo-white.png" alt=""></div>
+<div class="user">
+    {{#with user}}
+    <div class="user__avatar"><img src="{{#if avatar}}{{avatar}}{{else}}/images/avatar.png{{/if}}" alt=""></div>
+    <div class="user__info">
+        <div class="user__fullname">{{fullName}}</div>
+        <div class="user__role">Writer</div>
+    </div>
+    {{/with}}
+</div>
+<div class="features">
+    <ul class="features__menu">
+        <li class="features__menu-item features__menu-item--active">
+            <a href="./"><i class="fa fa-sign-out" aria-hidden="true"></i> Management</a>
+        </li>
+        <li class="features__menu-item">
+            <a href="./"><i class="fa fa-sign-out" aria-hidden="true"></i> Response</a>
+        </li>
+        <li class="features__menu-item">
+            <a href="./"><i class="fa fa-sign-out" aria-hidden="true"></i> Logout</a>
+        </li>
+    </ul>
+</div>

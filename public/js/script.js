@@ -29,3 +29,8 @@ function loadModal(){
     tabButtons[0].style.color = "white";
     tabPanel[0].style.display = "block";
 }
+$(function() {
+    $(".clickable-row").click(function() {
+        window.location = $(this).data("href");
+    });
+});
