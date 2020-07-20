@@ -17,6 +17,9 @@ module.exports = function (app) {
         format_number: function (value) {
           return numeral(value).format("0,0");
         },
+        stringify: function (v) {
+          return JSON.stringify(v);
+        },
         date: function (date, format) {
           return date instanceof Date ? moment(date).format(format) : null;
         },
@@ -31,6 +34,10 @@ module.exports = function (app) {
             gt: function (l, r) {
               return Number(l) > Number(r);
             },
+            lt: function (l, r) {
+              console.log(l, r);
+              return Number(l) < Number(r);
+            },
             or: function (l, r) {
               return l || r;
             },
@@ -41,10 +48,8 @@ module.exports = function (app) {
               return l % r === 0;
             },
             in: function (l, r) {
-             
               return r.includes(l);
             },
-          
           };
 
           let result = operators[operator](operand_1, operand_2);
@@ -61,7 +66,7 @@ module.exports = function (app) {
               return l - r;
             },
           };
-      
+
           let result = operators[operator](operand_1, operand_2);
 
           return result;

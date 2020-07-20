@@ -1,32 +1,40 @@
 {{#if pagination}}
+{{#when pagination.pageCount "lt" 2}}
 <div class="col-md-12">
-    <div class="section-row">
-        <nav aria-label="...">
-            <ul class="pagination">
-                {{#paginate pagination type="first"}}
-                <li {{#if disabled}}class="page-item disabled" {{/if}}><a class="page-link" href="?page={{n}}"
-                        onclick="setQuery(event,'page','{{n}}')">First</a></li>
-                {{/paginate}}
-                {{#paginate pagination type="previous"}}
-                <li {{#if disabled}}class="page-item disabled" {{/if}}><a class="page-link" href="?page={{n}}"
-                        onclick="setQuery(event,'page','{{n}}')">Prev</a></li>
-                {{/paginate}}
-                {{#paginate pagination type="middle" limit="7"}}
-                <li {{#if active}}class="page-item active" {{/if}}><a class="page-link" href="?page={{n}}"
-                        onclick="setQuery(event,'page','{{n}}')">{{n}}</a></li>
-                {{/paginate}}
-                {{#paginate pagination type="next"}}
-                <li {{#if disabled}}class="page-item disabled" {{/if}}><a class="page-link" href="?page={{n}}"
-                        onclick="setQuery(event,'page','{{n}}')">Next</a></li>
-                {{/paginate}}
-                {{#paginate pagination type="last"}}
-                <li {{#if disabled}}class="page-item disabled" {{/if}}><a class="page-link" href="?page={{n}}"
-                        onclick="setQuery(event,'page','{{n}}')">Last</a></li>
-                {{/paginate}}
+        <div class="section-row">
+                <nav aria-label="...">
+                        <ul class="pagination">
+                                {{#paginate pagination type="first"}}
+                                <li {{#if disabled}}class="page-item disabled" {{/if}}><a class="page-link"
+                                                href="?page={{n}}" onclick="setQuery(event,'page','{{n}}')">First</a>
+                                </li>
+                                {{/paginate}}
+                                {{#paginate pagination type="previous"}}
+                                <li {{#if disabled}}class="page-item disabled" {{/if}}><a class="page-link"
+                                                href="?page={{n}}" onclick="setQuery(event,'page','{{n}}')">Prev</a>
+                                </li>
+                                {{/paginate}}
+                                {{#paginate pagination type="middle" limit="7"}}
+                                <li {{#if active}}class="page-item active" {{/if}}><a class="page-link"
+                                                href="?page={{n}}" onclick="setQuery(event,'page','{{n}}')">{{n}}</a>
+                                </li>
+                                {{/paginate}}
+                                {{#paginate pagination type="next"}}
+                                <li {{#if disabled}}class="page-item disabled" {{/if}}><a class="page-link"
+                                                href="?page={{n}}" onclick="setQuery(event,'page','{{n}}')">Next</a>
+                                </li>
+                                {{/paginate}}
+                                {{#paginate pagination type="last"}}
+                                <li {{#if disabled}}class="page-item disabled" {{/if}}><a class="page-link"
+                                                href="?page={{n}}" onclick="setQuery(event,'page','{{n}}')">Last</a>
+                                </li>
+                                {{/paginate}}
 
-            </ul>
-        </nav>
+                        </ul>
+                </nav>
 
-    </div>
+        </div>
 </div>
+{{/when}}
+
 {{/if}}
