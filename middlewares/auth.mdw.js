@@ -14,7 +14,27 @@ const parseTokenToUser = async (req, res, next) => {
   }
   next();
 };
+const needRole = (x) => {
+  let roles = x;
+  console.log(typeof roles);
+  if (typeof roles === "string") {
+    roles = [roles];
+  }
 
+  if (roles instanceof Array) {
+    return (req, res, next) => {
+      let { user } = req;
+      if (user && user.role && roles.includes(user.role.toLowerCase())) {
+        next();
+      } else {
+        res.render("errors/404", {
+          errors: "permission denied",
+        });
+      }
+    };
+  }
+};
 module.exports = {
   parseTokenToUser,
+  needRole,
 };
