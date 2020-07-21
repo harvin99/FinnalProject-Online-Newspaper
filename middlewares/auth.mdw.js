@@ -16,7 +16,7 @@ const parseTokenToUser = async (req, res, next) => {
 };
 const needRole = (x) => {
   let roles = x;
-  console.log(typeof roles);
+
   if (typeof roles === "string") {
     roles = [roles];
   }

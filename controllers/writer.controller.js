@@ -178,7 +178,7 @@ module.exports.addPost_post = async (req, res) => {
   } = req.body;
   let { file: avatar, user } = req;
   avatar = avatar ? getFilePath(avatar) : avatarHolder;
-  console.log(avatar);
+
   try {
     let categories = await categoryModel.find().lean();
     let tags = await tagModel.find().lean();
@@ -204,7 +204,7 @@ module.exports.addPost_post = async (req, res) => {
       );
       subCategory = await categoryModel.findSubCategory(category);
       let author = await userModel.findById(user._id);
-
+      console.log(content);
       let newPost = new postModel({
         title,
         slug,
