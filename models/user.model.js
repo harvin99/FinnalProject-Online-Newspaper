@@ -4,13 +4,18 @@ const bcrypt = require("bcryptjs");
 const uuidv4 = require("uuid").v4;
 const config = require("./../config");
 const jwt = require("jsonwebtoken");
+const allRoles = ["Normal", "Writer", "Editor", "Admin"];
 const userSchema = new mongoose.Schema({
   fullName: String,
   email: String,
   username: String,
   password: String,
   DoB: Date,
-  role: String,
+  role: {
+    type: String,
+    enum: allRoles,
+    default: allRoles[0],
+  },
   expire: Date,
   manager: String,
   pseudonym: String,
@@ -75,8 +80,8 @@ userSchema.method({
 });
 //static
 userSchema.statics = {
+  allRoles,
   async oAuthLogin({ service, id, email, fullName, avatar }) {
-  
     let user = await this.findOne({
       $or: [{ [`services.${service}`]: id }, { email }],
     });

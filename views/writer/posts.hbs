@@ -9,7 +9,11 @@
         let status = $("#select-post-status").val()
         setQuery(e, "status", status, { deleteItems: ["page"] })
     })
+
 </script>
+{{#if showMessageModal}}
+<script>$("#showMessageModal").modal('show')</script>
+{{/if}}
 {{/section}}
 <div class="top-title">
     <h1>Management</h1>
@@ -54,7 +58,7 @@
             </thead>
             <tbody>
                 {{#each posts}}
-                <tr class="clickable-row" data-href="./bc">
+                <tr class="clickable-row" data-href="/writer/posts/edit/{{slug}}">
                     <th scope="row" colspan="1">{{calc @index "+" 1}}</th>
                     <td colspan="10">
                         <div class="text-truncate">{{title}}
@@ -77,7 +81,31 @@
         {{>pagination}}
         {{!-- add new --}}
         <div class="add-new">
-            <button class="add-new__btn"><i class="fa fa-plus" aria-hidden="true"></i></button>
+            <a href="/writer/posts/add" class="add-new__btn"><i class="fa fa-plus" aria-hidden="true"></i></a>
         </div>
     </div>
 </div>
+
+<!-- Modal -->
+{{#if showMessageModal}}
+<div class="modal fade" id="showMessageModal" tabindex="-1" role="dialog" aria-labelledby="modelTitleId"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            {{#with showMessageModal}}
+            <div class="modal-header">
+                <h5 class="modal-title">{{title}}</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="alert alert-{{type}}">{{message}}</div>
+            </div>
+            {{/with}}
+
+
+        </div>
+    </div>
+</div>
+{{/if}}

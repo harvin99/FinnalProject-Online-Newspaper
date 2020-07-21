@@ -13,6 +13,14 @@ router.post(
   addPostValidator(),
   writerController.addPost_post
 );
+router.get("/posts/edit/:slug", writerController.editPost);
+router.post(
+  "/posts/edit/:slug",
+
+  uploadController.uploadImage.single("avatar"),
+  addPostValidator(),
+  writerController.editPost_post
+);
 router.get("/posts/:slug/del", writerController.delPost);
 
 module.exports = router;

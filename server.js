@@ -27,6 +27,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.static("public"));
 //For view engine
 require("./middlewares/view.mdw")(app);
+require("./middlewares/session.mdw")(app);
 //auth
 require("./utils/passport")(app);
 //mdw
