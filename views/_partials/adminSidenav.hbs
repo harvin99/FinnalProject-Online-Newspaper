@@ -10,13 +10,25 @@
 </div>
 <div class="features">
     <ul class="features__menu">
+        {{#when user.role "eq" "Writer" }}
         <li class="features__menu-item {{#when activeFeature "eq" 1}}features__menu-item--active {{/when}}">
             <a href="/writer"><i class="fa fa-tasks" aria-hidden="true"></i> Management</a>
         </li>
         <li class="features__menu-item {{#when activeFeature "eq" 2}}features__menu-item--active {{/when}}">
             <a href="/writer/posts/add"><i class="fa fa-newspaper-o" aria-hidden="true"></i> Add New Post</a>
         </li>
-        <li class="features__menu-item {{#when activeFeature "eq" 0}}features__menu-item--active {{/when}}">
+        {{/when}}
+        {{#when user.role "eq" "Admin" }}
+        <li class="features__menu-item {{#when activeFeature "eq" 1}}features__menu-item--active {{/when}}">
+            <a href="/admin"><i class="fa fa-tachometer" aria-hidden="true"></i> Dashboard</a>
+        </li>
+        <li class="features__menu-item {{#when activeFeature "eq" 2}}features__menu-item--active {{/when}}">
+            <a href="/admin/categories"><i class="fa fa-bars" aria-hidden="true"></i>Categories</a>
+        </li>
+        <li class="features__menu-item {{#when activeFeature "eq" 3}}features__menu-item--active {{/when}}">
+            <a href="/admin/tags"><i class="fa fa-tags" aria-hidden="true"></i>Tags</a>
+        </li>
+        {{/when}} <li class="features__menu-item {{#when activeFeature "eq" 0}}features__menu-item--active {{/when}}">
             <a href="/logout"><i class="fa fa-sign-out" aria-hidden="true"></i> Logout</a>
         </li>
     </ul>

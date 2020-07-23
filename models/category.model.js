@@ -1,10 +1,30 @@
 const mongoose = require("mongoose");
-
+const slug = require("mongoose-slug-updater");
+mongoose.plugin(slug);
 const categorySchema = new mongoose.Schema({
   name: String,
-  slug: String,
-  subCategories: [],
+  slug: {
+    type: String,
+    slug: "name",
+    slugPaddingSize: 4,
+    unique: true,
+    sparse: true,
+  },
+  subCategories: [
+    {
+      name: String,
+      slug: {
+        type: String,
+        slug: "name",
+        index: true,
+        slugPaddingSize: 4,
+        unique: true,
+        sparse: true,
+      },
+    },
+  ],
 });
+
 categorySchema.statics = {
   findSubCategory: async function name(slug) {
     let rootCategory = await this.findOne({

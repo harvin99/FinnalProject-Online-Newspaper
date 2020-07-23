@@ -1,0 +1,58 @@
+{{#section "js"}}
+{{#if showMessageModal}}
+<script>$("#showMessageModal").modal('show')</script>
+{{/if}}
+{{/section}}
+<div class="top-title">
+    <h1>Management</h1>
+</div>
+<div class="content">
+    {{#with category}}
+    <div class="content__header">
+        <h3>View Category</h3>
+    </div>
+
+    <div class="content__data">
+        <p>Name: {{name}}</p>
+        <p>Slug: {{slug}}</p>
+        <p>Sub Categories</p>
+        <div class="sub-categories">
+
+            {{#each subCategories}}
+            <div class="sub-category"><button class="btn btn-info">{{name}}</button><button type="button" class="close"
+                    aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button></div>
+            {{/each}}
+        </div>
+        <div class="content__actions">
+
+            <a href="/admin/categories/edit/{{slug}}" class="btn btn-primary content__action">Edit</a>
+        </div>
+    </div>
+    {{/with}}
+</div>
+
+<!-- Modal -->
+{{#if showMessageModal}}
+<div class="modal fade" id="showMessageModal" tabindex="-1" role="dialog" aria-labelledby="modelTitleId"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            {{#with showMessageModal}}
+            <div class="modal-header">
+                <h5 class="modal-title">{{title}}</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="alert alert-{{type}}">{{message}}</div>
+            </div>
+            {{/with}}
+
+
+        </div>
+    </div>
+</div>
+{{/if}}
