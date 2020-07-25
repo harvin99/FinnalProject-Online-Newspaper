@@ -1,0 +1,28 @@
+<div class="w-100" style="background-color: #dddddd;">
+    <div class="bg-white w-100" style="height: 80px;"></div>
+    <div class="m-3 p-3 bg-white" style="height: 100vh;">
+        <h1>Management</h1>
+        <h3>Categories</h3>
+        <table class="table font-weight-bold" style="background-color: #dddddd;">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th class="text-center" scope="col">Name</th>
+                    <th scope="col"></th>
+                </tr>
+            </thead>
+            <tbody>
+                {{#each categories}}
+                <tr>
+                    <th scope="row">1</th>
+                    <td class="text-center">{{name}}</td>
+                    <td class="text-center">
+                        <a href="editor/{{slug}}">
+                            <button type="button" class="btn btn-primary">Posts</button></td>
+                        </a>    
+                    </tr>
+                {{/each}}
+            </tbody>
+        </table>
+    </div>
+</div>

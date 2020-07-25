@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 
 const categorySchema = new mongoose.Schema({
+  _id: mongoose.Types.ObjectId,
   name: String,
   slug: String,
   subCategories: [],

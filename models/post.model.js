@@ -29,7 +29,8 @@ const postSchema = new mongoose.Schema(
     isPremium: Boolean,
     avatar: String,
     slug: String,
-    //timePost : Date
+    reason: String,
+    timePost : Date
   },
   { toObject: { virtuals: true }, toJSON: { virtuals: true }, timestamps: true }
 );

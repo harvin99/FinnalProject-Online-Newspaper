@@ -1,0 +1,16 @@
+<div class="w-100" style="background-color: #dddddd;">
+    <div class="bg-white w-100" style="height: 80px;"></div>
+    <div class="m-3 p-3 bg-white font-weight-bold" style="height: 100vh;">
+        <h1>Response</h1>
+        <p>Name Post: {{post.title}}</p>
+        <p>Writer: {{post.author}}</p>
+        <p>Status: Từ chối</p>
+        <form method="POST">
+            <div class="form-group">
+                <label for="exampleInputReason">Reason:</label>
+                <input name="reason" type="text" class="form-control" id="exampleInputReason">
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+    </div>
+</div>

@@ -1,0 +1,41 @@
+<div class="w-100" style="background-color: #dddddd;">
+    <div class="bg-white w-100" style="height: 80px;"></div>
+    <div class="m-3 p-3 bg-white" style="height: 100vh;">
+        <h1>Categories</h1>
+        <h3>{{category.name}}</h3>
+        <table class="table font-weight-bold" style="background-color: #dddddd;">
+            <thead>
+                <tr>
+                    <th class="text-center" scope="col">Title</th>
+                    <th class="text-center" scope="col">Auth</th>
+                    <th class="text-center" scope="col">Status</th>
+                    <th scope="col"></th>
+                </tr>
+            </thead>
+            <tbody>
+                {{#each posts}}
+                <tr>
+                    <td class="text-center">{{title}}</td>
+                    <td class="text-center">{{author}}</td>
+                    <td class="text-center">{{status}}</td>
+                    <td class="text-center">
+                        {{#when status "eq" "Đang chờ" }}
+                        <a href="{{slug}}/accept">
+                            <button type="button" class="btn btn-primary">Duyệt</button>
+                        </a>
+                        <a href="{{slug}}/denial">
+                            <button type="button" class="btn btn-primary">Từ chối</button>
+                        </a>
+                         {{/when}}
+                        {{#when status "eq" "Duyệt" }}
+                        <a href="editor/">
+                            <button type="button" class="btn btn-primary">Hủy duyệt</button>
+                        </a>
+                        {{/when}}
+                    </td>
+                </tr>
+                {{/each}}
+            </tbody>
+        </table>
+    </div>
+</div>
