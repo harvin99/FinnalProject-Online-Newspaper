@@ -21,6 +21,7 @@ module.exports = function (app) {
           return JSON.stringify(v);
         },
         date: function (date, format) {
+          console.log("run", date, format);
           return date instanceof Date ? moment(date).format(format) : null;
         },
         when: function (operand_1, operator, operand_2, options) {
@@ -35,7 +36,6 @@ module.exports = function (app) {
               return Number(l) > Number(r);
             },
             lt: function (l, r) {
-              console.log(l, r);
               return Number(l) < Number(r);
             },
             or: function (l, r) {
@@ -72,6 +72,9 @@ module.exports = function (app) {
           return result;
         },
         paginate,
+        array: function () {
+          return Array.prototype.slice.call(arguments, 0, -1);
+        },
       },
     })
   );

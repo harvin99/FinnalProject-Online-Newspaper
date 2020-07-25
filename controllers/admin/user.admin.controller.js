@@ -3,132 +3,147 @@ const passport = require("passport");
 const { validationResult } = require("express-validator");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
-const { errorFormatter } = require("../validator");
-const { userModel, postModel, categoryModel, tagModel } = require("../models");
-const { getFilePath } = require("../controllers/upload.Controller");
-const config = require("../config");
+const { errorFormatter } = require("../../validator");
+const {
+  postModel,
+  userModel,
+  categoryModel,
+  tagModel,
+} = require("../../models");
+const { getFilePath } = require("../../controllers/upload.Controller");
+const config = require("../../config");
 const crypto = require("crypto");
 const { ObjectId } = require("mongodb");
-const { jsHelper } = require("../utils");
-module.exports.getPost = async (req, res) => {
+const { jsHelper } = require("../../utils");
+module.exports.getUsers = async (req, res) => {
   try {
     let { user } = req;
     let { page = 1, perPage = 10, q, status } = req.query;
     let showMessageModal = null;
-    if (user && user._id) {
-      //message response
-      let { delPost, addPost, editPost } = req.session;
-      if (delPost) {
-        if (delPost.errors) {
-          showMessageModal = {
-            type: "danger",
-            title: "Delete Post",
-            message: delPost.errors,
-          };
-        } else if (delPost.success) {
-          showMessageModal = {
-            type: "success",
-            title: "Delete Post",
-            message: "Delete post successfull",
-          };
-        }
 
-        req.session.delPost = null;
-      }
-      if (addPost) {
-        if (addPost.errors) {
-          showMessageModal = {
-            type: "danger",
-            title: "Add Post",
-            message: addPost.errors,
-          };
-        } else if (addPost.success) {
-          showMessageModal = {
-            type: "success",
-            title: "Add Post",
-            message: "Add post successfull",
-          };
-        }
-        req.session.addPost = null;
-      }
-      if (editPost) {
-        if (editPost.errors) {
-          showMessageModal = {
-            type: "danger",
-            title: "Edit Post",
-            message: editPost.errors,
-          };
-        } else if (editPost.success) {
-          showMessageModal = {
-            type: "success",
-            title: "Edit Post",
-            message: "Edit post successfull",
-          };
-        }
-        req.session.editPost = null;
-      }
-      let authorId = ObjectId(user._id);
-
-      let findObj = { "author._id": authorId };
-      if (q) {
-        findObj.$text = {
-          $search: q,
+    //message response
+    let { delUser, addUser, editUser } = req.session;
+    if (delUser) {
+      if (delUser.errors) {
+        showMessageModal = {
+          type: "danger",
+          title: "Delete User",
+          message: delUser.errors,
+        };
+      } else if (delUser.success) {
+        showMessageModal = {
+          type: "success",
+          title: "Delete User",
+          message: "Delete user successfull",
         };
       }
-      if (status) {
-        findObj.status = status;
-      }
 
-      let posts = await postModel
-        .find(findObj, { score: { $meta: "textScore" } })
-        .sort({ score: { $meta: "textScore" } })
-
-        .limit(perPage)
-        .skip((page - 1) * perPage)
-        .lean({ virtuals: true });
-      let totalPosts = (await postModel.countDocuments(findObj)) || 1;
-
-      res.render("writer/posts", {
-        posts,
-        postStatus: postModel.postStatusEnum,
-        q,
-        status,
-        pagination: {
-          page,
-          pageCount: totalPosts / perPage,
-        },
-        activeFeature: 1,
-        showMessageModal,
-      });
-    } else {
-      throw new Error("permision denied");
+      req.session.delUser = null;
     }
+    if (addUser) {
+      if (addUser.errors) {
+        showMessageModal = {
+          type: "danger",
+          title: "Add User",
+          message: addUser.errors,
+        };
+      } else if (addUser.success) {
+        showMessageModal = {
+          type: "success",
+          title: "Add User",
+          message: "Add user successfull",
+        };
+      }
+      req.session.addUser = null;
+    }
+    if (editUser) {
+      if (editUser.errors) {
+        showMessageModal = {
+          type: "danger",
+          title: "Edit User",
+          message: editUser.errors,
+        };
+      } else if (editUser.success) {
+        showMessageModal = {
+          type: "success",
+          title: "Edit User",
+          message: "Edit user successfull",
+        };
+      }
+      req.session.editUser = null;
+    }
+
+    let findObj = {};
+    if (q) {
+      findObj.$text = {
+        $search: q,
+      };
+    }
+    if (status) {
+      findObj.status = status;
+    }
+
+    let users = await userModel
+      .find(findObj, { score: { $meta: "textScore" } })
+      .sort({ score: { $meta: "textScore" } })
+
+      .limit(perPage)
+      .skip((page - 1) * perPage)
+      .lean({ virtuals: true });
+    let totalUsers = (await userModel.countDocuments(findObj)) || 1;
+
+    res.render("admin/users/users", {
+      users,
+      userStatus: userModel.userStatusEnum,
+      q,
+      status,
+      pagination: {
+        page,
+        pageCount: totalUsers / perPage,
+      },
+      activeFeature: 5,
+      showMessageModal,
+    });
   } catch (error) {
     res.render("errors/404", { errors: error.toString(), layout: false });
   }
 };
-module.exports.addPost = async (req, res) => {
-  try {
-    let categories = await categoryModel.find().lean();
-    let tags = await tagModel.find().lean();
-    res.render("writer/addPost", { categories, tags, activeFeature: 2 });
-  } catch (error) {
-    res.render("errors/404", { errors: error.toString(), layout: false });
-  }
-};
-module.exports.editPost = async (req, res) => {
-  let { slug } = req.params;
+module.exports.getUser = async (req, res) => {
+  let { username } = req.params;
   let { user } = req;
-  let view = "writer/editPost";
+  let view = "admin/users/user";
+  try {
+    let profileUser = await userModel.findOne({ username }).lean();
+    console.log(profileUser);
+    res.render(view, {
+      profileUser,
+      activeFeature: 5,
+    });
+  } catch (error) {
+    res.render("errors/404", { errors: error.toString(), layout: false });
+  }
+};
+module.exports.addUser = async (req, res) => {
   try {
     let categories = await categoryModel.find().lean();
     let tags = await tagModel.find().lean();
-    if (user && user._id && slug) {
-      let post = await postModel.findOne({
+    res.render("admin/users/addUser", { categories, tags, activeFeature: 5 });
+  } catch (error) {
+    res.render("errors/404", { errors: error.toString(), layout: false });
+  }
+};
+module.exports.editUser = async (req, res) => {
+  let { slug } = req.params;
+
+  let view = "admin/users/editUser";
+  try {
+    let categories = await categoryModel.find().lean();
+    let tags = await tagModel.find().lean();
+    if (slug) {
+      let user = await userModel.findOne({
         slug,
-        "author._id": user._id,
       });
-      if (post) {
+      if (user) {
         let {
           title,
           abstract,
@@ -137,7 +152,7 @@ module.exports.editPost = async (req, res) => {
           category,
           tags: inputTags,
           isPremium,
-        } = post;
+        } = user;
 
         category = category.slug;
         inputTags = inputTags.map((i) => i.slug);
@@ -151,21 +166,21 @@ module.exports.editPost = async (req, res) => {
           category,
           inputTags,
           isPremium,
-          activeFeature: 1,
+          activeFeature: 5,
         });
       } else {
-        req.session.editPost = {
-          errors: "post not found",
+        req.session.editUser = {
+          errors: "user not found",
         };
-        res.redirect("/writer");
+        res.redirect("/admin/users");
       }
     }
   } catch (error) {
     res.render("errors/404", { errors: error.toString(), layout: false });
   }
 };
-module.exports.addPost_post = async (req, res) => {
-  let view = "writer/addPost";
+module.exports.addUser_post = async (req, res) => {
+  let view = "admin/users/addUser";
   let {
     title,
     abstract,
@@ -204,9 +219,9 @@ module.exports.addPost_post = async (req, res) => {
       subCategory = await categoryModel.findSubCategory(category);
       let author = await userModel.findById(user._id);
 
-      let newPost = new postModel({
+      let newUser = new userModel({
         title,
-        slug,
+
         abstract,
         avatar,
         tags: dbTags,
@@ -217,12 +232,12 @@ module.exports.addPost_post = async (req, res) => {
         avatar,
       });
 
-      await newPost.save();
+      await newUser.save();
 
-      req.session.addPost = {
+      req.session.addUser = {
         success: true,
       };
-      res.redirect("/writer");
+      res.redirect("/admin/users");
       // res.render(view, {
       //   categories,
       //   tags,
@@ -233,8 +248,8 @@ module.exports.addPost_post = async (req, res) => {
       //   inputTags,
       //   isPremium,
       //   avatar,
-      //   activeFeature: 2,
-      //   addPost,
+      //   activeFeature: 5,
+      //   addUser,
       // });
     } else {
       formError = formError.formatWith(errorFormatter).mapped();
@@ -250,15 +265,15 @@ module.exports.addPost_post = async (req, res) => {
         inputTags,
         isPremium,
         avatar,
-        activeFeature: 2,
+        activeFeature: 5,
       });
     }
   } catch (error) {
     res.render("errors/404", { errors: error.toString(), layout: false });
   }
 };
-module.exports.editPost_post = async (req, res) => {
-  let view = "writer/editPost";
+module.exports.editUser_post = async (req, res) => {
+  let view = "admin/users/editUser";
   let {
     title,
     abstract,
@@ -268,7 +283,7 @@ module.exports.editPost_post = async (req, res) => {
     isPremium,
     avatarHolder,
   } = req.body;
-  let { file: avatar, user } = req;
+  let { file: avatar } = req;
   let { slug: slugParams } = req.params;
   avatar = avatar ? getFilePath(avatar) : avatarHolder;
 
@@ -296,19 +311,22 @@ module.exports.editPost_post = async (req, res) => {
         })
       );
       subCategory = await categoryModel.findSubCategory(category);
-      let author = await userModel.findById(user._id);
-      let post = await postModel.findOneAndUpdate(
-        { slug: slugParams, "author._id": user._id },
+
+      let user = await userModel.findOneAndUpdate(
+        {
+          slug: slugParams,
+          status: ["NotPublished", "Denied"],
+        },
         {
           title,
-          slug,
+
           abstract,
           avatar,
           tags: dbTags,
           isPremium,
           content,
           category: subCategory,
-          author,
+          status: userModel.userStatusEnum[0],
           avatar,
         },
         {
@@ -316,17 +334,17 @@ module.exports.editPost_post = async (req, res) => {
         }
       );
 
-      if (post) {
-        req.session.editPost = {
+      if (user) {
+        req.session.editUser = {
           success: true,
         };
       } else {
-        req.session.editPost = {
-          errors: "post not found",
+        req.session.editUser = {
+          errors: "user not found",
         };
       }
 
-      res.redirect("/writer");
+      res.redirect("/admin/users");
       // res.render(view, {
       //   categories,
       //   tags,
@@ -337,8 +355,8 @@ module.exports.editPost_post = async (req, res) => {
       //   inputTags,
       //   isPremium,
       //   avatar,
-      //   activeFeature: 2,
-      //   addPost,
+      //   activeFeature: 5,
+      //   addUser,
       // });
     } else {
       formError = formError.formatWith(errorFormatter).mapped();
@@ -354,36 +372,34 @@ module.exports.editPost_post = async (req, res) => {
         inputTags,
         isPremium,
         avatar,
-        activeFeature: 2,
+        activeFeature: 5,
       });
     }
   } catch (error) {
     res.render("errors/404", { errors: error.toString(), layout: false });
   }
 };
-module.exports.delPost = async (req, res) => {
-  let { user } = req;
+module.exports.delUser = async (req, res) => {
   let { slug } = req.params;
   try {
-    let post = await postModel.findOneAndDelete({
+    let user = await userModel.findOneAndDelete({
       slug,
-      "author._id": user._id,
     });
 
-    if (post) {
-      req.session.delPost = {
+    if (user) {
+      req.session.delUser = {
         success: true,
       };
     } else {
-      req.session.delPost = {
-        errors: "post not found",
+      req.session.delUser = {
+        errors: "user not found",
       };
     }
   } catch (error) {
-    req.session.delPost = {
+    req.session.delUser = {
       errors: error.toString(),
     };
   } finally {
-    res.redirect("/writer");
+    res.redirect("/admin/users");
   }
 };

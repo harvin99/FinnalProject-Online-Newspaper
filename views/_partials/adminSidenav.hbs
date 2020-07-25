@@ -12,7 +12,7 @@
     <ul class="features__menu">
         {{#when user.role "eq" "Writer" }}
         <li class="features__menu-item {{#when activeFeature "eq" 1}}features__menu-item--active {{/when}}">
-            <a href="/writer"><i class="fa fa-tasks" aria-hidden="true"></i> Management</a>
+            <a href="/writer"><i class="fa fa-tasks" aria-hidden="true"></i> Posts</a>
         </li>
         <li class="features__menu-item {{#when activeFeature "eq" 2}}features__menu-item--active {{/when}}">
             <a href="/writer/posts/add"><i class="fa fa-newspaper-o" aria-hidden="true"></i> Add New Post</a>
@@ -27,6 +27,12 @@
         </li>
         <li class="features__menu-item {{#when activeFeature "eq" 3}}features__menu-item--active {{/when}}">
             <a href="/admin/tags"><i class="fa fa-tags" aria-hidden="true"></i>Tags</a>
+        </li>
+        <li class="features__menu-item {{#when activeFeature "eq" 4}}features__menu-item--active {{/when}}">
+            <a href="/admin/posts"><i class="fa fa-tasks" aria-hidden="true"></i> Posts</a>
+        </li>
+        <li class="features__menu-item {{#when activeFeature "eq" 5}}features__menu-item--active {{/when}}">
+            <a href="/admin/users"><i class="fa fa-user" aria-hidden="true"></i></i> Users</a>
         </li>
         {{/when}} <li class="features__menu-item {{#when activeFeature "eq" 0}}features__menu-item--active {{/when}}">
             <a href="/logout"><i class="fa fa-sign-out" aria-hidden="true"></i> Logout</a>

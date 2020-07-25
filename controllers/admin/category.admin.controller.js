@@ -129,7 +129,6 @@ module.exports.addCategory_post = async (req, res) => {
 
     let formError = validationResult(req);
     if (formError.isEmpty()) {
-      console.log("run");
       let newCategory = new categoryModel({
         name,
         slug: customSlug || jsHelper.generateSlug(name),
@@ -142,7 +141,7 @@ module.exports.addCategory_post = async (req, res) => {
       res.redirect("/admin/categories");
     } else {
       formError = formError.formatWith(errorFormatter).mapped();
-      console.log(formError);
+
       res.render(view, {
         name,
         customSlug,
@@ -152,7 +151,6 @@ module.exports.addCategory_post = async (req, res) => {
       });
     }
   } catch (error) {
-    console.log(error);
     res.render("errors/404", { errors: error.toString(), layout: false });
   }
 };
@@ -194,7 +192,7 @@ module.exports.editCategory_post = async (req, res) => {
     name,
     slug: jsHelper.generateSlug(name),
   }));
-  console.log(subCategories);
+
   try {
     let showMessageModal = null;
     let view = "admin/categories/editCategory";
@@ -214,8 +212,7 @@ module.exports.editCategory_post = async (req, res) => {
       res.redirect("/admin/categories");
     } else {
       formError = formError.formatWith(errorFormatter).mapped();
-      console.log(subCategories);
-      console.log(formError);
+
       res.render(view, {
         formError,
         name,
@@ -226,7 +223,6 @@ module.exports.editCategory_post = async (req, res) => {
       });
     }
   } catch (error) {
-    console.log(error);
     res.render("errors/404", { errors: error.toString(), layout: false });
   }
 };
@@ -252,7 +248,6 @@ module.exports.delCategory = async (req, res) => {
       errors: error.toString(),
     };
   } finally {
-    console.log(req.originalUrl);
     res.redirect("/admin/categories");
   }
 };

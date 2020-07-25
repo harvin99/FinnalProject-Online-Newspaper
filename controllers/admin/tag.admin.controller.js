@@ -140,7 +140,6 @@ module.exports.addTag_post = async (req, res) => {
 
     let formError = validationResult(req);
     if (formError.isEmpty()) {
-      console.log("run");
       let newTag = new tagModel({
         name,
         slug: customSlug || jsHelper.generateSlug(name),
@@ -152,7 +151,7 @@ module.exports.addTag_post = async (req, res) => {
       res.redirect("/admin/tags");
     } else {
       formError = formError.formatWith(errorFormatter).mapped();
-      console.log(formError);
+
       res.render(view, {
         name,
         customSlug,
@@ -160,7 +159,6 @@ module.exports.addTag_post = async (req, res) => {
       });
     }
   } catch (error) {
-    console.log(error);
     res.render("errors/404", { errors: error.toString(), layout: false });
   }
 };
@@ -212,8 +210,7 @@ module.exports.editTag_post = async (req, res) => {
       res.redirect("/admin/tags");
     } else {
       formError = formError.formatWith(errorFormatter).mapped();
-      console.log(subTags);
-      console.log(formError);
+
       res.render(view, {
         formError,
         name,
@@ -223,7 +220,6 @@ module.exports.editTag_post = async (req, res) => {
       });
     }
   } catch (error) {
-    console.log(error);
     res.render("errors/404", { errors: error.toString(), layout: false });
   }
 };
@@ -249,7 +245,6 @@ module.exports.delTag = async (req, res) => {
       errors: error.toString(),
     };
   } finally {
-    console.log(req.originalUrl);
     res.redirect("/admin/tags");
   }
 };

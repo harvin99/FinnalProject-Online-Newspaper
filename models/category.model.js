@@ -43,7 +43,7 @@ categorySchema.statics = {
   },
 };
 // categorySchema.methods.findSubCategory = function (slug) {
-//   console.log(this, slug);
+//
 // };
 const Category = mongoose.model("Category", categorySchema, "categories");
 

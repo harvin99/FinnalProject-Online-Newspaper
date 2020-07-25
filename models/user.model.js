@@ -5,27 +5,33 @@ const uuidv4 = require("uuid").v4;
 const config = require("./../config");
 const jwt = require("jsonwebtoken");
 const allRoles = ["Normal", "Writer", "Editor", "Admin"];
-const userSchema = new mongoose.Schema({
-  fullName: String,
-  email: String,
-  username: String,
-  password: String,
-  DoB: Date,
-  role: {
-    type: String,
-    enum: allRoles,
-    default: allRoles[0],
+const userSchema = new mongoose.Schema(
+  {
+    fullName: String,
+    email: String,
+    username: String,
+    password: String,
+    dob: Date,
+    role: {
+      type: String,
+      enum: allRoles,
+      default: allRoles[0],
+    },
+    expirePremium: Date,
+    isPremium: Boolean,
+    manager: String,
+    pseudonym: String,
+    isAdmin: Boolean,
+    services: {
+      facebook: String,
+      google: String,
+    },
+    avatar: String,
   },
-  expire: Date,
-  manager: String,
-  pseudonym: String,
-  isAdmin: Boolean,
-  services: {
-    facebook: String,
-    google: String,
-  },
-  avatar: String,
-});
+  {
+    timestamps: true,
+  }
+);
 userSchema.pre("save", async function save(next) {
   try {
     if (!this.isModified("password")) return next();

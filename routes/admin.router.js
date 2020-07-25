@@ -4,54 +4,13 @@ const passport = require("passport");
 const { adminController, uploadController } = require("../controllers");
 const { addCategoryValidator, addTagValidator } = require("../validator");
 const { needRole } = require("../middlewares/auth.mdw");
+const categoryRouter = require("./admin/category.admin.router");
+const tagRouter = require("./admin/tag.admin.router");
+const postRouter = require("./admin/post.admin.router");
+const userRouter = require("./admin/user.admin.router");
 router.get("/", needRole("admin"), adminController.dashboard);
-//categories
-router.get("/categories", needRole("admin"), adminController.getCategories);
-
-router.get("/categories/add", needRole("admin"), adminController.addCategory);
-router.post(
-  "/categories/add",
-  needRole("admin"),
-  addCategoryValidator(),
-  adminController.addCategory_post
-);
-
-router.get(
-  "/categories/edit/:slug",
-  needRole("admin"),
-  adminController.editCategory
-);
-router.post(
-  "/categories/edit/:slug",
-  needRole("admin"),
-  addCategoryValidator(),
-  adminController.editCategory_post
-);
-
-router.get(
-  "/categories/:slug/del",
-  needRole("admin"),
-  adminController.delCategory
-);
-//tags
-
-router.get("/tags", needRole("admin"), adminController.getTags);
-
-router.get("/tags/add", needRole("admin"), adminController.addTag);
-router.post(
-  "/tags/add",
-  needRole("admin"),
-  addTagValidator(),
-  adminController.addTag_post
-);
-
-router.get("/tags/edit/:slug", needRole("admin"), adminController.editTag);
-router.post(
-  "/tags/edit/:slug",
-  needRole("admin"),
-  addTagValidator(),
-  adminController.editTag_post
-);
-
-router.get("/tags/:slug/del", needRole("admin"), adminController.delTag);
+router.use("/categories", categoryRouter);
+router.use("/tags", tagRouter);
+router.use("/posts", postRouter);
+router.use("/users", userRouter);
 module.exports = router;

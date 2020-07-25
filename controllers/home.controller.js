@@ -67,7 +67,7 @@ module.exports.login_post = async (req, res) => {
 };
 module.exports.register_post = async (req, res) => {
   let view = "home/register";
-  console.log("run");
+
   let {
     username,
     email,
@@ -110,9 +110,7 @@ module.exports.register_post = async (req, res) => {
         confirmCode,
       });
     }
-  } catch (error) {
-    console.log(error);
-  }
+  } catch (error) {}
 };
 module.exports.facebook = (req, res, next) => {
   passport.authenticate("facebook", function (err, user, info) {
@@ -158,7 +156,7 @@ module.exports.logout = async (req, res) => {
 
 module.exports.getRegisterCode = async (req, res) => {
   let length = 5;
-  console.log(crypto.randomBytes(length));
+
   return res.json({
     code: crypto.randomBytes(length).toString("hex"),
   });
