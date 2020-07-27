@@ -1,13 +1,13 @@
 {{#section "js"}}
 <script>
-    $("#search-post-btn").click(function (e) {
-        let q = $("#search-post-input").val()
+    $("#search-user-btn").click(function (e) {
+        let q = $("#search-user-input").val()
         setQuery(e, "q", q, { deleteItems: ["page"] })
     })
-    $("#select-post-status").change(function (e) {
+    $("#select-user-role").change(function (e) {
 
-        let status = $("#select-post-status").val()
-        setQuery(e, "status", status, { deleteItems: ["page"] })
+        let role = $("#select-user-role").val()
+        setQuery(e, "role", role, { deleteItems: ["page"] })
     })
 
 </script>
@@ -20,26 +20,26 @@
 </div>
 <div class="content">
     <div class="content__header">
-        <h3>Posts</h3>
+        <h3>Users</h3>
     </div>
     <div class="content__toolbar">
         <div class="content__search">
             <form action="">
                 <div class="input-group">
-                    <input id="search-post-input" type="text" class="form-control" placeholder="Search this blog"
+                    <input id="search-user-input" type="text" class="form-control" placeholder="Search this blog"
                         {{#if q}} value="{{q}}" {{/if}}>
                     <div class="input-group-append">
-                        <button id="search-post-btn" class="btn btn-secondary" type="submit">
+                        <button id="search-user-btn" class="btn btn-secondary" type="submit">
                             <i class="fa fa-search"></i>
                         </button>
                     </div>
                 </div>
             </form>
         </div>
-        <div class="content__select"><select id="select-post-status" class="custom-select">
-                <option value="">All status </option>
-                {{#each postStatus}}
-                <option value="{{this}}" {{#when this "eq" ../status}}selected{{/when}}>{{this}}</option>
+        <div class="content__select"><select id="select-user-role" class="custom-select">
+                <option value="">All Roles </option>
+                {{#each userRoles}}
+                <option value="{{this}}" {{#when this "eq" ../role}}selected{{/when}}>{{this}}</option>
                 {{/each}}
 
 
@@ -49,28 +49,31 @@
         <table class="table table-striped table-hover">
             <thead class="thead-dark">
                 <tr>
-                    <th scope="col" colspan="1">#</th>
-                    <th scope="col" colspan="10">Title</th>
-                    <th scope="col" colspan="2">View</th>
-                    <th scope="col" colspan="2">Comment</th>
-                    <th scope="col" colspan="2">Actions</th>
+                    <th scope="col">#</th>
+                    <th scope="col">Username</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">Fullname</th>
+                    <th scope="col">Role</th>
+                    <th scope="col">Action</th>
                 </tr>
             </thead>
             <tbody>
-                {{#each posts}}
-                <tr class="{{#when status "in" (array "NotPublished" "Denied")}}clickable-row{{/when}}"
-                    data-href="/admin/posts/edit/{{slug}}">
-                    <th scope="row" colspan="1">{{calc @index "+" 1}}</th>
-                    <td colspan="10">
-                        <div class="text-truncate">{{title}}
+                {{#each users}}
+                <tr class="clickable-row" data-href="/admin/users/{{username}}">
+                    <th scope="row">{{calc @index "+" 1}}</th>
+                    <td>
+                        <div class="text-truncate">{{username}}
                         </div>
                     </td>
-                    <td colspan="2">{{view}}</td>
-                    <td colspan="2">{{commentCount}}</td>
-                    <td colspan="2">
-                        <div class="content__data-row__actions"><a href="/admin/posts/{{slug}}/del"
-                                class="btn btn-danger"><i class="fa fa-trash" aria-hidden="true"></i></a><button
-                                class="btn btn-info"><i class="fa fa-external-link" aria-hidden="true"></i></button>
+                    <td>{{email}}</td>
+                    <td>{{fullName}}</td>
+                    <td>{{role}}</td>
+                    <td>
+                        <div class="content__data-row__actions">
+                            <a href="/admin/users/{{username}}/del" class="btn btn-danger"><i class="fa fa-trash"
+                                    aria-hidden="true"></i></a>
+                            <a href="/admin/users/edit/{{username}}" class="btn btn-info"><i class="fa fa-pencil"
+                                    aria-hidden="true"></i></a>
                         </div>
                     </td>
                 </tr>
@@ -82,7 +85,7 @@
         {{>pagination}}
         {{!-- add new --}}
         <div class="add-new">
-            <a href="/admin/posts/add" class="add-new__btn"><i class="fa fa-plus" aria-hidden="true"></i></a>
+            <a href="/admin/users/add" class="add-new__btn"><i class="fa fa-plus" aria-hidden="true"></i></a>
         </div>
     </div>
 </div>

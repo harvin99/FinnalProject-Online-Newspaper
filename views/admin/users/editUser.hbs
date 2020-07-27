@@ -1,72 +1,135 @@
 {{#section 'css'}}
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.9/css/fileinput.min.css">
 <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css" rel="stylesheet" />
+<!-- Default Theme (Core) -->
+<link rel="stylesheet" href="/lib/datetime-picker/themes/default.css">
+<!-- Default Theme (Date Picker) -->
+<link rel="stylesheet" href="/lib/datetime-picker/themes/default.date.css">
+<!-- Default Theme (Time Picker If Needed)-->
+<link rel="stylesheet" href="/lib/datetime-picker/themes/default.time.css">
+
+
+<style>
+    .kv-avatar .krajee-default.file-preview-frame,
+    .kv-avatar .krajee-default.file-preview-frame:hover {
+        margin: 0;
+        padding: 0;
+        border: none;
+        box-shadow: none;
+        text-align: center;
+    }
+
+    .kv-avatar {
+        display: inline-block;
+    }
+
+    .kv-avatar .file-input {
+        display: table-cell;
+        width: 213px;
+    }
+
+    .kv-reqd {
+        color: red;
+        font-family: monospace;
+        font-weight: normal;
+    }
+</style>
+
 {{/section}}
 {{#section 'js'}}
-<script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.9/js/fileinput.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.9/themes/fa/theme.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.9/js/locales/vi.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
+<!-- Core -->
+<script src="/lib/datetime-picker/picker.js"></script>
+<!-- Date Picker -->
+<script src="/lib/datetime-picker/picker.date.js"></script>
+<!-- Time Picker -->
+<script src="/lib/datetime-picker/picker.time.js"></script>
+{{!-- <!-- Language -->
+<script src="/lib/datetime-picker/translations/fr_FR.js"></script> --}}
+<!-- Required For Legacy Browsers (IE 8-) -->
+<script src="/lib/datetime-picker/legacy.js"></script>
 
 <script>
-    tinymce.init({
-        selector: '#content',
-        height: 450,
-        plugins: 'paste image link autolink lists table media',
-        menubar: false,
-        toolbar: [
-            'undo redo | bold italic underline strikethrough | numlist bullist | alignleft aligncenter alignright | forecolor backcolor | table link image media',
-        ],/* enable title field in the Image dialog*/
-        image_title: true,
-        /* enable automatic uploads of images represented by blob or data URIs*/
-        automatic_uploads: true,
-        images_upload_url: '/writer/posts/upload-image',
-        /*
-          URL of our upload handler (for more details check: https://www.tiny.cloud/docs/configure/file-image-upload/#images_upload_url)
-          images_upload_url: 'postAcceptor.php',
-          here we add custom filepicker only to Image dialog
-        */
-        file_picker_types: 'image',
-        /* and here's our custom image picker*/
-    });
 
 
-
-</script>
-<script>
-    let avatar = "{{avatar}}"
-    let initialPreview = []
-    let initialPreviewConfig = []
-    avatar ? initialPreview.push(avatar) : null
-    avatar ? initialPreviewConfig.push({ caption: "avatar", url: "$urlD", key: 11 }) : null
     $("#avatar").fileinput({
-        theme: 'fa',
-        showCaption: true,
-        dropZoneEnabled: true,
-        allowedFileExtensions: ['png', 'jpg', 'gif'],
-        language: 'vi',
-        showRemove: true,
-        fileActionSettings: {
-            showRemove: true,
-
-        },
-        initialPreview,
-        initialPreviewAsData: true, // defaults markup  
-        initialPreviewConfig,
-
+        theme: "fa",
+        overwriteInitial: true,
+        maxFileSize: 1500,
+        showClose: false,
+        showCaption: false,
+        showBrowse: false,
+        browseOnZoneClick: true,
+        removeLabel: '',
+        removeIcon: '<i class="glyphicon glyphicon-remove"></i>',
+        removeTitle: 'Cancel or reset changes',
+        elErrorContainer: '#kv-avatar-errors-2',
+        msgErrorClass: 'alert alert-block alert-danger',
+        defaultPreviewContent: '<img   src="{{#if avatar}}{{avatar}} {{else}}/images/avatar.png{{/if}}" alt="Your Avatar"><h6 class="text-muted">Click to select</h6>',
+        layoutTemplates: { main2: '{preview} ' + ' {remove} {browse}' },
+        allowedFileExtensions: ["jpg", "png", "gif"]
     });
-
     $(document).ready(function () {
         $('#select-category').select2({ placeholder: 'Select an option' });
-        $('#select-tags').select2({
-            placeholder: 'Select an option', tags: true,
+        $('#select-role').select2({
+            placeholder: 'Select an option', tags: true
 
         });
-        $("#select-category").val("{{category}}").trigger('change');
+        $("#select-category").val("{{assignedCategories}}".split(",")).trigger('change');
 
-        $("#select-tags").val("{{inputTags}}".split(",")).trigger('change');
+        $("#select-role").val("{{#if role}}{{role}}{{else}}{{userRoles.[0]}}{{/if}}").trigger('change');
+
+        if ("{{role}}" === "Editor") {
+            console.log("run")
+            $("#select-category-wraper").show(500)
+        } else {
+            $("#select-category-wraper").hide(500)
+        }
+        if ("{{role}}" === "Writer") {
+            $("#pseudonym-wraper").show(500)
+        } else {
+            $("#pseudonym-wraper").hide(500)
+        }
+        $('#select-role').on('select2:select', function (e) {
+            let role = $(this).val()
+            if (role === "Editor") {
+                $("#select-category-wraper").show(500)
+            } else {
+                $("#select-category-wraper").hide(500)
+            }
+            if (role === "Writer") {
+                $("#pseudonym-wraper").show(500)
+            } else {
+                $("#pseudonym-wraper").hide(500)
+            }
+
+        });
+
+        $("#isPremium").change(function (e) {
+            let isPremium = $(this).prop("checked")
+            if (isPremium) {
+                $("#expirePremium").prop("disabled", false);
+            }
+            else {
+                $("#expirePremium").prop("disabled", true);
+            }
+        })
+        // date picker
+        $('.datepicker').pickadate({
+            closeOnSelect: true,
+            closeOnClear: false,
+            selectMonths: true,
+            selectYears: 50,
+            format: 'mmmm d , yyyy',
+            formatSubmit: 'yyyy-mm-dd',
+            hiddenSuffix: 'Value'
+        });
+
+
 
 
     });
@@ -78,7 +141,7 @@
 <form method="post" enctype="multipart/form-data">
 
     <div class="top-title">
-        <h2>Edit Post <span class="float-right"><button class="btn btn-primary">Save</button></span>
+        <h2>Add New Post <span class="float-right"><button class="btn btn-primary">Save</button></span>
         </h2>
 
     </div>
@@ -86,82 +149,129 @@
         <div class="content__header">
             <h3>Posts</h3>
         </div>
-        <div class="form-group">
-            <span><label for="title">Title <span class="text-danger">*</span>:</label>
-                <div class="custom-control custom-checkbox  set-premium">
-                    <input name="isPremium" type="checkbox" class="custom-control-input " id="isPremiumPost"
-                        {{#if isPremium}}checked {{/if}}>
-                    <label class="custom-control-label" for="isPremiumPost"><span
-                            class="badge badge-warning">Premium</span></label>
+        <div class="row">
+            <div class="col-sm-6 text-center">
+
+                <div class="kv-avatar">
+                    <div class="file-loading">
+                        <input id="avatar" name="avatar" type="file" class="file">
+                        <input hidden type="text" name="avatarHolder" value="{{avatar}}">
+                    </div>
                 </div>
-            </span>
-            <input id="title" name="title" class="form-control {{#if formError.title}}is-invalid{{else}}{{/if}}"
-                type="text" value="{{title}}">
+                <div class="kv-avatar-hint">
+                    <small>Select file < 1500 KB</small>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <span><label for="username">Userame <span class="text-danger">*</span>:</label>
 
-            {{#if formError.title}} <div class="invalid-feedback ">
-                {{ formError.title}}
-            </div>{{/if}}
+                    </span>
+                    <input id="username" name="username"
+                        class="form-control {{#if formError.username}}is-invalid{{else}}{{/if}}" type="text"
+                        value="{{username}}">
+
+                    {{#if formError.username}} <div class="invalid-feedback ">
+                        {{ formError.username}}
+                    </div>{{/if}}
+                </div>
+                <div class="form-group">
+                    <label for="email">Email <span class="text-danger">*</span>:</label>
+                    <input id="email" name="email" class="form-control {{#if formError.email}}is-invalid{{else}}{{/if}}"
+                        type="text" value="{{email}}">
+                    {{#if formError.email}} <div class="invalid-feedback ">
+                        {{ formError.email}}
+                    </div>{{/if}}
+                </div>
+            </div>
         </div>
-        <div class="form-group">
-            <label for="abstract">Abstract <span class="text-danger">*</span>:</label>
-            <textarea id="abstract" name="abstract"
-                class="form-control {{#if formError.abstract}}is-invalid{{else}}{{/if}}"
-                type="text">{{abstract}}</textarea>
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label for="fullName">Fullname <span class="text-danger">*</span>:</label>
+                    <input id="fullName" name="fullName"
+                        class="form-control {{#if formError.fullName}}is-invalid{{else}}{{/if}}" type="text"
+                        value="{{fullName}}">
+                    {{#if formError.fullName}} <div class="invalid-feedback ">
+                        {{ formError.fullName}}
+                    </div>{{/if}}
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label for="dob">dob <span class="text-danger">*</span>:</label>
 
-            {{#if formError.abstract}} <div class="invalid-feedback ">
-                {{ formError.abstract}}
-            </div>{{/if}}
+                    <input id="dob" class="datepicker form-control {{#if formError.fullname}}is-invalid{{else}}{{/if}}"
+                        name="dob" type="text" data-value="{{date dob "MMM D,YYYY"}}" />
+                    {{#if formError.dob}} <div class="invalid-feedback ">
+                        {{ formError.dob}}
+                    </div>{{/if}}
+                </div>
+            </div>
         </div>
 
 
         <div class="row">
+
+            <div class="col-sm-6"><label for="">Premium user</label>
+                <div class="custom-control custom-checkbox">
+                    <input name="isPremium" type="checkbox" class="custom-control-input" id="isPremium"
+                        {{#if isPremium}}checked{{/if}}>
+                    <label class="custom-control-label" for="isPremium">
+                        <div class="badge badge-pill badge-warning badge-lg">Premium</div>
+                    </label>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label for="expirePremium">expirePremium <span class="text-danger">*</span>:</label>
+
+                    <input id="expirePremium"
+                        class="datepicker form-control {{#if formError.expirePremium}}is-invalid{{else}}{{/if}}"
+                        name="expirePremium" type="text" data-value="{{date expirePremium "YYYY/MM/DD"}}" />
+                    {{#if formError.expirePremium}} <div class=" invalid-feedback ">
+                        {{ formError.expirePremium}}
+                    </div>{{/if}}
+                </div>
+            </div>
+        </div>
+        <div class=" row">
             <div class="col-md-6">
                 <div class="form-group">
+                    <label for="select-role">Role <span class="text-danger">*</span>:</label>
+                    <select id="select-role" name="role" class="form-control" tabindex="-1" aria-hidden="true">
+                        {{#each userRoles}}
+                        <option value="{{this}}">{{this}}</option>
+                        {{/each}}
+                    </select>
+                </div>
+
+
+            </div>
+            <div class="col-md-6">
+                <div id="pseudonym-wraper" class="form-group ">
+                    <label for="pseudonym">Pseudonym <span class="text-danger">*</span>:</label>
+                    <input id="pseudonym" name="pseudonym"
+                        class="form-control {{#if formError.pseudonym}}is-invalid{{else}}{{/if}}" type="text"
+                        value="{{pseudonym}}">
+                    {{#if formError.pseudonym}} <div class="invalid-feedback ">
+                        {{ formError.pseudonym}}
+                    </div>{{/if}}
+                </div>
+                <div id="select-category-wraper" class="form-group ">
                     <label for="select-category">Category <span class="text-danger">*</span>:</label>
-                    <select id="select-category" name="category" class="form-control" tabindex="-1" aria-hidden="true">
+                    <select id="select-category" name="assignedCategories" class="form-control" tabindex="-1" multiple
+                        aria-hidden="true">
                         {{#each categories}}
-                        <optgroup label="{{name}}">
-                            {{#each subCategories}}
-                            <option value="{{slug}}">{{name}}</option>
-                            {{/each}}
-
-
-                        </optgroup>
+                        <option value="{{_id}}">{{name}}</option>
                         {{/each}}
-
                     </select>
                 </div>
-
-
-            </div>
-            <div class="col-md-6">
-                <div class="form-group">
-                    <label for="select-tags">Tags <span class="text-danger">*</span>:</label>
-                    <select id="select-tags" name="inputTags" class="form-control" tabindex="-1" aria-hidden="true"
-                        multiple>
-                        {{#each tags}}
-
-                        <option value="{{slug}}">{{name}}</option>
-
-                        {{/each}}
-
-                    </select>
-                </div>
-
-
             </div>
         </div>
-        <div class="form-group">
-            <label for="avatar">Avatar <span class="text-danger">*</span>:</label>
-            <input id="avatar" name="avatar" type="file" class="file" data-preview-file-type="text">
-            <input hidden type="text" name="avatarHolder" value="{{avatar}}">
-        </div>
 
 
-        <div class="form-group">
-            <label for="content">Content <span class="text-danger">*</span>:</label>
-            <textarea name="content" id="content" class="form-control" cols="30" rows="10">{{content}}</textarea>
-        </div>
+
 
 
 

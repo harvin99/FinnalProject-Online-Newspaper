@@ -6,7 +6,7 @@ const {
   uploadController,
   adminController,
 } = require("../../controllers");
-const { registerValidator } = require("../../validator");
+const { registerValidator, addUserValidator } = require("../../validator");
 const { needRole } = require("../../middlewares/auth.mdw");
 router.get("/", needRole("admin"), adminController.getUsers);
 router.get("/add", needRole("admin"), adminController.addUser);
@@ -15,19 +15,19 @@ router.post(
   needRole("admin"),
 
   uploadController.uploadImage.single("avatar"),
-  registerValidator(),
+  addUserValidator(),
   adminController.addUser_post
 );
-router.get("/edit/:slug", needRole("admin"), adminController.editUser);
+router.get("/edit/:username", needRole("admin"), adminController.editUser);
 router.post(
-  "/edit/:slug",
+  "/edit/:username",
   needRole("admin"),
 
   uploadController.uploadImage.single("avatar"),
-  registerValidator(),
+  addUserValidator(),
   adminController.editUser_post
 );
-router.get("/:slug/del", needRole("admin"), adminController.delUser);
+router.get("/:username/del", needRole("admin"), adminController.delUser);
 router.post(
   "/upload-image",
   needRole("admin"),

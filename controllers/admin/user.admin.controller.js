@@ -18,7 +18,7 @@ const { jsHelper } = require("../../utils");
 module.exports.getUsers = async (req, res) => {
   try {
     let { user } = req;
-    let { page = 1, perPage = 10, q, status } = req.query;
+    let { page = 1, perPage = 10, q, role } = req.query;
     let showMessageModal = null;
 
     //message response
@@ -79,8 +79,8 @@ module.exports.getUsers = async (req, res) => {
         $search: q,
       };
     }
-    if (status) {
-      findObj.status = status;
+    if (role) {
+      findObj.role = role;
     }
 
     let users = await userModel
@@ -94,9 +94,9 @@ module.exports.getUsers = async (req, res) => {
 
     res.render("admin/users/users", {
       users,
-      userStatus: userModel.userStatusEnum,
+      userRoles: userModel.allRoles,
       q,
-      status,
+      role,
       pagination: {
         page,
         pageCount: totalUsers / perPage,
@@ -126,46 +126,51 @@ module.exports.getUser = async (req, res) => {
 module.exports.addUser = async (req, res) => {
   try {
     let categories = await categoryModel.find().lean();
-    let tags = await tagModel.find().lean();
-    res.render("admin/users/addUser", { categories, tags, activeFeature: 5 });
+    res.render("admin/users/addUser", {
+      categories,
+      userRoles: userModel.allRoles,
+      activeFeature: 5,
+    });
   } catch (error) {
     res.render("errors/404", { errors: error.toString(), layout: false });
   }
 };
 module.exports.editUser = async (req, res) => {
-  let { slug } = req.params;
+  let { username } = req.params;
 
   let view = "admin/users/editUser";
   try {
-    let categories = await categoryModel.find().lean();
-    let tags = await tagModel.find().lean();
-    if (slug) {
-      let user = await userModel.findOne({
-        slug,
-      });
+    if (username) {
+      let user = await userModel.findOne({ username }).lean();
+      console.log(user);
       if (user) {
+        let categories = await categoryModel.find().lean();
         let {
-          title,
-          abstract,
-          content,
+          categories: assignedCategories,
+          username,
+          email,
+          fullName,
           avatar,
-          category,
-          tags: inputTags,
+          role,
+          dob,
           isPremium,
+          expirePremium,
+          pseudonym,
         } = user;
 
-        category = category.slug;
-        inputTags = inputTags.map((i) => i.slug);
         res.render(view, {
           categories,
-          tags,
-          title,
-          abstract,
-          content,
+          userRoles: userModel.allRoles,
+          assignedCategories,
+          username,
+          email,
+          fullName,
           avatar,
-          category,
-          inputTags,
+          role,
+          dob,
           isPremium,
+          expirePremium,
+          pseudonym,
           activeFeature: 5,
         });
       } else {
@@ -182,89 +187,59 @@ module.exports.editUser = async (req, res) => {
 module.exports.addUser_post = async (req, res) => {
   let view = "admin/users/addUser";
   let {
-    title,
-    abstract,
-    content,
-    category,
-    inputTags,
-    isPremium,
+    username,
+    email,
+    fullName,
     avatarHolder,
+    role,
+    dobValue: dob,
+    isPremium,
+    expirePremiumValue: expirePremium,
+    assignedCategories,
+    pseudonym,
   } = req.body;
   let { file: avatar, user } = req;
   avatar = avatar ? getFilePath(avatar) : avatarHolder;
 
   try {
     let categories = await categoryModel.find().lean();
-    let tags = await tagModel.find().lean();
     let formError = validationResult(req);
     if (formError.isEmpty()) {
       //handle
-
-      let slug = jsHelper.generateSlug(title);
-      let dbTags = await Promise.all(
-        inputTags.map(async (inputTag, inputTagIndex) => {
-          let curTag = await tagModel.findOne({ slug: inputTag }).lean();
-          let slug = jsHelper.generateSlug(inputTag);
-          if (!curTag) {
-            curTag = new tagModel({
-              name: inputTag,
-              slug,
-            });
-            await curTag.save();
-            inputTags[inputTagsIndex] = slug;
-          }
-          return curTag;
-        })
-      );
-      subCategory = await categoryModel.findSubCategory(category);
-      let author = await userModel.findById(user._id);
-
       let newUser = new userModel({
-        title,
-
-        abstract,
+        username,
+        email,
+        fullName,
         avatar,
-        tags: dbTags,
+        dob,
         isPremium,
-        content,
-        category: subCategory,
-        author,
-        avatar,
+        expirePremium: isPremium ? expirePremium : null,
+        categories: assignedCategories,
+        pseudonym,
+        role,
       });
-
       await newUser.save();
-
       req.session.addUser = {
         success: true,
       };
       res.redirect("/admin/users");
-      // res.render(view, {
-      //   categories,
-      //   tags,
-      //   title,
-      //   abstract,
-      //   content,
-      //   category,
-      //   inputTags,
-      //   isPremium,
-      //   avatar,
-      //   activeFeature: 5,
-      //   addUser,
-      // });
     } else {
       formError = formError.formatWith(errorFormatter).mapped();
-
+      console.log(formError);
       res.render(view, {
         formError,
         categories,
-        tags,
-        title,
-        abstract,
-        content,
-        category,
-        inputTags,
-        isPremium,
+        userRoles: userModel.allRoles,
+        username,
+        email,
+        fullName,
         avatar,
+        role,
+        dob,
+        isPremium,
+        expirePremium,
+        assignedCategories,
+        pseudonym,
         activeFeature: 5,
       });
     }
@@ -275,62 +250,39 @@ module.exports.addUser_post = async (req, res) => {
 module.exports.editUser_post = async (req, res) => {
   let view = "admin/users/editUser";
   let {
-    title,
-    abstract,
-    content,
-    category,
-    inputTags,
-    isPremium,
+    username,
+    email,
+    fullName,
     avatarHolder,
+    role,
+    dobValue: dob,
+    isPremium,
+    expirePremiumValue: expirePremium,
+    assignedCategories,
+    pseudonym,
   } = req.body;
-  let { file: avatar } = req;
-  let { slug: slugParams } = req.params;
+  let { file: avatar, user } = req;
   avatar = avatar ? getFilePath(avatar) : avatarHolder;
+  let { username: usernameParams } = req.params;
 
   try {
     let categories = await categoryModel.find().lean();
-    let tags = await tagModel.find().lean();
     let formError = validationResult(req);
     if (formError.isEmpty()) {
       //handle
-
-      let slug = jsHelper.generateSlug(title);
-      let dbTags = await Promise.all(
-        inputTags.map(async (inputTag, inputTagIndex) => {
-          let curTag = await tagModel.findOne({ slug: inputTag }).lean();
-          let slug = jsHelper.generateSlug(inputTag);
-          if (!curTag) {
-            curTag = new tagModel({
-              name: inputTag,
-              slug,
-            });
-            await curTag.save();
-            inputTags[inputTagsIndex] = slug;
-          }
-          return curTag;
-        })
-      );
-      subCategory = await categoryModel.findSubCategory(category);
-
-      let user = await userModel.findOneAndUpdate(
+      let newUser = await userModel.findOneAndUpdate(
+        { username: usernameParams },
         {
-          slug: slugParams,
-          status: ["NotPublished", "Denied"],
-        },
-        {
-          title,
-
-          abstract,
+          username,
+          email,
+          fullName,
           avatar,
-          tags: dbTags,
+          dob,
           isPremium,
-          content,
-          category: subCategory,
-          status: userModel.userStatusEnum[0],
-          avatar,
-        },
-        {
-          new: true,
+          expirePremium: isPremium ? expirePremium : null,
+          categories: assignedCategories || [],
+          pseudonym,
+          role,
         }
       );
 
@@ -364,14 +316,17 @@ module.exports.editUser_post = async (req, res) => {
       res.render(view, {
         formError,
         categories,
-        tags,
-        title,
-        abstract,
-        content,
-        category,
-        inputTags,
-        isPremium,
+        userRoles: userModel.allRoles,
+        username,
+        email,
+        fullName,
         avatar,
+        role,
+        dob,
+        isPremium,
+        expirePremium,
+        assignedCategories,
+        pseudonym,
         activeFeature: 5,
       });
     }
@@ -380,10 +335,10 @@ module.exports.editUser_post = async (req, res) => {
   }
 };
 module.exports.delUser = async (req, res) => {
-  let { slug } = req.params;
+  let { username } = req.params;
   try {
     let user = await userModel.findOneAndDelete({
-      slug,
+      username,
     });
 
     if (user) {

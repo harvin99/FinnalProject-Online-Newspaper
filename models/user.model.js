@@ -22,6 +22,12 @@ const userSchema = new mongoose.Schema(
     manager: String,
     pseudonym: String,
     isAdmin: Boolean,
+    categories: [
+      {
+        type: mongoose.Types.ObjectId,
+        ref: "Category",
+      },
+    ],
     services: {
       facebook: String,
       google: String,
@@ -31,6 +37,10 @@ const userSchema = new mongoose.Schema(
   {
     timestamps: true,
   }
+);
+userSchema.index(
+  { username: "text", fullName: "text", role: "text" },
+  { name: "user_fts_index" }
 );
 userSchema.pre("save", async function save(next) {
   try {
