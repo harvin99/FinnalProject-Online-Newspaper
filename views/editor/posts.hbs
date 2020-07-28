@@ -1,8 +1,33 @@
+{{#section 'css'}}
+<style>
+    .link{
+        background-color: rgb(3,144,217);
+        color: #ffff;
+        border: none;
+        padding: 5px 20px;
+        font-weight: 600;
+        outline: none;
+        transition: background-color .25s linear;
+    }
+    .link:hover{
+        background-color: rgb(78,162,206);
+    }
+    .link:focus{
+        outline: 0;
+    }
+    .link-cancel{
+        background-color:rgb(250,72,72);
+    }
+    .link-cancel:hover{
+        background-color: rgb(223,85,85);
+    }
+</style>
+{{/section}}
 <div class="w-100" style="background-color: #dddddd;">
     <div class="bg-white w-100" style="height: 80px;"></div>
     <div class="m-3 p-3 bg-white" style="height: 100vh;">
         <h1>Categories</h1>
-        <h3>{{category.name}}</h3>
+        <h3>{{posts.category.name}}</h3>
         <table class="table font-weight-bold" style="background-color: #dddddd;">
             <thead>
                 <tr>
@@ -19,17 +44,17 @@
                     <td class="text-center">{{author}}</td>
                     <td class="text-center">{{status}}</td>
                     <td class="text-center">
-                        {{#when status "eq" "Đang chờ" }}
+                        {{#when status "eq" "Chờ duyệt" }}
                         <a href="{{slug}}/accept">
-                            <button type="button" class="btn btn-primary">Duyệt</button>
+                            <button type="button" class="link">Duyệt</button>
                         </a>
                         <a href="{{slug}}/denial">
-                            <button type="button" class="btn btn-primary">Từ chối</button>
+                            <button type="button" class="link link-cancel">Từ chối</button>
                         </a>
                          {{/when}}
-                        {{#when status "eq" "Duyệt" }}
-                        <a href="editor/">
-                            <button type="button" class="btn btn-primary">Hủy duyệt</button>
+                        {{#when status "eq" "Đã duyệt" }}
+                        <a href="{{slug}}/cancel">
+                            <button type="button" class="link link-cancel">Hủy duyệt</button>
                         </a>
                         {{/when}}
                     </td>

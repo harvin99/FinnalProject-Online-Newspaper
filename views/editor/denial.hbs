@@ -1,3 +1,22 @@
+{{#section 'css'}}
+<style>
+    .submit{
+        background-color: rgb(3,144,217);
+        color: #ffff;
+        border: none;
+        padding: 5px 20px;
+        font-weight: 600;
+        outline: none;
+        transition: background-color .25s linear;
+    }
+    .submit:hover{
+        background-color: rgb(78,162,206);
+    }
+    .submit:focus{
+        outline: 0;
+    }
+</style>
+{{/section}}
 <div class="w-100" style="background-color: #dddddd;">
     <div class="bg-white w-100" style="height: 80px;"></div>
     <div class="m-3 p-3 bg-white font-weight-bold" style="height: 100vh;">
@@ -6,11 +25,11 @@
         <p>Writer: {{post.author}}</p>
         <p>Status: Từ chối</p>
         <form method="POST">
-            <div class="form-group">
+            <div class="form-group d-flex align-items-center">
                 <label for="exampleInputReason">Reason:</label>
-                <input name="reason" type="text" class="form-control" id="exampleInputReason">
+                <input name="reason" type="text" class="form-control ml-2" id="exampleInputReason">
             </div>
-            <button type="submit" class="btn btn-primary">Submit</button>
+            <button type="submit" class="submit">Save</button>
         </form>
     </div>
 </div>
