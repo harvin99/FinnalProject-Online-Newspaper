@@ -1,0 +1,33 @@
+<div class="logo"><img src="/images/logo-white.png" alt=""></div>
+<div class="user">
+    {{#with user}}
+    <div class="user__avatar"><img src="{{#if avatar}}{{avatar}}{{else}}/images/avatar.png{{/if}}" alt=""></div>
+    <div class="user__info">
+        <div class="user__fullname">{{fullName}}</div>
+        <div class="user__role">{{role}}</div>
+    </div>
+    {{/with}}
+</div>
+<div class="features">
+    <ul class="features__menu">
+        {{#when user.role "eq" "writer"}}
+        <li class="features__menu-item {{#when activeFeature "eq" 1}}features__menu-item--active {{/when}}">
+            <a href="/writer"><i class="fa fa-tasks" aria-hidden="true"></i> Management</a>
+        </li>
+        <li class="features__menu-item {{#when activeFeature "eq" 2}}features__menu-item--active {{/when}}">
+            <a href="/writer/posts/add"><i class="fa fa-newspaper-o" aria-hidden="true"></i> Add New Post</a>
+        </li>
+        <li class="features__menu-item {{#when activeFeature "eq" 0}}features__menu-item--active {{/when}}">
+            <a href="/logout"><i class="fa fa-sign-out" aria-hidden="true"></i> Logout</a>
+        </li>
+        {{/when}}
+        {{#when user.role "eq" "editor" }}
+        <li class="features__menu-item {{#when activeFeature "eq" 1}}features__menu-item--active {{/when}}">
+            <a href="/editor"><i class="fa fa-tasks" aria-hidden="true"></i> Management</a>
+        </li>
+        <li class="features__menu-item {{#when activeFeature "eq" 0}}features__menu-item--active {{/when}}">
+            <a href="/logout"><i class="fa fa-sign-out" aria-hidden="true"></i> Logout</a>
+        </li>
+        {{/when}}
+    </ul>
+</div>

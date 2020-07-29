@@ -1,0 +1,117 @@
+<div class="login-wrap">
+    <div class="tabContainer">
+        <div class="buttonContainer d-flex justify-content-between align-items-center">
+            <div class="buttonContainer d-flex justify-content-start align-items-center">
+                <a href="/login" class="text-uppercase font-weight-bold tab__item tab__item--gray">Login</a>
+                <a href="/register" class="text-uppercase font-weight-bold tab__item tab__item--active ">ReGisTer</a>
+            </div>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+
+        <div class="tabPanel d-block">
+            <h1 class="tabPanel__title text-uppercase mb-3">register</h1>
+            <form action="" method="POST" class="tabPanel__form">
+                <div class="d-flex flex-column">
+                    <input name="fullName" value="{{fullName}}"
+                        class="{{#if formError.fullName}}is-invalid{{else}}is-valid{{/if}}" type="text"
+                        placeholder="fullName">
+                    {{#if formError.fullName}} <div class="invalid-feedback mb-3 text-left">
+                        {{ formError.fullName}}
+                    </div>{{/if}}
+
+                    <input name="username" value="{{username}}"
+                        class="{{#if formError.username}}is-invalid{{else}}is-valid{{/if}}" type="text"
+                        placeholder="Username">
+                    {{#if formError.username}} <div class="invalid-feedback mb-3 text-left">
+                        {{ formError.username}}
+                    </div>{{/if}}
+
+                    <input name="email" value="{{email}}"
+                        class="{{#if formError.email}}is-invalid{{else}}is-valid{{/if}}" type="text"
+                        placeholder="email">
+                    {{#if formError.email}} <div class="invalid-feedback mb-3 text-left">
+                        {{formError.email}}
+
+                    </div>
+                    {{/if}}
+
+                    <input name="password" value="{{password}}"
+                        class="{{#if formError.password}}is-invalid{{else}}is-valid{{/if}}" type="text"
+                        placeholder="Password">
+                    {{#if formError.password}} <div class="invalid-feedback mb-3 text-left">
+                        {{formError.password}}
+
+                    </div>
+                    {{/if}}
+
+                    <input name="confirmPassword" value="{{confirmPassword}}"
+                        class="{{#if formError.confirmPassword}}is-invalid{{else}}is-valid{{/if}}" type="text"
+                        placeholder="confirmPassword">
+                    {{#if formError.confirmPassword}} <div class="invalid-feedback mb-3 text-left">
+                        {{formError.confirmPassword}}
+
+                    </div>
+                    {{/if}}
+
+                </div>
+                <div
+                    class="d-flex align-items-center justify-content-start {{#if formError.confirmCode}}is-invalid{{else}}is-valid{{/if}}">
+                    <input name="confirmCode" type="text" placeholder="Confirm code">
+                    <input id="codeInput" name="code" type="text" value="{{code}}" hidden>
+                    <p id="codeView" class="view-code">{{code}}</p>
+                    <p class="newcode" onclick="generateNewCode()">New Code</p>
+                </div>
+                {{#if formError.confirmCode}} <div class="invalid-feedback mb-3 text-left">
+                    {{formError.confirmCode}}
+
+                </div>
+                {{/if}}
+                <div class="mb-4 mt-4">
+                    <button class="sumit" type="submit">Register</button>
+                    {{#if errors}}
+                    <div class="alert alert-danger mb-0">{{errors}}</div>
+                    {{else}}
+                    {{#if formError.submit}}
+                    <div class="alert alert-danger mb-0">{{formError.submit}}</div>
+                    {{/if}}
+                    {{/if}}
+                    {{#if success}}
+                    <div class="alert alert-success mb-0">{{success}}</div>
+
+                    {{/if}}
+                </div>
+                <div class="d-flex align-items-center justify-content-center">
+                    <span>Or login by: </span>
+                    <a href="/facebook" class="form__link"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+                    <a href="/google" class="form__link"><i class="fa fa-google-plus" aria-hidden="true"></i></a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{{#section "js"}}
+<script>
+    const getRegisterCode = async () => {
+        let code = await fetch(`/register/code`)
+        code = await code.json()
+        return code.code
+    }
+    const generateNewCode = async () => {
+        let code = await getRegisterCode()
+        let codeViewEl = $("#codeView")
+        let codeInputEl = $("#codeInput")
+        codeViewEl.text(code)
+        codeInputEl.val(code)
+    }
+    generateNewCode()
+    document.addEventListener("copy", function (evt) {
+        // Change the copied text if you want
+        evt.clipboardData.setData("text/plain", "no no no");
+
+        // Prevent the default copy action
+        evt.preventDefault();
+    }, false);
+</script>
+{{/section}}
