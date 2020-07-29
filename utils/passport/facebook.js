@@ -13,7 +13,7 @@ const strategy = (app) => {
 
   const verifyCallback = async (accessToken, refreshToken, profile, done) => {
     let { id, email, first_name, last_name, picture, username } = profile._json;
-    console.log(profile);
+
     let user = await userModel.oAuthLogin({
       service: "facebook",
       id,

@@ -1,0 +1,112 @@
+{{#section "js"}}
+<script>
+    $("#search-post-btn").click(function (e) {
+        let q = $("#search-post-input").val()
+        setQuery(e, "q", q, { deleteItems: ["page"] })
+    })
+    $("#select-post-status").change(function (e) {
+
+        let status = $("#select-post-status").val()
+        setQuery(e, "status", status, { deleteItems: ["page"] })
+    })
+
+</script>
+{{#if showMessageModal}}
+<script>$("#showMessageModal").modal('show')</script>
+{{/if}}
+{{/section}}
+<div class="top-title">
+    <h1>Management</h1>
+</div>
+<div class="content">
+    <div class="content__header">
+        <h3>Posts</h3>
+    </div>
+    <div class="content__toolbar">
+        <div class="content__search">
+            <form action="">
+                <div class="input-group">
+                    <input id="search-post-input" type="text" class="form-control" placeholder="Search this blog"
+                        {{#if q}} value="{{q}}" {{/if}}>
+                    <div class="input-group-append">
+                        <button id="search-post-btn" class="btn btn-secondary" type="submit">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="content__select"><select id="select-post-status" class="custom-select">
+                <option value="">All status </option>
+                {{#each postStatus}}
+                <option value="{{this}}" {{#when this "eq" ../status}}selected{{/when}}>{{this}}</option>
+                {{/each}}
+
+
+            </select></div>
+    </div>
+    <div class="content__data">
+        <table class="table table-striped table-hover">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col" colspan="1">#</th>
+                    <th scope="col" colspan="10">Title</th>
+                    <th scope="col" colspan="2">View</th>
+                    <th scope="col" colspan="2">Comment</th>
+                    <th scope="col" colspan="2">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{#each posts}}
+                <tr class="{{#when status "in" (array "NotPublished" "Denied")}}clickable-row{{/when}}"
+                    data-href="/admin/posts/edit/{{slug}}">
+                    <th scope="row" colspan="1">{{calc @index "+" 1}}</th>
+                    <td colspan="10">
+                        <div class="text-truncate">{{title}}
+                        </div>
+                    </td>
+                    <td colspan="2">{{view}}</td>
+                    <td colspan="2">{{commentCount}}</td>
+                    <td colspan="2">
+                        <div class="content__data-row__actions"><a href="/admin/posts/{{slug}}/del"
+                                class="btn btn-danger"><i class="fa fa-trash" aria-hidden="true"></i></a><button
+                                class="btn btn-info"><i class="fa fa-external-link" aria-hidden="true"></i></button>
+                        </div>
+                    </td>
+                </tr>
+                {{/each}}
+
+            </tbody>
+        </table>
+
+        {{>pagination}}
+        {{!-- add new --}}
+        <div class="add-new">
+            <a href="/admin/posts/add" class="add-new__btn"><i class="fa fa-plus" aria-hidden="true"></i></a>
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+{{#if showMessageModal}}
+<div class="modal fade" id="showMessageModal" tabindex="-1" role="dialog" aria-labelledby="modelTitleId"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            {{#with showMessageModal}}
+            <div class="modal-header">
+                <h5 class="modal-title">{{title}}</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="alert alert-{{type}}">{{message}}</div>
+            </div>
+            {{/with}}
+
+
+        </div>
+    </div>
+</div>
+{{/if}}

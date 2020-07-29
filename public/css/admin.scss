@@ -103,6 +103,28 @@ $black-text: #000;
             display: flex;
           }
         }
+        .sub-categories {
+          display: flex;
+          .sub-category {
+            position: relative;
+            padding: 15px 15px 0 0;
+
+            margin: 0 5px;
+
+            .close {
+              position: absolute;
+              top: -5px;
+              right: 0;
+            }
+          }
+        }
+      }
+      .content__actions {
+        margin-top: 30px;
+        display: flex;
+        .content__action {
+          padding: 5px 20px;
+        }
       }
     }
     .set-premium {

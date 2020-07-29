@@ -10,27 +10,26 @@ const generateSlug = (str) => {
   str = str.replace(/ú|ù|ủ|ũ|ụ|ư|ứ|ừ|ử|ữ|ự/gi, "u");
   str = str.replace(/ý|ỳ|ỷ|ỹ|ỵ/gi, "y");
   str = str.replace(/đ/gi, "d");
-  console.log(str);
+
   //Xóa các ký tự đặt biệt
   str = str.replace(
     /\`|\~|\!|\@|\#|\||\$|\%|\^|\&|\*|\(|\)|\+|\=|\,|\.|\/|\?|\>|\<|\'|\"|\:|\;|_/gi,
     ""
   );
-  console.log(str);
+
   //Đổi khoảng trắng thành ký tự gạch ngang
   str = str.replace(/ /gi, "-");
-  console.log(str);
+
   //Đổi nhiều ký tự gạch ngang liên tiếp thành 1 ký tự gạch ngang
   //Phòng trường hợp người nhập vào quá nhiều ký tự trắng
   str = str.replace(/\-\-\-\-\-/gi, "-");
   str = str.replace(/\-\-\-\-/gi, "-");
   str = str.replace(/\-\-\-/gi, "-");
   str = str.replace(/\-\-/gi, "-");
-  console.log(str);
+
   //Xóa các ký tự gạch ngang ở đầu và cuối
   str = "@" + str + "@";
   str = str.replace(/\@\-|\-\@|\@/gi, "");
-  console.log(str);
 
   return str;
 };
