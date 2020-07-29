@@ -38,6 +38,7 @@ const postSchema = new mongoose.Schema(
       unique: true,
       sparse: true,
     },
+    //timePost : Date
   },
   { toObject: { virtuals: true }, toJSON: { virtuals: true }, timestamps: true }
 );
