@@ -24,6 +24,11 @@ module.exports = {
       ? res.json({ location: getFilePath(req.file) })
       : res.json({ errors: "file not found" });
   },
+  uploadUserImage: async (req, res) => {
+    req.file
+      ? res.json({ location: getFilePath(req.file) })
+      : res.json({ errors: "file not found" });
+  },
   uploadImage,
   getFilePath,
 };

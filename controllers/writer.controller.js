@@ -165,7 +165,6 @@ module.exports.editPost = async (req, res) => {
   }
 };
 module.exports.addPost_post = async (req, res) => {
-  console.log(req.body, "run");
   let view = "writer/addPost";
   let {
     title,
@@ -204,7 +203,7 @@ module.exports.addPost_post = async (req, res) => {
       );
       subCategory = await categoryModel.findSubCategory(category);
       let author = await userModel.findById(user._id);
-      console.log(content);
+
       let newPost = new postModel({
         title,
         slug,
@@ -239,7 +238,7 @@ module.exports.addPost_post = async (req, res) => {
       // });
     } else {
       formError = formError.formatWith(errorFormatter).mapped();
-      console.log("no fỏm erro", formError);
+
       res.render(view, {
         formError,
         categories,
@@ -255,7 +254,6 @@ module.exports.addPost_post = async (req, res) => {
       });
     }
   } catch (error) {
-    console.log(error);
     res.render("errors/404", { errors: error.toString(), layout: false });
   }
 };
@@ -273,7 +271,7 @@ module.exports.editPost_post = async (req, res) => {
   let { file: avatar, user } = req;
   let { slug: slugParams } = req.params;
   avatar = avatar ? getFilePath(avatar) : avatarHolder;
-  console.log(avatar);
+
   try {
     let categories = await categoryModel.find().lean();
     let tags = await tagModel.find().lean();
@@ -344,7 +342,7 @@ module.exports.editPost_post = async (req, res) => {
       // });
     } else {
       formError = formError.formatWith(errorFormatter).mapped();
-      console.log("no fỏm erro", formError);
+
       res.render(view, {
         formError,
         categories,
@@ -360,7 +358,6 @@ module.exports.editPost_post = async (req, res) => {
       });
     }
   } catch (error) {
-    console.log(error);
     res.render("errors/404", { errors: error.toString(), layout: false });
   }
 };
@@ -387,7 +384,6 @@ module.exports.delPost = async (req, res) => {
       errors: error.toString(),
     };
   } finally {
-    console.log(req.originalUrl);
     res.redirect("/writer");
   }
 };

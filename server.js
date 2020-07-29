@@ -13,9 +13,7 @@ mongoose.connect(process.env.MONGO_URI, {
   useCreateIndex: true,
 });
 //Give a notification when connect success
-mongoose.connection.on("connected", () => {
-  console.log("Mongoose is connected !!!");
-});
+mongoose.connection.on("connected", () => {});
 
 const app = express();
 const router = require("./routes");
@@ -37,6 +35,4 @@ require("./middlewares/locals.mdw")(app);
 //Router
 app.use("/", router);
 
-app.listen(process.env.PORT, function () {
-  console.log(`server is connected from port ${process.env.PORT}`);
-});
+app.listen(process.env.PORT, function () {});

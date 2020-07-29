@@ -1,4 +1,5 @@
 @import "admin";
+@import "user";
 body {
   font-family: "Roboto", sans-serif;
 }
@@ -43,6 +44,21 @@ body {
   .sign_in {
     outline: none;
   }
+}
+.file-default-preview {
+  img {
+    max-width: 300px;
+    max-height: 300px;
+  }
+}
+.picker__header {
+  .picker__select--year,
+  .picker__select--month {
+    padding: 0 5px;
+  }
+}
+.datepicker.form-control:read-only:not(:disabled) {
+  background-color: unset;
 }
 #categories {
   height: 0;

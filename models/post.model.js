@@ -1,5 +1,8 @@
 const mongoose = require("mongoose");
 const mongooseLeanVirtuals = require("mongoose-lean-virtuals");
+const slug = require("mongoose-slug-updater");
+mongoose.plugin(slug);
+
 const postStatusEnum = [
   "NotPublished",
   "Denied",
@@ -28,9 +31,14 @@ const postSchema = new mongoose.Schema(
     comments: [],
     isPremium: Boolean,
     avatar: String,
-    slug: String,
-    reason: String,
-    timePost : Date
+    slug: {
+      type: String,
+      slug: "title",
+      slugPaddingSize: 4,
+      unique: true,
+      sparse: true,
+    },
+    //timePost : Date
   },
   { toObject: { virtuals: true }, toJSON: { virtuals: true }, timestamps: true }
 );
