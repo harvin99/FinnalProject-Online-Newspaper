@@ -1,0 +1,233 @@
+<header class="header mt-4">
+    <div class="header__item d-flex flex-column">
+        <ul class="header__links d-flex">
+            <li class="header__link"><i class="fa fa-facebook" aria-hidden="true"></i></li>
+            <li class="header__link"><i class="fa fa-google-plus" aria-hidden="true"></i></li>
+            <li class="header__link"><i class="fa fa-twitter" aria-hidden="true"></i></li>
+            <li class="header__link"><i class="fa fa-linkedin" aria-hidden="true"></i></li>
+        </ul>
+        <p class="header__date">
+            Thứ 7, 6/6/2020
+        </p>
+    </div>
+    <a class="header__item d-flex justify-content-center">
+        <img src="./images/logo.png" alt="">
+    </a>
+    <div class="header__item d-flex justify-content-end">
+        <div class="box_search border-bottom mr-3">
+            <input type="text" placeholder="Search...">
+            <button class="border-0 bg-transparent"><i class="fa fa-search" aria-hidden="true"></i></button>
+        </div>
+
+        {{#if user}}
+        <button class="border-0 bg-transparent text-uppercase sign_in">{{user.fullName}}</button>
+        {{else}}
+        <button class="border-0 bg-transparent text-uppercase sign_in" data-toggle="modal" data-target="#signin_box"
+            onclick="loadModal()">sign in</button>
+        {{/if}}
+
+    </div>
+</header>
+</div>
+<div class="container-fluid" id="nav">
+    <nav class="navbar navbar-expand-lg navbar-light mt-3 bg-light">
+        <a class="navbar-brand" href="#"></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="fa fa-bars" aria-hidden="true"></i>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav d-flex justify-content-between w-100">
+                <li class="nav-item text-uppercase font-weight-bold text-center active">
+                    <a class="nav-link" href="#">trang chủ<span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item text-uppercase font-weight-bold text-center">
+                    <a class="nav-link" href="#">xã hội</a>
+                </li>
+                <li class="nav-item text-uppercase font-weight-bold text-center">
+                    <a class="nav-link" href="#">pháp luật</a>
+                </li>
+                <li class="nav-item text-uppercase font-weight-bold text-center">
+                    <a class="nav-link" href="#">kinh doanh</a>
+                </li>
+                <li class="nav-item text-uppercase font-weight-bold text-center">
+                    <a class="nav-link" href="#">giải trí</a>
+                </li>
+                <li class="nav-item text-uppercase font-weight-bold text-center">
+                    <a class="nav-link" href="#">thể thao</a>
+                </li>
+                <li class="nav-item text-uppercase font-weight-bold text-center">
+                    <a class="nav-link" href="#">du lịch</a>
+                </li>
+                <li class="nav-item text-uppercase font-weight-bold text-center">
+                    <a class="nav-link" href="#">công nghệ</a>
+                </li>
+                <li class="nav-item text-uppercase font-weight-bold text-center">
+                    <a class="nav-link" href="#">quân sự</a>
+                </li>
+                <li class="nav-item text-uppercase font-weight-bold text-center">
+                    <a class="nav-link" href="#">chuyện lạ</a>
+                </li>
+                <li onclick="showCategories()" class="nav-item text-uppercase font-weight-bold text-center">
+                    <a class="nav-link" href="#"><i class="fa fa-bars" aria-hidden="true"></i></a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <div id="categories" class="categoties bg-light">
+        <ul class="categori__list container">
+            <li class="categori__item">
+                <h5 class="categori__item-title">Xã Hội</h5>
+                <ul>
+                    <li class="categori__item-chiln mt-1">Thời Sự</li>
+                    <li class="categori__item-chiln mt-1">Giao Thông</li>
+                    <li class="categori__item-chiln mt-1">Môi Trường - Khí Hậu</li>
+                </ul>
+            </li>
+            <li class="categori__item">
+                <h5 class="categori__item-title">Thế Giới</h5>
+                <ul>
+                    <li class="categori__item-chiln mt-1">Thời Sự</li>
+                    <li class="categori__item-chiln mt-1">Giao Thông</li>
+                    <li class="categori__item-chiln mt-1">Môi Trường - Khí Hậu</li>
+                </ul>
+            </li>
+            <li class="categori__item">
+                <h5 class="categori__item-title">Văn Hóa</h5>
+                <ul>
+                    <li class="categori__item-chiln mt-1">Nghệ Thuật</li>
+                    <li class="categori__item-chiln mt-1">Ẩm Thực</li>
+                    <li class="categori__item-chiln mt-1">Du Lịch</li>
+                </ul>
+            </li>
+            <li class="categori__item">
+                <h5 class="categori__item-title">Kinh Tế</h5>
+                <ul>
+                    <li class="categori__item-chiln mt-1">Lao Động - Việc Làm</li>
+                    <li class="categori__item-chiln mt-1">Tài Chính</li>
+                    <li class="categori__item-chiln mt-1">Chứng Khoán</li>
+                    <li class="categori__item-chiln mt-1">Kinh Doanh</li>
+                </ul>
+            </li>
+            <li class="categori__item">
+                <h5 class="categori__item-title">Văn Hóa</h5>
+                <ul>
+                    <li class="categori__item-chiln mt-1">Nghệ Thuật</li>
+                    <li class="categori__item-chiln mt-1">Ẩm Thực</li>
+                    <li class="categori__item-chiln mt-1">Du Lịch</li>
+                </ul>
+            </li>
+            <li class="categori__item">
+                <h5 class="categori__item-title">Văn Hóa</h5>
+                <ul>
+                    <li class="categori__item-chiln mt-1">Nghệ Thuật</li>
+                    <li class="categori__item-chiln mt-1">Ẩm Thực</li>
+                    <li class="categori__item-chiln mt-1">Du Lịch</li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+</div>
+<div class="container-fluid slider">
+    <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+        <div class="carousel-inner bg--gray p-3">
+            <div class="carousel-item active">
+                <div class="text-center d-block w-100">
+                    <span class="text-warning font-weight-bold"><i class="fa fa-star"
+                            aria-hidden="true"></i>TRENDING:</span>
+                    <span class="text-uppercase">NHÀ TRẮNG HOÁ PHÁO ĐÀI VÌ BIỂU TÌNH</span>
+                    <a href="" class="font-weight-bold text-uppercase text-dark">Read more</a>
+                </div>
+            </div>
+            <div class="carousel-item">
+                <div class="text-center d-block w-100">
+                    <span class="text-warning font-weight-bold"><i class="fa fa-star"
+                            aria-hidden="true"></i>TRENDING:</span>
+                    <span class="text-uppercase">NHÀ TRẮNG HOÁ PHÁO ĐÀI VÌ BIỂU TÌNH</span>
+                    <a href="" class="font-weight-bold text-uppercase text-dark">Read more</a>
+                </div>
+            </div>
+            <div class="carousel-item">
+                <div class="text-center d-block w-100">
+                    <span class="text-warning font-weight-bold"><i class="fa fa-star"
+                            aria-hidden="true"></i>TRENDING:</span>
+                    <span class="text-uppercase">NHÀ TRẮNG HOÁ PHÁO ĐÀI VÌ BIỂU TÌNH</span>
+                    <a href="" class="font-weight-bold text-uppercase text-dark">Read more</a>
+                </div>
+            </div>
+        </div>
+        <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+            <i class="fa fa-chevron-left  text-dark" aria-hidden="true"></i>
+            <span class="sr-only">Previous</span>
+        </a>
+        <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+            <i class="fa fa-chevron-right text-dark" aria-hidden="true"></i>
+            <span class="sr-only">Next</span>
+        </a>
+    </div>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="signin_box" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content rounded-0">
+            <div class="tabContainer">
+                <div class="buttonContainer d-flex justify-content-between align-items-center">
+                    <div class="buttonContainer d-flex justify-content-start align-items-center">
+                        <button class="text-uppercase font-weight-bold tab__item" onclick="showPanel(0)">Login</button>
+                        <button class="text-uppercase font-weight-bold tab__item"
+                            onclick="showPanel(1)">ReGisTer</button>
+                    </div>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="tabPanel">
+                    <h1 class="tabPanel__title text-uppercase mb-3">login</h1>
+                    <form action="login" method="POST" class="tabPanel__form">
+                        <div class="d-flex flex-column">
+
+                            <input name="username" type="text" placeholder="Username">
+                            <input name="password" type="text" placeholder="Password">
+                        </div>
+                        <div class="d-flex justify-content-between mb-4 align-items-center">
+                            <a href="" class="font-weight-bold text-dark">Forget your password ?</a>
+                            <button class="sumit" type="submit">Sign in</button>
+                        </div>
+                        <div class="d-flex align-items-center justify-content-center">
+                            <span>Or login by: </span>
+                            <a href="/facebook" class="form__link"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+                            <a href="/google" class="form__link"><i class="fa fa-google-plus"
+                                    aria-hidden="true"></i></a>
+                        </div>
+                    </form>
+                </div>
+                <div class="tabPanel">
+                    <h1 class="tabPanel__title text-uppercase mb-3">register</h1>
+                    <form action="" class="tabPanel__form">
+                        <div class="d-flex flex-column">
+                            <input type="text" placeholder="Full name">
+                            <input type="text" placeholder="Username">
+                            <input type="text" placeholder="Password">
+                            <input type="text" placeholder="Confirm Password">
+                        </div>
+                        <div class="d-flex align-items-center justify-content-start">
+                            <input type="text" placeholder="Confirm Password">
+                            <p class="view-code">ABC123</p>
+                            <p class="newcode">New Code</p>
+                        </div>
+                        <div class="mb-4 mt-4">
+                            <button class="sumit" type="submit">Register</button>
+                        </div>
+                        <div class="d-flex align-items-center justify-content-center">
+                            <span>Or login by: </span>
+                            <a href="/facebook" class="form__link"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+                            <a href="/google" class="form__link"><i class="fa fa-google-plus"
+                                    aria-hidden="true"></i></a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

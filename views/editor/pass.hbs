@@ -1,0 +1,58 @@
+{{#section 'css'}}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.min.css">
+<style>
+    .submit{
+        background-color: rgb(3,144,217);
+        color: #ffff;
+        border: none;
+        padding: 5px 20px;
+        font-weight: 600;
+        outline: none;
+        transition: background-color .25s linear;
+    }
+    .submit:hover{
+        background-color: rgb(78,162,206);
+    }
+    .submit:focus{
+        outline: 0;
+    }
+</style>
+{{/section}}
+{{#section 'js'}}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>
+    <script>
+        $('select').selectpicker();
+    </script>
+{{/section}}
+<div class="w-100" style="background-color: #dddddd;">
+    <div class="bg-white w-100" style="height: 80px;"></div>
+    <div class="m-3 p-3 bg-white font-weight-bold" style="height: 100vh;">
+        <h1>Response</h1>
+        <p>Name Post: {{post.title}}</p>
+        <p>Writer: {{post.author}}</p>
+        <p>Status: Duyệt</p>
+        <form method="POST">
+            <div class="form-group d-flex align-items-center">
+                <label for="categoryControlSelect">Categories: </label>
+                <select name="subCategory" class="form-control ml-2" id="categoryControlSelect" style="max-width: 300px;">
+                    {{#each post.category.subCategories}}
+                        <option value="{{slug}}">{{name}}</option>
+                    {{/each}}
+                </select>
+            </div>
+            <div class="form-group d-flex align-items-center">
+                <label for="tagControlSelect">Tag: </label>
+                <select name="tags" class="form-control ml-2 selectpicker" id="tagControlSelect" style="width: 300px;" multiple data-live-search="true">
+                    {{#each tags}}
+                        <option value="{{slug}}">#{{name}}</option>
+                    {{/each}}
+                </select>
+            </div>
+            <div class="form-group d-flex align-items-center">
+                <label for="exampleInputDateTime">Reason:</label>
+                <input name="time" type="datetime-local" class="form-control ml-2" id="exampleInputDateTime">
+            </div>
+            <button type="submit" class="submit">Save</button>
+        </form>
+    </div>
+</div>

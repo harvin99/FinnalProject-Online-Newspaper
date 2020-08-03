@@ -1,0 +1,39 @@
+{
+  "name": "back-end-final-project",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon server.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "cookie-parser": "^1.4.5",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "express-handlebars": "^4.0.4",
+    "express-handlebars-sections": "^1.0.1",
+    "express-session": "^1.17.1",
+    "express-validator": "^6.6.0",
+    "handlebars-paginate": "^0.1.0",
+    "jsonwebtoken": "^8.5.1",
+    "lru-cache": "^5.1.1",
+    "moment": "^2.27.0",
+    "moment-timezone": "^0.5.31",
+    "mongoose": "^5.9.21",
+    "mongoose-lean-virtuals": "^0.6.8",
+    "mongoose-slug-updater": "^3.2.3",
+    "mongooses": "^1.0.0",
+    "multer": "^1.4.2",
+    "numeral": "^2.0.6",
+    "passport": "^0.4.1",
+    "passport-facebook": "^3.0.0",
+    "passport-google-oauth20": "^2.0.0",
+    "uuid": "^8.2.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.4"
+  }
+}

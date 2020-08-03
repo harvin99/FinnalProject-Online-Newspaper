@@ -1,0 +1,25 @@
+body{
+    font-family: 'Roboto', sans-serif;
+}
+.categories{
+    &__item{
+        cursor: pointer;
+        &:hover{
+            img{
+                transform: scale(1.2);
+            }
+            box-shadow: 0 0 10px 5px rgba(0, 0, 0, 0.15);
+            background-color: rgba(0, 0, 0, 0.01);
+        }    
+    }
+    &__image{
+        width: 500px;
+        height: 200px;
+        img{
+            height: 100%;
+            width: 100%;
+            transition: transform .25s linear;
+        }
+        overflow: hidden;
+    }
+}

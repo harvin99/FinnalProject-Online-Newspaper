@@ -1,0 +1,172 @@
+{{#section 'css'}}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.9/css/fileinput.min.css">
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css" rel="stylesheet" />
+{{/section}}
+{{#section 'js'}}
+<script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.9/js/fileinput.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.9/themes/fa/theme.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.9/js/locales/vi.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
+
+<script>
+    tinymce.init({
+        selector: '#content',
+        height: 450,
+        plugins: 'paste image link autolink lists table media',
+        menubar: false,
+        toolbar: [
+            'undo redo | bold italic underline strikethrough | numlist bullist | alignleft aligncenter alignright | forecolor backcolor | table link image media',
+        ],/* enable title field in the Image dialog*/
+        image_title: true,
+        /* enable automatic uploads of images represented by blob or data URIs*/
+        automatic_uploads: true,
+        images_upload_url: '/writer/posts/upload-image',
+        relative_urls: false,
+
+        /*
+          URL of our upload handler (for more details check: https://www.tiny.cloud/docs/configure/file-image-upload/#images_upload_url)
+          images_upload_url: 'postAcceptor.php',
+          here we add custom filepicker only to Image dialog
+        */
+        file_picker_types: 'image',
+        /* and here's our custom image picker*/
+    });
+
+
+
+</script>
+<script>
+    let avatar = "{{avatar}}"
+    let initialPreview = []
+    let initialPreviewConfig = []
+    avatar ? initialPreview.push(avatar) : null
+    avatar ? initialPreviewConfig.push({ caption: "avatar", url: "$urlD", key: 11 }) : null
+    $("#avatar").fileinput({
+        theme: 'fa',
+        showCaption: true,
+        dropZoneEnabled: true,
+        allowedFileExtensions: ['png', 'jpg', 'gif'],
+        language: 'vi',
+        showRemove: true,
+        fileActionSettings: {
+            showRemove: true,
+
+        },
+        initialPreview,
+        initialPreviewAsData: true, // defaults markup  
+        initialPreviewConfig,
+
+    });
+
+    $(document).ready(function () {
+        $('#select-category').select2({ placeholder: 'Select an option' });
+        $('#select-tags').select2({
+            placeholder: 'Select an option', tags: true,
+
+        });
+        $("#select-category").val("{{category}}").trigger('change');
+
+        $("#select-tags").val("{{inputTags}}".split(",")).trigger('change');
+
+
+    });
+
+</script>
+
+{{/section}}
+
+<form method="post" enctype="multipart/form-data">
+
+    <div class="top-title">
+        <h2>Add New Post <span class="float-right"><button class="btn btn-primary">Save</button></span>
+        </h2>
+
+    </div>
+    <div class="content">
+        <div class="content__header">
+            <h3>Posts</h3>
+        </div>
+        <div class="form-group">
+            <span><label for="title">Title <span class="text-danger">*</span>:</label>
+                <div class="custom-control custom-checkbox  set-premium">
+                    <input name="isPremium" type="checkbox" class="custom-control-input " id="isPremiumPost"
+                        {{#if isPremium}}checked {{/if}}>
+                    <label class="custom-control-label" for="isPremiumPost"><span
+                            class="badge badge-warning">Premium</span></label>
+                </div>
+            </span>
+            <input id="title" name="title" class="form-control {{#if formError.title}}is-invalid{{else}}{{/if}}"
+                type="text" value="{{title}}">
+
+            {{#if formError.title}} <div class="invalid-feedback ">
+                {{ formError.title}}
+            </div>{{/if}}
+        </div>
+        <div class="form-group">
+            <label for="abstract">Abstract <span class="text-danger">*</span>:</label>
+            <textarea id="abstract" name="abstract"
+                class="form-control {{#if formError.abstract}}is-invalid{{else}}{{/if}}"
+                type="text">{{abstract}}</textarea>
+
+            {{#if formError.abstract}} <div class="invalid-feedback ">
+                {{ formError.abstract}}
+            </div>{{/if}}
+        </div>
+
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="select-category">Category <span class="text-danger">*</span>:</label>
+                    <select id="select-category" name="category" class="form-control" tabindex="-1" aria-hidden="true">
+                        {{#each categories}}
+                        <optgroup label="{{name}}">
+                            {{#each subCategories}}
+                            <option value="{{slug}}">{{name}}</option>
+                            {{/each}}
+
+
+                        </optgroup>
+                        {{/each}}
+
+                    </select>
+                </div>
+
+
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="select-tags">Tags <span class="text-danger">*</span>:</label>
+                    <select id="select-tags" name="inputTags" class="form-control" tabindex="-1" aria-hidden="true"
+                        multiple>
+                        {{#each tags}}
+
+                        <option value="{{slug}}">{{name}}</option>
+
+                        {{/each}}
+
+                    </select>
+                </div>
+
+
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="avatar">Avatar <span class="text-danger">*</span>:</label>
+            <input id="avatar" name="avatar" type="file" class="file" data-preview-file-type="text">
+            <input hidden type="text" name="avatarHolder" value="{{avatar}}">
+        </div>
+
+
+        <div class="form-group">
+            <label for="content">Content <span class="text-danger">*</span>:</label>
+            <textarea name="content" id="content" class="form-control" cols="30" rows="10">{{content}}</textarea>
+        </div>
+
+
+
+    </div>
+
+</form>

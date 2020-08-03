@@ -1,0 +1,39 @@
+<form method="post">
+
+    <div class="top-title">
+        <h2>Add Category <span class="float-right"><button class="btn btn-primary">Save</button></span>
+        </h2>
+
+    </div>
+    <div class="content">
+        <div class="content__header">
+            <h3>Tag</h3>
+        </div>
+        <div class="form-group">
+            <span><label for="name">Name <span class="text-danger">*</span>:</label>
+
+            </span>
+            <input id="name" name="name" class="form-control {{#if formError.name}}is-invalid{{else}}{{/if}}"
+                type="text" value="{{name}}">
+
+            {{#if formError.name}} <div class="invalid-feedback ">
+                {{ formError.name}}
+            </div>{{/if}}
+        </div>
+        <div class="form-group">
+            <label for="customSlug">Custom slug :</label>
+            <input id="customSlug" name="customSlug"
+                class="form-control {{#if formError.customSlug}}is-invalid{{else}}{{/if}}" type="text">
+
+            {{#if formError.customSlug}} <div class="invalid-feedback ">
+                {{ formError.customSlug}}
+            </div>{{/if}}
+        </div>
+
+
+
+
+
+    </div>
+
+</form>
