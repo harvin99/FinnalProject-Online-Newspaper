@@ -21,576 +21,121 @@
                     </ul>
                 </div>
             </div>
+            {{#each featuredPosts}}
             <div class="grid__item">
-                <div class="gird__bg"
-                    style="background-image: url(https://images.pexels.com/photos/1464143/pexels-photo-1464143.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500);">
+                <div class="gird__bg" style="background-image: url({{avatar}});">
                 </div>
                 <div class="grid__content p-4 justify-content-between text-white">
                     <div>
-                        <p class="font-weight-bold">Thứ 7, 6/6/2020</p>
-                        <h3 class="grid__title ">Mỹ dỡ lệnh cấm đổi với TQ</h3>
+                        <p class="font-weight-bold">{{date timePost "MMM D,YYYY"}} - <span
+                                class="badge badge-secondary">{{category.name}}</span></p>
+                        <h3 class="grid__title ">{{title}}</h3>
                     </div>
                     <div class="grid__content-bottom">
-                        <a href="" class="mr-4  text-white">1 <i class="fa fa-eye" aria-hidden="true"></i></a>
-                        <a href="" class=" text-white">2 <i class="fa fa-commenting-o" aria-hidden="true"></i></a>
-                        <a href="" class="float-right text-white grid__readmore">
-                            <h4>READ MORE</h4>
-                        </a>
+                        <a href="" class="mr-4  text-white">{{view}}<i class="fa fa-eye" aria-hidden="true"></i></a>
+                        <a href="" class=" text-white">{{commentCount}} <i class="fa fa-commenting-o"
+                                aria-hidden="true"></i></a>
                     </div>
                 </div>
             </div>
-            <div class="grid__item">
-                <div class="gird__bg"
-                    style="background-image: url(https://images.pexels.com/photos/1464143/pexels-photo-1464143.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500);">
-                </div>
-                <div class="grid__content p-4 justify-content-between text-white">
-                    <div>
-                        <p class="font-weight-bold">Thứ 7, 6/6/2020</p>
-                        <h3 class="grid__title ">Mỹ dỡ lệnh cấm đổi với TQ</h3>
-                    </div>
-                    <div class="grid__content-bottom">
-                        <a href="" class="mr-4  text-white">1 <i class="fa fa-eye" aria-hidden="true"></i></a>
-                        <a href="" class=" text-white">2 <i class="fa fa-commenting-o" aria-hidden="true"></i></a>
-                        <a href="" class="float-right text-white grid__readmore">
-                            <h4>READ MORE</h4>
-                        </a>
-                    </div>
-                </div>
-            </div>
-            <div class="grid__item">
-                <div class="gird__bg"
-                    style="background-image: url(https://images.pexels.com/photos/1464143/pexels-photo-1464143.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500);">
-                </div>
-                <div class="grid__content p-4 justify-content-between text-white">
-                    <div>
-                        <p class="font-weight-bold">Thứ 7, 6/6/2020</p>
-                        <h3 class="grid__title ">Mỹ dỡ lệnh cấm đổi với TQ</h3>
-                    </div>
-                    <div class="grid__content-bottom">
-                        <a href="" class="mr-4  text-white">1 <i class="fa fa-eye" aria-hidden="true"></i></a>
-                        <a href="" class=" text-white">2 <i class="fa fa-commenting-o" aria-hidden="true"></i></a>
-                        <a href="" class="float-right text-white grid__readmore">
-                            <h4>READ MORE</h4>
-                        </a>
-                    </div>
-                </div>
-            </div>
-            <div class="grid__item">
-                <div class="gird__bg"
-                    style="background-image: url(https://images.pexels.com/photos/1464143/pexels-photo-1464143.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500);">
-                </div>
-                <div class="grid__content p-4 justify-content-between text-white">
-                    <div>
-                        <p class="font-weight-bold">Thứ 7, 6/6/2020</p>
-                        <h3 class="grid__title ">Mỹ dỡ lệnh cấm đổi với TQ</h3>
-                    </div>
-                    <div class="grid__content-bottom">
-                        <a href="" class="mr-4  text-white">1 <i class="fa fa-eye" aria-hidden="true"></i></a>
-                        <a href="" class=" text-white">2 <i class="fa fa-commenting-o" aria-hidden="true"></i></a>
-                        <a href="" class="float-right text-white grid__readmore">
-                            <h4>READ MORE</h4>
-                        </a>
-                    </div>
-                </div>
-            </div>
+            {{/each}}
         </div>
     </div>
+
     <div class="container-fluid mt-4 top-newspaper">
-        <h2 class="text-warning text-uppercase font-weight-bold">Top 10 most viewed posts</h2>
+        <h2 class="text-warning text-uppercase font-weight-bold">Top 10 view posts</h2>
         <ul class="top-newspaper__list multiple-items">
-            <li class="p-2">
+
+            {{#each mostViewedPosts}} <li class="p-2">
                 <a href="" class="text-white" style="text-decoration: none;">
                     <div class="top-newspaper__item">
-                        <div class="item__bg"
-                            style="background-image: url(https://images.pexels.com/photos/1464143/pexels-photo-1464143.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500);">
+                        <div class="item__bg" style="background-image: url({{avatar}});">
                         </div>
                         <div class="item__content p-4 justify-content-between text-white">
                             <div>
-                                <p class="font-weight-bold">Thứ 7, 6/6/2020</p>
-                                <h3 class="item__title ">Mỹ dỡ lệnh cấm đổi với TQ</h3>
+                                <p class="font-weight-bold">{{date timePost "MMM D,YYYY"}} - <span
+                                        class="badge badge-secondary">{{category.name}}</span></p>
+                                <h3 class="item__title ">{{title}}</h3>
                             </div>
                             <div class="item__content-bottom">
-                                <a href="" class="mr-4  text-white">1 <i class="fa fa-eye" aria-hidden="true"></i></a>
-                                <a href="" class=" text-white">2 <i class="fa fa-commenting-o"
+                                <a href="" class="mr-4  text-white">{{view}} <i class="fa fa-eye"
                                         aria-hidden="true"></i></a>
-                                <a href="" class="float-right text-white grid__readmore">
-                                    <h4>READ MORE</h4>
-                                </a>
+                                <a href="" class=" text-white">{{commentCount}} <i class="fa fa-commenting-o"
+                                        aria-hidden="true"></i></a>
+
                             </div>
                         </div>
                     </div>
                 </a>
             </li>
-            <li class="p-2">
-                <a href="" class="text-white" style="text-decoration: none;">
-                    <div class="top-newspaper__item">
-                        <div class="item__bg"
-                            style="background-image: url(https://images.pexels.com/photos/1464143/pexels-photo-1464143.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500);">
-                        </div>
-                        <div class="item__content p-4 justify-content-between text-white">
-                            <div>
-                                <p class="font-weight-bold">Thứ 7, 6/6/2020</p>
-                                <h3 class="item__title ">Mỹ dỡ lệnh cấm đổi với TQ</h3>
-                            </div>
-                            <div class="item__content-bottom">
-                                <a href="" class="mr-4  text-white">1 <i class="fa fa-eye" aria-hidden="true"></i></a>
-                                <a href="" class=" text-white">2 <i class="fa fa-commenting-o"
-                                        aria-hidden="true"></i></a>
-                                <a href="" class="float-right text-white grid__readmore">
-                                    <h4>READ MORE</h4>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </a>
-            </li>
-            <li class="p-2">
-                <a href="" class="text-white" style="text-decoration: none;">
-                    <div class="top-newspaper__item">
-                        <div class="item__bg"
-                            style="background-image: url(https://images.pexels.com/photos/1464143/pexels-photo-1464143.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500);">
-                        </div>
-                        <div class="item__content p-4 justify-content-between text-white">
-                            <div>
-                                <p class="font-weight-bold">Thứ 7, 6/6/2020</p>
-                                <h3 class="item__title ">Mỹ dỡ lệnh cấm đổi với TQ</h3>
-                            </div>
-                            <div class="item__content-bottom">
-                                <a href="" class="mr-4  text-white">1 <i class="fa fa-eye" aria-hidden="true"></i></a>
-                                <a href="" class=" text-white">2 <i class="fa fa-commenting-o"
-                                        aria-hidden="true"></i></a>
-                                <a href="" class="float-right text-white grid__readmore">
-                                    <h4>READ MORE</h4>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </a>
-            </li>
-            <li class="p-2">
-                <a href="" class="text-white" style="text-decoration: none;">
-                    <div class="top-newspaper__item">
-                        <div class="item__bg"
-                            style="background-image: url(https://images.pexels.com/photos/1464143/pexels-photo-1464143.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500);">
-                        </div>
-                        <div class="item__content p-4 justify-content-between text-white">
-                            <div>
-                                <p class="font-weight-bold">Thứ 7, 6/6/2020</p>
-                                <h3 class="item__title ">Mỹ dỡ lệnh cấm đổi với TQ</h3>
-                            </div>
-                            <div class="item__content-bottom">
-                                <a href="" class="mr-4  text-white">1 <i class="fa fa-eye" aria-hidden="true"></i></a>
-                                <a href="" class=" text-white">2 <i class="fa fa-commenting-o"
-                                        aria-hidden="true"></i></a>
-                                <a href="" class="float-right text-white grid__readmore">
-                                    <h4>READ MORE</h4>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </a>
-            </li>
-            <li class="p-2">
-                <a href="" class="text-white" style="text-decoration: none;">
-                    <div class="top-newspaper__item">
-                        <div class="item__bg"
-                            style="background-image: url(https://images.pexels.com/photos/1464143/pexels-photo-1464143.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500);">
-                        </div>
-                        <div class="item__content p-4 justify-content-between text-white">
-                            <div>
-                                <p class="font-weight-bold">Thứ 7, 6/6/2020</p>
-                                <h3 class="item__title ">Mỹ dỡ lệnh cấm đổi với TQ</h3>
-                            </div>
-                            <div class="item__content-bottom">
-                                <a href="" class="mr-4  text-white">1 <i class="fa fa-eye" aria-hidden="true"></i></a>
-                                <a href="" class=" text-white">2 <i class="fa fa-commenting-o"
-                                        aria-hidden="true"></i></a>
-                                <a href="" class="float-right text-white grid__readmore">
-                                    <h4>READ MORE</h4>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </a>
-            </li>
-            <li class="p-2">
-                <a href="" class="text-white" style="text-decoration: none;">
-                    <div class="top-newspaper__item">
-                        <div class="item__bg"
-                            style="background-image: url(https://images.pexels.com/photos/1464143/pexels-photo-1464143.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500);">
-                        </div>
-                        <div class="item__content p-4 justify-content-between text-white">
-                            <div>
-                                <p class="font-weight-bold">Thứ 7, 6/6/2020</p>
-                                <h3 class="item__title ">Mỹ dỡ lệnh cấm đổi với TQ</h3>
-                            </div>
-                            <div class="item__content-bottom">
-                                <a href="" class="mr-4  text-white">1 <i class="fa fa-eye" aria-hidden="true"></i></a>
-                                <a href="" class=" text-white">2 <i class="fa fa-commenting-o"
-                                        aria-hidden="true"></i></a>
-                                <a href="" class="float-right text-white grid__readmore">
-                                    <h4>READ MORE</h4>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </a>
-            </li>
-            <li class="p-2">
-                <a href="" class="text-white" style="text-decoration: none;">
-                    <div class="top-newspaper__item">
-                        <div class="item__bg"
-                            style="background-image: url(https://images.pexels.com/photos/1464143/pexels-photo-1464143.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500);">
-                        </div>
-                        <div class="item__content p-4 justify-content-between text-white">
-                            <div>
-                                <p class="font-weight-bold">Thứ 7, 6/6/2020</p>
-                                <h3 class="item__title ">Mỹ dỡ lệnh cấm đổi với TQ</h3>
-                            </div>
-                            <div class="item__content-bottom">
-                                <a href="" class="mr-4  text-white">1 <i class="fa fa-eye" aria-hidden="true"></i></a>
-                                <a href="" class=" text-white">2 <i class="fa fa-commenting-o"
-                                        aria-hidden="true"></i></a>
-                                <a href="" class="float-right text-white grid__readmore">
-                                    <h4>READ MORE</h4>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </a>
-            </li>
+            {{/each}}
+
+
+
         </ul>
     </div>
     <div class="container-fluid mt-4 top-newspaper">
         <h2 class="text-warning text-uppercase font-weight-bold">Top 10 latest posts</h2>
         <ul class="top-newspaper__list multiple-items">
-            <li class="p-2">
+
+            {{#each lastestPosts}} <li class="p-2">
                 <a href="" class="text-white" style="text-decoration: none;">
                     <div class="top-newspaper__item">
-                        <div class="item__bg"
-                            style="background-image: url(https://images.pexels.com/photos/1464143/pexels-photo-1464143.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500);">
+                        <div class="item__bg" style="background-image: url({{avatar}});">
                         </div>
                         <div class="item__content p-4 justify-content-between text-white">
                             <div>
-                                <p class="font-weight-bold">Thứ 7, 6/6/2020</p>
-                                <h3 class="item__title ">Mỹ dỡ lệnh cấm đổi với TQ</h3>
+                                <p class="font-weight-bold">{{date timePost "MMM D,YYYY"}} - <span
+                                        class="badge badge-secondary">{{category.name}}</span></p>
+                                <h3 class="item__title ">{{title}}</h3>
                             </div>
                             <div class="item__content-bottom">
-                                <a href="" class="mr-4  text-white">1 <i class="fa fa-eye" aria-hidden="true"></i></a>
-                                <a href="" class=" text-white">2 <i class="fa fa-commenting-o"
+                                <a href="" class="mr-4  text-white">{{view}} <i class="fa fa-eye"
                                         aria-hidden="true"></i></a>
-                                <a href="" class="float-right text-white grid__readmore">
-                                    <h4>READ MORE</h4>
-                                </a>
+                                <a href="" class=" text-white">{{commentCount}} <i class="fa fa-commenting-o"
+                                        aria-hidden="true"></i></a>
+
                             </div>
                         </div>
                     </div>
                 </a>
             </li>
-            <li class="p-2">
-                <a href="" class="text-white" style="text-decoration: none;">
-                    <div class="top-newspaper__item">
-                        <div class="item__bg"
-                            style="background-image: url(https://images.pexels.com/photos/1464143/pexels-photo-1464143.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500);">
-                        </div>
-                        <div class="item__content p-4 justify-content-between text-white">
-                            <div>
-                                <p class="font-weight-bold">Thứ 7, 6/6/2020</p>
-                                <h3 class="item__title ">Mỹ dỡ lệnh cấm đổi với TQ</h3>
-                            </div>
-                            <div class="item__content-bottom">
-                                <a href="" class="mr-4  text-white">1 <i class="fa fa-eye" aria-hidden="true"></i></a>
-                                <a href="" class=" text-white">2 <i class="fa fa-commenting-o"
-                                        aria-hidden="true"></i></a>
-                                <a href="" class="float-right text-white grid__readmore">
-                                    <h4>READ MORE</h4>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </a>
-            </li>
-            <li class="p-2">
-                <a href="" class="text-white" style="text-decoration: none;">
-                    <div class="top-newspaper__item">
-                        <div class="item__bg"
-                            style="background-image: url(https://images.pexels.com/photos/1464143/pexels-photo-1464143.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500);">
-                        </div>
-                        <div class="item__content p-4 justify-content-between text-white">
-                            <div>
-                                <p class="font-weight-bold">Thứ 7, 6/6/2020</p>
-                                <h3 class="item__title ">Mỹ dỡ lệnh cấm đổi với TQ</h3>
-                            </div>
-                            <div class="item__content-bottom">
-                                <a href="" class="mr-4  text-white">1 <i class="fa fa-eye" aria-hidden="true"></i></a>
-                                <a href="" class=" text-white">2 <i class="fa fa-commenting-o"
-                                        aria-hidden="true"></i></a>
-                                <a href="" class="float-right text-white grid__readmore">
-                                    <h4>READ MORE</h4>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </a>
-            </li>
-            <li class="p-2">
-                <a href="" class="text-white" style="text-decoration: none;">
-                    <div class="top-newspaper__item">
-                        <div class="item__bg"
-                            style="background-image: url(https://images.pexels.com/photos/1464143/pexels-photo-1464143.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500);">
-                        </div>
-                        <div class="item__content p-4 justify-content-between text-white">
-                            <div>
-                                <p class="font-weight-bold">Thứ 7, 6/6/2020</p>
-                                <h3 class="item__title ">Mỹ dỡ lệnh cấm đổi với TQ</h3>
-                            </div>
-                            <div class="item__content-bottom">
-                                <a href="" class="mr-4  text-white">1 <i class="fa fa-eye" aria-hidden="true"></i></a>
-                                <a href="" class=" text-white">2 <i class="fa fa-commenting-o"
-                                        aria-hidden="true"></i></a>
-                                <a href="" class="float-right text-white grid__readmore">
-                                    <h4>READ MORE</h4>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </a>
-            </li>
-            <li class="p-2">
-                <a href="" class="text-white" style="text-decoration: none;">
-                    <div class="top-newspaper__item">
-                        <div class="item__bg"
-                            style="background-image: url(https://images.pexels.com/photos/1464143/pexels-photo-1464143.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500);">
-                        </div>
-                        <div class="item__content p-4 justify-content-between text-white">
-                            <div>
-                                <p class="font-weight-bold">Thứ 7, 6/6/2020</p>
-                                <h3 class="item__title ">Mỹ dỡ lệnh cấm đổi với TQ</h3>
-                            </div>
-                            <div class="item__content-bottom">
-                                <a href="" class="mr-4  text-white">1 <i class="fa fa-eye" aria-hidden="true"></i></a>
-                                <a href="" class=" text-white">2 <i class="fa fa-commenting-o"
-                                        aria-hidden="true"></i></a>
-                                <a href="" class="float-right text-white grid__readmore">
-                                    <h4>READ MORE</h4>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </a>
-            </li>
-            <li class="p-2">
-                <a href="" class="text-white" style="text-decoration: none;">
-                    <div class="top-newspaper__item">
-                        <div class="item__bg"
-                            style="background-image: url(https://images.pexels.com/photos/1464143/pexels-photo-1464143.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500);">
-                        </div>
-                        <div class="item__content p-4 justify-content-between text-white">
-                            <div>
-                                <p class="font-weight-bold">Thứ 7, 6/6/2020</p>
-                                <h3 class="item__title ">Mỹ dỡ lệnh cấm đổi với TQ</h3>
-                            </div>
-                            <div class="item__content-bottom">
-                                <a href="" class="mr-4  text-white">1 <i class="fa fa-eye" aria-hidden="true"></i></a>
-                                <a href="" class=" text-white">2 <i class="fa fa-commenting-o"
-                                        aria-hidden="true"></i></a>
-                                <a href="" class="float-right text-white grid__readmore">
-                                    <h4>READ MORE</h4>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </a>
-            </li>
-            <li class="p-2">
-                <a href="" class="text-white" style="text-decoration: none;">
-                    <div class="top-newspaper__item">
-                        <div class="item__bg"
-                            style="background-image: url(https://images.pexels.com/photos/1464143/pexels-photo-1464143.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500);">
-                        </div>
-                        <div class="item__content p-4 justify-content-between text-white">
-                            <div>
-                                <p class="font-weight-bold">Thứ 7, 6/6/2020</p>
-                                <h3 class="item__title ">Mỹ dỡ lệnh cấm đổi với TQ</h3>
-                            </div>
-                            <div class="item__content-bottom">
-                                <a href="" class="mr-4  text-white">1 <i class="fa fa-eye" aria-hidden="true"></i></a>
-                                <a href="" class=" text-white">2 <i class="fa fa-commenting-o"
-                                        aria-hidden="true"></i></a>
-                                <a href="" class="float-right text-white grid__readmore">
-                                    <h4>READ MORE</h4>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </a>
-            </li>
+            {{/each}}
+
+
+
         </ul>
     </div>
     <div class="container-fluid mt-4 top-newspaper">
-        <h2 class="text-warning text-uppercase font-weight-bold">top 10 categories</h2>
+        <h2 class="text-warning text-uppercase font-weight-bold">Top 10 category posts</h2>
         <ul class="top-newspaper__list multiple-items">
-            <li class="p-2">
+
+            {{#each topCategoryPosts}} <li class="p-2">
                 <a href="" class="text-white" style="text-decoration: none;">
                     <div class="top-newspaper__item">
-                        <div class="item__bg"
-                            style="background-image: url(https://images.pexels.com/photos/1464143/pexels-photo-1464143.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500);">
+                        <div class="item__bg" style="background-image: url({{avatar}});">
                         </div>
                         <div class="item__content p-4 justify-content-between text-white">
                             <div>
-                                <p class="font-weight-bold">Thứ 7, 6/6/2020</p>
-                                <h3 class="item__title ">Mỹ dỡ lệnh cấm đổi với TQ</h3>
+                                <p class="font-weight-bold">{{date timePost "MMM D,YYYY"}} - <span
+                                        class="badge badge-secondary">{{category.name}}</span></p>
+                                <h3 class="item__title ">{{title}}</h3>
                             </div>
                             <div class="item__content-bottom">
-                                <a href="" class="mr-4  text-white">1 <i class="fa fa-eye" aria-hidden="true"></i></a>
-                                <a href="" class=" text-white">2 <i class="fa fa-commenting-o"
+                                <a href="" class="mr-4  text-white">{{view}} <i class="fa fa-eye"
                                         aria-hidden="true"></i></a>
-                                <a href="" class="float-right text-white grid__readmore">
-                                    <h4>READ MORE</h4>
-                                </a>
+                                <a href="" class=" text-white">{{commentCount}} <i class="fa fa-commenting-o"
+                                        aria-hidden="true"></i></a>
+
                             </div>
                         </div>
                     </div>
                 </a>
             </li>
-            <li class="p-2">
-                <a href="" class="text-white" style="text-decoration: none;">
-                    <div class="top-newspaper__item">
-                        <div class="item__bg"
-                            style="background-image: url(https://images.pexels.com/photos/1464143/pexels-photo-1464143.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500);">
-                        </div>
-                        <div class="item__content p-4 justify-content-between text-white">
-                            <div>
-                                <p class="font-weight-bold">Thứ 7, 6/6/2020</p>
-                                <h3 class="item__title ">Mỹ dỡ lệnh cấm đổi với TQ</h3>
-                            </div>
-                            <div class="item__content-bottom">
-                                <a href="" class="mr-4  text-white">1 <i class="fa fa-eye" aria-hidden="true"></i></a>
-                                <a href="" class=" text-white">2 <i class="fa fa-commenting-o"
-                                        aria-hidden="true"></i></a>
-                                <a href="" class="float-right text-white grid__readmore">
-                                    <h4>READ MORE</h4>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </a>
-            </li>
-            <li class="p-2">
-                <a href="" class="text-white" style="text-decoration: none;">
-                    <div class="top-newspaper__item">
-                        <div class="item__bg"
-                            style="background-image: url(https://images.pexels.com/photos/1464143/pexels-photo-1464143.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500);">
-                        </div>
-                        <div class="item__content p-4 justify-content-between text-white">
-                            <div>
-                                <p class="font-weight-bold">Thứ 7, 6/6/2020</p>
-                                <h3 class="item__title ">Mỹ dỡ lệnh cấm đổi với TQ</h3>
-                            </div>
-                            <div class="item__content-bottom">
-                                <a href="" class="mr-4  text-white">1 <i class="fa fa-eye" aria-hidden="true"></i></a>
-                                <a href="" class=" text-white">2 <i class="fa fa-commenting-o"
-                                        aria-hidden="true"></i></a>
-                                <a href="" class="float-right text-white grid__readmore">
-                                    <h4>READ MORE</h4>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </a>
-            </li>
-            <li class="p-2">
-                <a href="" class="text-white" style="text-decoration: none;">
-                    <div class="top-newspaper__item">
-                        <div class="item__bg"
-                            style="background-image: url(https://images.pexels.com/photos/1464143/pexels-photo-1464143.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500);">
-                        </div>
-                        <div class="item__content p-4 justify-content-between text-white">
-                            <div>
-                                <p class="font-weight-bold">Thứ 7, 6/6/2020</p>
-                                <h3 class="item__title ">Mỹ dỡ lệnh cấm đổi với TQ</h3>
-                            </div>
-                            <div class="item__content-bottom">
-                                <a href="" class="mr-4  text-white">1 <i class="fa fa-eye" aria-hidden="true"></i></a>
-                                <a href="" class=" text-white">2 <i class="fa fa-commenting-o"
-                                        aria-hidden="true"></i></a>
-                                <a href="" class="float-right text-white grid__readmore">
-                                    <h4>READ MORE</h4>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </a>
-            </li>
-            <li class="p-2">
-                <a href="" class="text-white" style="text-decoration: none;">
-                    <div class="top-newspaper__item">
-                        <div class="item__bg"
-                            style="background-image: url(https://images.pexels.com/photos/1464143/pexels-photo-1464143.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500);">
-                        </div>
-                        <div class="item__content p-4 justify-content-between text-white">
-                            <div>
-                                <p class="font-weight-bold">Thứ 7, 6/6/2020</p>
-                                <h3 class="item__title ">Mỹ dỡ lệnh cấm đổi với TQ</h3>
-                            </div>
-                            <div class="item__content-bottom">
-                                <a href="" class="mr-4  text-white">1 <i class="fa fa-eye" aria-hidden="true"></i></a>
-                                <a href="" class=" text-white">2 <i class="fa fa-commenting-o"
-                                        aria-hidden="true"></i></a>
-                                <a href="" class="float-right text-white grid__readmore">
-                                    <h4>READ MORE</h4>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </a>
-            </li>
-            <li class="p-2">
-                <a href="" class="text-white" style="text-decoration: none;">
-                    <div class="top-newspaper__item">
-                        <div class="item__bg"
-                            style="background-image: url(https://images.pexels.com/photos/1464143/pexels-photo-1464143.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500);">
-                        </div>
-                        <div class="item__content p-4 justify-content-between text-white">
-                            <div>
-                                <p class="font-weight-bold">Thứ 7, 6/6/2020</p>
-                                <h3 class="item__title ">Mỹ dỡ lệnh cấm đổi với TQ</h3>
-                            </div>
-                            <div class="item__content-bottom">
-                                <a href="" class="mr-4  text-white">1 <i class="fa fa-eye" aria-hidden="true"></i></a>
-                                <a href="" class=" text-white">2 <i class="fa fa-commenting-o"
-                                        aria-hidden="true"></i></a>
-                                <a href="" class="float-right text-white grid__readmore">
-                                    <h4>READ MORE</h4>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </a>
-            </li>
-            <li class="p-2">
-                <a href="" class="text-white" style="text-decoration: none;">
-                    <div class="top-newspaper__item">
-                        <div class="item__bg"
-                            style="background-image: url(https://images.pexels.com/photos/1464143/pexels-photo-1464143.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500);">
-                        </div>
-                        <div class="item__content p-4 justify-content-between text-white">
-                            <div>
-                                <p class="font-weight-bold">Thứ 7, 6/6/2020</p>
-                                <h3 class="item__title ">Mỹ dỡ lệnh cấm đổi với TQ</h3>
-                            </div>
-                            <div class="item__content-bottom">
-                                <a href="" class="mr-4  text-white">1 <i class="fa fa-eye" aria-hidden="true"></i></a>
-                                <a href="" class=" text-white">2 <i class="fa fa-commenting-o"
-                                        aria-hidden="true"></i></a>
-                                <a href="" class="float-right text-white grid__readmore">
-                                    <h4>READ MORE</h4>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </a>
-            </li>
+            {{/each}}
+
+
+
         </ul>
     </div>
     <footer class="container-fluid">
@@ -622,4 +167,3 @@
             </div>
         </div>
     </footer>
-   

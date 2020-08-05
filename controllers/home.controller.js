@@ -4,12 +4,78 @@ const { validationResult } = require("express-validator");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const { errorFormatter } = require("../validator");
-const { userModel } = require("../models");
+const { userModel, postModel, categoryModel } = require("../models");
 const config = require("../config");
 const crypto = require("crypto");
 
-module.exports.getHome = (req, res) => {
-  res.render("home/home");
+module.exports.getHome = async (req, res) => {
+  let view = "home/home";
+  try {
+    // await postModel.update(
+    //   { view: 13 },
+    //   {
+    //     view: Math.floor(Math.random() * 100),
+    //   }
+    // );
+    let featuredPosts = await postModel
+      .find({
+        status: "Published",
+        timePost: {
+          $gte: moment().subtract(7, "days").toDate(),
+        },
+      })
+      .lean({ virtuals: true });
+    featuredPosts = featuredPosts.sort((a, b) => b.score - a.score);
+    let mostViewedPosts = await postModel
+      .find({ status: "Published" })
+      .limit(10)
+      .sort("-view")
+      .lean({ virtuals: true });
+    let lastestPosts = await postModel
+      .find({ status: "Published" })
+      .limit(10)
+      .sort("-timePost")
+      .lean({ virtuals: true });
+
+    //top
+    let top10Categories = await postModel.aggregate([
+      {
+        $group: {
+          _id: "$category.slug",
+          totalView: {
+            $sum: "$view",
+          },
+        },
+      },
+      {
+        $sort: {
+          totalView: -1,
+        },
+      },
+
+      { $limit: 10 },
+    ]);
+    top10Categories = top10Categories.map((i) => i._id);
+
+    let topCategoryPosts = await Promise.all(
+      top10Categories.map(async (slug) => {
+        return await postModel
+          .findOne({ status: "Published", "category.slug": slug })
+          .limit(10)
+          .sort("-view")
+          .lean({ virtuals: true });
+      })
+    );
+    topCategoryPosts = topCategoryPosts.sort((a, b) => b.view - a.view);
+    res.render("home/home", {
+      featuredPosts,
+      mostViewedPosts,
+      lastestPosts,
+      topCategoryPosts,
+    });
+  } catch (error) {
+    res.render("errors/404", { errors: error.toString(), layout: false });
+  }
 };
 module.exports.login = (req, res) => {
   res.locals.header = false;

@@ -10,7 +10,7 @@ const useLayout = (layout) => (req, res, next) => {
 
   next(); // pass control to the next handler
 };
-router.use("/", homeRouter);
+router.use("/", useLayout("main"), homeRouter);
 router.use("/writer", useLayout("admin"), writerRouter);
 router.use("/admin", useLayout("admin"), adminRouter);
 module.exports = router;

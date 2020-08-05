@@ -2,7 +2,6 @@ const mongoose = require("mongoose");
 const slug = require("mongoose-slug-updater");
 mongoose.plugin(slug);
 const categorySchema = new mongoose.Schema({
-  _id: mongoose.Types.ObjectId,
   name: String,
   slug: {
     type: String,
@@ -41,6 +40,11 @@ categorySchema.statics = {
       return subCategory;
     }
     return null;
+  },
+  findAllSubCategories: async function name(slug) {
+    let rootCategories = (await this.find().lean()) || [];
+
+    return [].concat(...rootCategories.map((i) => i.subCategories));
   },
 };
 // categorySchema.methods.findSubCategory = function (slug) {

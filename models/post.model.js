@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const mongooseLeanVirtuals = require("mongoose-lean-virtuals");
+const moment = require("moment");
 const slug = require("mongoose-slug-updater");
 mongoose.plugin(slug);
 
@@ -38,7 +39,7 @@ const postSchema = new mongoose.Schema(
       unique: true,
       sparse: true,
     },
-    //timePost : Date
+    timePost: Date,
   },
   { toObject: { virtuals: true }, toJSON: { virtuals: true }, timestamps: true }
 );
@@ -48,7 +49,16 @@ postSchema.index(
   { name: "post_fts_index" }
 );
 postSchema.virtual("commentCount").get(function (v) {
-  return this.comments.length;
+  return this.comments.length || 0;
+});
+postSchema.virtual("score").get(function (v) {
+  let viewScore = this.view * 1;
+  let likeScore = this.like.length * 3;
+  let commentScore = this.comments.length * 5;
+  let dateScore = Math.round(
+    moment(this.timePost).diff(moment().subtract(7, "days"), "minutes") / 100
+  );
+  return viewScore + likeScore + commentScore + dateScore;
 });
 postSchema.plugin(mongooseLeanVirtuals);
 postSchema.statics = {
