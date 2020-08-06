@@ -1,0 +1,206 @@
+{{#section 'css'}}
+<style>
+    .edit {
+        border: none;
+        outline: none;
+        background-color: transparent;
+    }
+
+    .edit:focus {
+        outline: 0 !important;
+    }
+
+    .modal.fade #mess-error {
+        display: none;
+    }
+
+    .modal.fade.error #mess-error {
+        display: block;
+    }
+</style>
+{{/section}}
+<div class="container mt-4">
+    <h2 class="text-center mb-4">Account Prifile</h2>
+    <form method="POST" class="form">
+        <div class="d-flex flex-column">
+            <div>
+                <img class="img-fluid mb-4" style="width: 150px; height: 150px;"
+                    src="{{#if user.avatar}}{{user.avatar}}{{else}}/images/avatar.png{{/if}}" alt="">
+                <button class="edit" type="button" data-toggle="modal" data-target="#imgModal">
+                    <i class="fa fa-pencil" aria-hidden="true"></i>
+                </button>
+            </div>
+            <div>
+                <label><span class="font-weight-bold">Name: </span>{{user.fullName}}</label>
+                <button class="edit" type="button" data-toggle="modal" data-target="#exampleModal">
+                    <i class="fa fa-pencil" aria-hidden="true"></i>
+                </button>
+            </div>
+            <label><span class="font-weight-bold">Pseudonym: </span>{{user.role}}</label>
+            <label><span class="font-weight-bold">Email address: </span>{{user.email}}</label>
+            <div>
+                <label><span class="font-weight-bold">Date of Birth: </span>{{#if user.dob}}{{user.dob}}{{else}}Chưa cập
+                    nhật ngày sinh.{{/if}}</label>
+                <button class="edit" type="button" data-toggle="modal" data-target="#dobModal">
+                    <i class="fa fa-pencil" aria-hidden="true"></i>
+                </button>
+            </div>
+            <button style="width: 200px; border: none; outline: none" type="button" data-toggle="modal"
+                data-target="#modalPassword">Change Password
+                <i class="fa fa-pencil" aria-hidden="true"></i></button>
+        </div>
+    </form>
+</div>
+<div class="modal fade {{#when isErrorsName "eq" true}}error{{/when}}" id="exampleModal" tabindex="-1" role="dialog"
+    aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <form method="POST" action="/editor/profile/editname" class="form">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Change Name</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <input type="text" name="fullName" placeholder="New Name" value="{{user.fullName}}">
+                    <small id="mess-error" class="form-text text-danger">*{{messError}}</small>
+                </div>
+                <div class="modal-footer">
+                    <button id="buttonClose" type="button" class="btn btn-secondary rounded-0"
+                        data-dismiss="modal">Close</button>
+                    <button class="sumit" type="submit" class="btn btn-primary">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+<div class="modal fade {{#when isErrorsDoB "eq" true}}error{{/when}}" id="dobModal" tabindex="-1"
+    aria-labelledby="dobModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form method="POST" action="/editor/profile/editdob" class="form">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="dobModalLabel">Change Date of Birth</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <input type="date" name="newdob">
+                    <small id="mess-error" class="form-text text-danger">*{{messError}}</small>
+                </div>
+                <div class=" modal-footer">
+                    <button id="buttonClose" type="button" class="btn btn-secondary rounded-0"
+                        data-dismiss="modal">Close</button>
+                    <button type="submit" class="sumit">Save changes</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<div class="modal fade {{#when isErrorsImg "eq" true}}error{{/when}}" id="imgModal" tabindex="-1"
+    aria-labelledby="imgModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form method="POST" action="/editor/profile/editavatar" class="form">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="imgModalLabel">Change Date of Birth</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <img class="img-fluid mb-4" style="width: 150px; height: 150px;" id="avatar"
+                        src="{{#if user.avatar}}{{user.avatar}}{{else}}/images/avatar.png{{/if}}" alt="">
+                    <input name="avatar" id="avatar" type="file" class="form-control-file"
+                        onchange="readURL(this.value)" data-preview-file-type="text">
+                    <small id="mess-error" class="form-text text-danger">*{{messError}}</small>
+                </div>
+                <div class=" modal-footer">
+                    <button id="buttonClose" type="button" class="btn btn-secondary rounded-0"
+                        data-dismiss="modal">Close</button>
+                    <button type="submit" class="sumit">Save changes</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<div class="modal fade {{#when isErrorsPass "eq" true}}error{{/when}}" id="modalPassword" tabindex="-1" role="dialog"
+    aria-labelledby="modalPasswordLabel" aria-hidden="true">
+    <form method="POST" action="/editor/profile/editpassword" class="form">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalPasswordLabel">Change Password</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body d-flex flex-column">
+                    {{#if user.firstChangePass}}
+                    <input type="password" name="currentPassword" placeholder="Current Password">
+                    <input type="password" name="newPassword" placeholder="New Password">
+                    <input type="password" name="confirmPassword" placeholder="Confirm Password">
+                    <small id="mess-error" class="form-text text-danger">*{{messError}}</small>
+                    {{else}}
+                    <input type="password" name="newPassword" placeholder="New Password">
+                    <input type="password" name="confirmPassword" placeholder="Confirm Password">
+                    <small id="mess-error" class="form-text text-danger">*{{messError}}</small>
+                    <small id="emailHelp" class="form-text text-muted mb-4">Nhập mật khẩu để kích hoạt tài
+                        khoản.</small>
+                    {{/if}}
+                </div>
+                <div class="modal-footer">
+                    <button id="buttonClose" type="button" class="btn btn-secondary rounded-0"
+                        data-dismiss="modal">Close</button>
+                    <button class="sumit" type="submit" class="btn btn-primary">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+{{#section 'js'}}
+<script>
+    $(document).ready(function () {
+        if ($("#modalPassword").hasClass("error")) {
+            $('#modalPassword').modal('show');
+        }
+        if ($("#exampleModal").hasClass("error")) {
+            $('#exampleModal').modal('show');
+        }
+        if ($("#dobModal").hasClass("error")) {
+            $('#dobModal').modal('show');
+        }
+        if ($("#imgModal").hasClass("error")) {
+            $('#imgModal').modal('show');
+        }
+        $('#buttonClose').on('click', function () {
+            $('#modalPassword').removeClass('error');
+            $('#exampleModal').removeClass('error');
+            $('#dobModal').removeClass('error');
+            $('#imgModal').removeClass('error');
+        });
+        $('.close').on('click', function () {
+            $('#modalPassword').removeClass('error');
+            $('#exampleModal').removeClass('error');
+            $('#dobModal').removeClass('error');
+            $('#imgModal').removeClass('error');
+        });
+    });
+    function readURL(input) {
+        var url = input;
+        var ext = url.substring(url.lastIndexOf('.') + 1).toLowerCase();
+        if (ext == "gif" || ext == "png" || ext == "jpeg" || ext == "jpg") {
+            let reader = new FileReader();
+            reader.onload = function () {
+                let output = document.getElementById('avatar');
+                output.src = reader.result;
+            }
+            if (event.target.files[0]) {
+                reader.readAsDataURL(event.target.files[0]);
+            }
+        }
+    }
+</script>
+{{/section}}
