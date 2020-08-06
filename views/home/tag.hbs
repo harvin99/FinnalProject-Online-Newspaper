@@ -1,0 +1,34 @@
+<div class="container-fluid">
+    <div class="container-fluid mt-4 banner">
+        <h1 class="text-warning text-uppercase font-weight-bold">{{tag.name}}</h1>
+        <div class="posts">
+            <ul class="posts__list">
+                {{#each posts}}
+                <li class="posts__item">
+                    <div class="post">
+                        <div class="post__avatar"><img src="{{avatar}}" alt="{{title}}"></div>
+                        <div class="post__info">
+                            <div class="post__meta__top">
+                                <span class="badge badge-secondary">{{category.name}}</span> -
+                                {{date timePost "MMM D, YYYYY"}}
+                            </div>
+                            <h3 class="post__title">{{title}}</h3>
+                            <p class="post__abstract">{{abstract}}</p>
+                            <div class="post__meta__bottom">
+
+                                <a href="" class="mr-4">{{view}} <i class="fa fa-eye" aria-hidden="true"></i></a>
+                                <a href="" class="">{{commentCount}} <i class="fa fa-commenting-o"
+                                        aria-hidden="true"></i></a>
+
+
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                {{/each}}
+            </ul>
+            {{>pagination}}
+        </div>
+    </div>
+
+</div>

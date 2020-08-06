@@ -4,7 +4,7 @@ const { validationResult } = require("express-validator");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const { errorFormatter } = require("../validator");
-const { userModel, postModel, categoryModel } = require("../models");
+const { userModel, postModel, categoryModel, tagModel } = require("../models");
 const config = require("../config");
 const crypto = require("crypto");
 
@@ -72,6 +72,101 @@ module.exports.getHome = async (req, res) => {
       mostViewedPosts,
       lastestPosts,
       topCategoryPosts,
+    });
+  } catch (error) {
+    res.render("errors/404", { errors: error.toString(), layout: false });
+  }
+};
+module.exports.getTag = async (req, res) => {
+  let view = "home/tag";
+  let { page = 1, perPage = 10 } = req.query;
+  let { slug } = req.params;
+  try {
+    let tag = await tagModel.findOne({ slug }).lean();
+
+    let posts = await postModel
+      .find({
+        status: "Published",
+        "tags.slug": slug,
+      })
+      .sort("-timePost")
+      .limit(perPage)
+      .skip((page - 1) * perPage)
+      .lean({ virtuals: true });
+    let postCount =
+      (await postModel.countDocuments({
+        status: "Published",
+        "tags.slug": slug,
+      })) || 1;
+    let pageCount = Math.ceil(postCount / perPage);
+    res.render(view, {
+      posts,
+      tag,
+      pagination: {
+        page,
+        pageCount,
+      },
+    });
+  } catch (error) {
+    res.render("errors/404", { errors: error.toString(), layout: false });
+  }
+};
+module.exports.getCategory = async (req, res) => {
+  let view = "home/category";
+  let { page = 1, perPage = 10 } = req.query;
+  let { slug } = req.params;
+  try {
+    let post = await postModel.findOne();
+    console.log(post.tags);
+
+    let category = await categoryModel
+      .findOne({
+        $or: [
+          {
+            slug,
+          },
+          {
+            "subCategory.slug": slug,
+          },
+        ],
+      })
+      .lean();
+    if (category) {
+      if (category.slug === slug) {
+        //root
+        slug = category.subCategories.map((i) => i.slug);
+      } else {
+        //child
+        category = category.subCategories.find((i) => i.slug === slug);
+        if (category) {
+          slug = category.slug;
+        } else {
+          throw new Error("Category not Found");
+        }
+      }
+    }
+    let posts = await postModel
+      .find({
+        status: "Published",
+        "category.slug": slug,
+      })
+      .sort("-timePost")
+      .limit(perPage)
+      .skip((page - 1) * perPage)
+      .lean({ virtuals: true });
+    let postCount =
+      (await postModel.countDocuments({
+        status: "Published",
+        "category.slug": slug,
+      })) || 1;
+    let pageCount = Math.ceil(postCount / perPage);
+    res.render(view, {
+      posts,
+      category,
+      pagination: {
+        page,
+        pageCount,
+      },
     });
   } catch (error) {
     res.render("errors/404", { errors: error.toString(), layout: false });

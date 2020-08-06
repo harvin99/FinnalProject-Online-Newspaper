@@ -1,0 +1,19 @@
+ let test = new Array(50).fill(0);
+    console.log(test);
+    test.map((a, i) => {
+      console.log("run");
+      let newPost = new postModel({
+        title: `${post.title} - ${i}`,
+        abstract: post.abstract,
+        content: post.content,
+        avatar: post.avatar,
+        category: post.category,
+        author: post.author,
+        status: post.status,
+        tags: post.tags,
+        isPremium: i % 3 === 0,
+        view: Math.floor(Math.random() * 500 + 1),
+        timePost: moment().subtract(Math.floor(Math.random() * 20 + 1), "days"),
+      });
+      newPost.save();
+    });
