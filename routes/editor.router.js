@@ -1,29 +1,33 @@
 const express = require("express");
 const router = express.Router();
-const { editorController, uploadController } = require("../controllers");
+const {
+  editorController,
+  uploadController,
+  userController,
+} = require("../controllers");
 const { needRole } = require("./../middlewares/auth.mdw");
 router.get("/", needRole("editor"), editorController.getCategories);
-router.get("/profile", needRole("editor"), editorController.getProfile);
+router.get("/profile", needRole("editor"), userController.getProfile);
 router.post(
   "/profile/editname",
   needRole("editor"),
-  editorController.editNameProfile
+  userController.editNameProfile
 );
 router.post(
   "/profile/editdob",
   needRole("editor"),
-  editorController.editDoBProfile
+  userController.editDoBProfile
 );
 router.post(
   "/profile/editavatar",
   needRole("editor"),
-  uploadController.uploadImage.single("file"),
-  editorController.editNameAvatar
+  uploadController.uploadImage.single("avatar"),
+  userController.editNameAvatar
 );
 router.post(
   "/profile/editpassword",
   needRole("editor"),
-  editorController.editPasswordProfile
+  userController.editPasswordProfile
 );
 router.get("/:slug", needRole("editor"), editorController.getPosts);
 router.get("/:slug/denial", needRole("editor"), editorController.denialPost);

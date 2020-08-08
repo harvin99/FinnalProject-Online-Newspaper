@@ -1,7 +1,9 @@
 .admin__wrapper {
-  background-color: #3d424e; }
-  .admin__wrapper .admin__sidenav {
-    width: 392px;
-    background-color: #3d424e; }
+  background-color: #3d424e;
+}
+.admin__wrapper .admin__sidenav {
+  width: 392px;
+  background-color: #3d424e;
+}
 
 /*# sourceMappingURL=admin.css.map */
