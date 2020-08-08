@@ -265,6 +265,13 @@
         min-width: 300px; } }
 body {
   font-family: "Roboto", sans-serif; }
+  body a {
+    color: unset;
+    text-decoration: none; }
+    body a:hover {
+      color: unset;
+      text-decoration: none;
+      opacity: 0.7; }
 
 .bg--gray {
   background-color: #dddddd; }

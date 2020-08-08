@@ -7,7 +7,7 @@
             <li class="header__link"><i class="fa fa-linkedin" aria-hidden="true"></i></li>
         </ul>
         <p class="header__date">
-            Thứ 7, 6/6/2020
+            {{date now "ddd, D/M/YYYY"}}
         </p>
     </div>
     <a class="header__item d-flex justify-content-center">
@@ -41,7 +41,7 @@
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav d-flex justify-content-between w-100">
                 <li class="nav-item text-uppercase font-weight-bold text-center active">
-                    <a class="nav-link" href="#">trang chủ<span class="sr-only">(current)</span></a>
+                    <a class="nav-link" href="/">trang chủ<span class="sr-only">(current)</span></a>
                 </li>
                 {{#each allCategories}}
                 <li class="nav-item text-uppercase font-weight-bold text-center">
@@ -75,30 +75,18 @@
 <div class="container-fluid slider">
     <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
         <div class="carousel-inner bg--gray p-3">
-            <div class="carousel-item active">
+            {{#each trendingPosts}}
+            <div class="carousel-item {{#when @index "eq" 0}}active{{/when}}">
                 <div class="text-center d-block w-100">
                     <span class="text-warning font-weight-bold"><i class="fa fa-star"
                             aria-hidden="true"></i>TRENDING:</span>
-                    <span class="text-uppercase">NHÀ TRẮNG HOÁ PHÁO ĐÀI VÌ BIỂU TÌNH</span>
+                    <span class="text-uppercase">{{title}}</span>
                     <a href="" class="font-weight-bold text-uppercase text-dark">Read more</a>
                 </div>
             </div>
-            <div class="carousel-item">
-                <div class="text-center d-block w-100">
-                    <span class="text-warning font-weight-bold"><i class="fa fa-star"
-                            aria-hidden="true"></i>TRENDING:</span>
-                    <span class="text-uppercase">NHÀ TRẮNG HOÁ PHÁO ĐÀI VÌ BIỂU TÌNH</span>
-                    <a href="" class="font-weight-bold text-uppercase text-dark">Read more</a>
-                </div>
-            </div>
-            <div class="carousel-item">
-                <div class="text-center d-block w-100">
-                    <span class="text-warning font-weight-bold"><i class="fa fa-star"
-                            aria-hidden="true"></i>TRENDING:</span>
-                    <span class="text-uppercase">NHÀ TRẮNG HOÁ PHÁO ĐÀI VÌ BIỂU TÌNH</span>
-                    <a href="" class="font-weight-bold text-uppercase text-dark">Read more</a>
-                </div>
-            </div>
+            {{/each}}
+
+
         </div>
         <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
             <i class="fa fa-chevron-left  text-dark" aria-hidden="true"></i>

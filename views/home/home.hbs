@@ -7,18 +7,18 @@
                     style="background-image: url(https://images.pexels.com/photos/4121872/pexels-photo-4121872.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940);">
                 </div>
                 <div class="grid__content p-5">
-                    <img class="rounded-circle"
-                        src="https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
-                        alt="">
+                    {{#with featuredAuthor}}
+                    <img class="rounded-circle" src="{{#if avatar}}{{avatar}}{{else}}/images/avatar.png{{/if}}" alt="">
                     <a href="" class="font-weight-bold text-warning text-uppercase mt-4 mb-3">Author news</a>
-                    <h2 class="text-uppercase font-weight-bold text-white">ryan tedder</h2>
-                    <p class="mb-4 text-white">Graphic Designer / Photographer</p>
+                    <h2 class="text-uppercase font-weight-bold text-white">{{fullName}}</h2>
+                    <p class="mb-4 text-white">{{role}}</p>
                     <ul class="header__links d-flex">
                         <li class="header__link"><i class="fa fa-facebook" aria-hidden="true"></i></li>
                         <li class="header__link"><i class="fa fa-google-plus" aria-hidden="true"></i></li>
                         <li class="header__link"><i class="fa fa-twitter" aria-hidden="true"></i></li>
                         <li class="header__link"><i class="fa fa-linkedin" aria-hidden="true"></i></li>
                     </ul>
+                    {{/with}}
                 </div>
             </div>
             {{#each featuredPosts}}
@@ -27,14 +27,22 @@
                 </div>
                 <div class="grid__content p-4 justify-content-between text-white">
                     <div>
-                        <p class="font-weight-bold">{{date timePost "MMM D,YYYY"}} - <span
-                                class="badge badge-secondary">{{category.name}}</span></p>
+                        <p class="font-weight-bold">{{date timePost "MMM D,YYYY"}} - <a
+                                href="/categories/{{category.slug}}" class="badge badge-secondary">{{category.name}}</a>
+                        </p>
                         <h3 class="grid__title ">{{title}}</h3>
                     </div>
                     <div class="grid__content-bottom">
-                        <a href="" class="mr-4  text-white">{{view}}<i class="fa fa-eye" aria-hidden="true"></i></a>
-                        <a href="" class=" text-white">{{commentCount}} <i class="fa fa-commenting-o"
-                                aria-hidden="true"></i></a>
+                        <p class="tags">Tags:
+                            {{#each tags}}{{#when @index "lt" 2}}{{#when @index "eq" 0}}{{else}},{{/when}} <a
+                                href="/tags/{{slug}}">{{name}}</a>{{/when}}{{/each}}{{#when tags.length "gt" 1}},
+                            ...{{/when}}
+                        </p>
+
+                        <div> <a href="" class="mr-4">{{view}} <i class="fa fa-eye" aria-hidden="true"></i></a>
+                            <a href="" class="">{{commentCount}} <i class="fa fa-commenting-o"
+                                    aria-hidden="true"></i></a>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -53,16 +61,22 @@
                         </div>
                         <div class="item__content p-4 justify-content-between text-white">
                             <div>
-                                <p class="font-weight-bold">{{date timePost "MMM D,YYYY"}} - <span
-                                        class="badge badge-secondary">{{category.name}}</span></p>
+                                <p class="font-weight-bold">{{date timePost "MMM D,YYYY"}} - <a
+                                        href="/categories/{{category.slug}}"
+                                        class="badge badge-secondary">{{category.name}}</a></p>
                                 <h3 class="item__title ">{{title}}</h3>
                             </div>
                             <div class="item__content-bottom">
-                                <a href="" class="mr-4  text-white">{{view}} <i class="fa fa-eye"
-                                        aria-hidden="true"></i></a>
-                                <a href="" class=" text-white">{{commentCount}} <i class="fa fa-commenting-o"
-                                        aria-hidden="true"></i></a>
+                                <p class="tags">Tags:
+                                    {{#each tags}}{{#when @index "lt" 2}}{{#when @index "eq" 0}}{{else}},{{/when}} <a
+                                        href="/tags/{{slug}}">{{name}}</a>{{/when}}{{/each}}{{#when tags.length "gt" 1}},
+                                    ...{{/when}}
+                                </p>
 
+                                <div> <a href="" class="mr-4">{{view}} <i class="fa fa-eye" aria-hidden="true"></i></a>
+                                    <a href="" class="">{{commentCount}} <i class="fa fa-commenting-o"
+                                            aria-hidden="true"></i></a>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -85,15 +99,22 @@
                         </div>
                         <div class="item__content p-4 justify-content-between text-white">
                             <div>
-                                <p class="font-weight-bold">{{date timePost "MMM D,YYYY"}} - <span
-                                        class="badge badge-secondary">{{category.name}}</span></p>
+                                <p class="font-weight-bold">{{date timePost "MMM D,YYYY"}} - <a
+                                        href="/categories/{{category.slug}}"
+                                        class="badge badge-secondary">{{category.name}}</a></p>
                                 <h3 class="item__title ">{{title}}</h3>
                             </div>
                             <div class="item__content-bottom">
-                                <a href="" class="mr-4  text-white">{{view}} <i class="fa fa-eye"
-                                        aria-hidden="true"></i></a>
-                                <a href="" class=" text-white">{{commentCount}} <i class="fa fa-commenting-o"
-                                        aria-hidden="true"></i></a>
+                                <p class="tags">Tags:
+                                    {{#each tags}}{{#when @index "lt" 2}}{{#when @index "eq" 0}}{{else}},{{/when}} <a
+                                        href="/tags/{{slug}}">{{name}}</a>{{/when}}{{/each}}{{#when tags.length "gt" 1}},
+                                    ...{{/when}}
+                                </p>
+
+                                <div> <a href="" class="mr-4">{{view}} <i class="fa fa-eye" aria-hidden="true"></i></a>
+                                    <a href="" class="">{{commentCount}} <i class="fa fa-commenting-o"
+                                            aria-hidden="true"></i></a>
+                                </div>
 
                             </div>
                         </div>
@@ -117,15 +138,22 @@
                         </div>
                         <div class="item__content p-4 justify-content-between text-white">
                             <div>
-                                <p class="font-weight-bold">{{date timePost "MMM D,YYYY"}} - <span
-                                        class="badge badge-secondary">{{category.name}}</span></p>
+                                <p class="font-weight-bold">{{date timePost "MMM D,YYYY"}} - <a
+                                        href="/categories/{{category.slug}}"
+                                        class="badge badge-secondary">{{category.name}}</a></p>
                                 <h3 class="item__title ">{{title}}</h3>
                             </div>
                             <div class="item__content-bottom">
-                                <a href="" class="mr-4  text-white">{{view}} <i class="fa fa-eye"
-                                        aria-hidden="true"></i></a>
-                                <a href="" class=" text-white">{{commentCount}} <i class="fa fa-commenting-o"
-                                        aria-hidden="true"></i></a>
+                                <p class="tags">Tags:
+                                    {{#each tags}}{{#when @index "lt" 2}}{{#when @index "eq" 0}}{{else}},{{/when}} <a
+                                        href="/tags/{{slug}}">{{name}}</a>{{/when}}{{/each}}{{#when tags.length "gt" 1}},
+                                    ...{{/when}}
+                                </p>
+
+                                <div> <a href="" class="mr-4">{{view}} <i class="fa fa-eye" aria-hidden="true"></i></a>
+                                    <a href="" class="">{{commentCount}} <i class="fa fa-commenting-o"
+                                            aria-hidden="true"></i></a>
+                                </div>
 
                             </div>
                         </div>

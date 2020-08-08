@@ -24,8 +24,10 @@ module.exports.getHome = async (req, res) => {
           $gte: moment().subtract(7, "days").toDate(),
         },
       })
+      .limit(4)
       .lean({ virtuals: true });
     featuredPosts = featuredPosts.sort((a, b) => b.score - a.score);
+    let featuredAuthor = featuredPosts[0].author;
     let mostViewedPosts = await postModel
       .find({ status: "Published" })
       .limit(10)
@@ -72,6 +74,7 @@ module.exports.getHome = async (req, res) => {
       mostViewedPosts,
       lastestPosts,
       topCategoryPosts,
+      featuredAuthor,
     });
   } catch (error) {
     res.render("errors/404", { errors: error.toString(), layout: false });
