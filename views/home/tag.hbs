@@ -2,6 +2,21 @@
     <div class="container-fluid mt-4 banner">
         <h1 class="text-warning text-uppercase font-weight-bold">{{tag.name}}</h1>
         <div class="posts">
+            <div class="posts__search">
+                <form action="/search">
+                    <div class="input-group">
+                        <input name="tag" type="text" class="form-control" {{#if tag}} value="{{tag.slug}}" {{/if}}
+                            hidden>
+                        <input name="q" id="search-post-input" type="text" class="form-control"
+                            placeholder="Search post" {{#if q}} value="{{q}}" {{/if}} required>
+                        <div class="input-group-append">
+                            <button id="search-post-btn" class="btn btn-secondary" type="submit">
+                                <i class="fa fa-search"></i>
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
             <ul class="posts__list">
                 {{#each posts}}
                 <li class="posts__item">
@@ -10,7 +25,8 @@
                         <div class="post__info">
                             <div class="post__meta__top">
                                 <span class="badge badge-secondary">{{category.name}}</span> -
-                                {{date timePost "MMM D, YYYYY"}}
+                                {{date timePost "MMM D, YYYYY"}}{{#if isPremium}} - <span
+                                    class="badge badge-warning">Premium</span>{{/if}}
                             </div>
                             <h3 class="post__title">{{title}}</h3>
                             <p class="post__abstract">{{abstract}}</p>

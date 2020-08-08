@@ -126,7 +126,7 @@ module.exports.getCategory = async (req, res) => {
             slug,
           },
           {
-            "subCategory.slug": slug,
+            "subCategories.slug": slug,
           },
         ],
       })
@@ -163,6 +163,141 @@ module.exports.getCategory = async (req, res) => {
     res.render(view, {
       posts,
       category,
+      pagination: {
+        page,
+        pageCount,
+      },
+    });
+  } catch (error) {
+    res.render("errors/404", { errors: error.toString(), layout: false });
+  }
+};
+module.exports.searchPosts = async (req, res) => {
+  let sortBys = {
+    viewAsc: "view",
+    viewDesc: "-view",
+    dateAsc: "timePost",
+    dateDesc: "-timePost",
+    likeAsc: "like",
+    likeDesc: "-like",
+    default: { score: { $meta: "textScore" } },
+  };
+  let sortByOptions = [
+    {
+      name: "Mặc định",
+      value: "default",
+    },
+    {
+      name: "Lượt xem tăng dần",
+      value: "viewAsc",
+    },
+    {
+      name: "Lượt xem giảm dần",
+      value: "viewDesc",
+    },
+    {
+      name: "Ngày xuất bản tăng dần",
+      value: "dateAsc",
+    },
+    {
+      name: "Ngày xuất bản giảm dần",
+      value: "dateAsc",
+    },
+    {
+      name: "Lượt like tăng dần",
+      value: "likeAsc",
+    },
+    {
+      name: "Lượt like tăng dần",
+      value: "likeAsc",
+    },
+  ];
+  let view = "home/search";
+  let {
+    page = 1,
+    perPage = 10,
+    category: categorySlug,
+    tag: tagSlug,
+    q,
+    isPremium,
+    sortBy = "default",
+  } = req.query;
+  isPremium = isPremium == "false" ? fasle : !!isPremium;
+  let { slug } = req.params;
+  try {
+    let allCategories = await categoryModel.find().lean();
+    let allTags = await tagModel.find().lean();
+    let post = await postModel.findOne();
+    let where = { status: "Published" };
+    if (categorySlug) {
+      let category = await categoryModel
+        .findOne({
+          $or: [
+            {
+              slug: categorySlug,
+            },
+            {
+              "subCategories.slug": categorySlug,
+            },
+          ],
+        })
+        .lean();
+
+      if (category) {
+        if (category.slug === categorySlug) {
+          //root
+          where["category.slug"] = category.subCategories.map((i) => i.slug);
+        } else {
+          //child
+          category = category.subCategories.find(
+            (i) => i.slug === categorySlug
+          );
+          if (category) {
+            where["category.slug"] = category.slug;
+          } else {
+            console.log("run");
+            throw new Error("Category not Found");
+          }
+        }
+      } else {
+        throw new Error("Category not Found");
+      }
+    }
+    if (tagSlug) {
+      let tag = await tagModel.find({ slug: tagSlug }).lean();
+      if (tag) {
+        where["tags.slug"] = { $in: tag.map((i) => i.slug) };
+      }
+    }
+    if (q) {
+      where.$text = {
+        $search: q,
+      };
+    }
+    if (isPremium) {
+      where.isPremium = isPremium;
+    }
+
+    let posts = await postModel
+      .find(where, { score: { $meta: "textScore" } })
+
+      .sort(sortBys[sortBy])
+      .limit(perPage)
+      .skip((page - 1) * perPage)
+      .lean({ virtuals: true });
+    let postCount = (await postModel.countDocuments(where)) || 0;
+    let pageCount = Math.ceil(postCount / (perPage || 1));
+    res.render(view, {
+      posts,
+      category: categorySlug,
+      tag: tagSlug,
+      allTags,
+      allCategories,
+      isPremium,
+      q,
+      sortBy,
+      sortByOptions,
+      postCount,
       pagination: {
         page,
         pageCount,

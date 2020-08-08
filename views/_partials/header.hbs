@@ -14,10 +14,12 @@
         <img src="./images/logo.png" alt="">
     </a>
     <div class="header__item d-flex justify-content-end">
-        <div class="box_search border-bottom mr-3">
-            <input type="text" placeholder="Search...">
-            <button class="border-0 bg-transparent"><i class="fa fa-search" aria-hidden="true"></i></button>
-        </div>
+        <form action="/search">
+            <div class="box_search border-bottom mr-3">
+                <input name="q" type="text" placeholder="Search...">
+                <button class="border-0 bg-transparent"><i class="fa fa-search" aria-hidden="true"></i></button>
+            </div>
+        </form>
 
         {{#if user}}
         <button class="border-0 bg-transparent text-uppercase sign_in">{{user.fullName}}</button>
@@ -66,7 +68,7 @@
             </li>
             {{/each}}
 
-    
+
         </ul>
     </div>
 </div>

@@ -4,6 +4,7 @@ const passport = require("passport");
 const homeController = require("../controllers/home.controller");
 const { loginValidator, registerValidator } = require("../validator");
 router.get("/", homeController.getHome);
+router.get("/search", homeController.searchPosts);
 router.get("/categories/:slug", homeController.getCategory);
 router.get("/tags/:slug", homeController.getTag);
 router.get("/login", homeController.login);
