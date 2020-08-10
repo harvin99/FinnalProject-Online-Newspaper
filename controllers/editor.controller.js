@@ -1,5 +1,4 @@
 const { jsHelper } = require("../utils");
-const bcrypt = require("bcryptjs");
 const moment = require("moment");
 const { categoryModel, postModel, tagModel, userModel } = require("../models");
 const Category = require("../models/category.model");

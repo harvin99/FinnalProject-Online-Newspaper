@@ -20,6 +20,7 @@
     "handlebars-paginate": "^0.1.0",
     "jsonwebtoken": "^8.5.1",
     "lru-cache": "^5.1.1",
+    "mailgun-js": "^0.22.0",
     "moment": "^2.27.0",
     "moment-timezone": "^0.5.31",
     "mongoose": "^5.9.21",

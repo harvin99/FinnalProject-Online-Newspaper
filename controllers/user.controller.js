@@ -1,5 +1,7 @@
 const moment = require("moment");
 const { userModel } = require("../models");
+const bcrypt = require("bcryptjs");
+const saltRounds = 10;
 module.exports.getProfile = async (req, res) => {
   try {
     let { user } = req;
@@ -104,12 +106,17 @@ module.exports.editPasswordProfile = async (req, res) => {
     const { newPassword, currentPassword, confirmPassword } = req.body;
     if (user.firstChangePass) {
       if (newPassword != "" && confirmPassword != "" && currentPassword != "") {
-        if (currentPassword === user.newPassword) {
+        let comparePasswordResult = await bcrypt.compareSync(
+          currentPassword,
+          user.localPassword
+        );
+        if (comparePasswordResult) {
           if (newPassword === confirmPassword) {
+            const localPassword = bcrypt.hashSync(newPassword, saltRounds);
             await userModel.updateOne(
               { _id: user._id },
               {
-                newPassword,
+                localPassword,
               }
             );
           } else {
@@ -133,10 +140,12 @@ module.exports.editPasswordProfile = async (req, res) => {
       const firstChangePass = true;
       if (newPassword != "" && confirmPassword != "") {
         if (newPassword === confirmPassword) {
+          const localPassword = bcrypt.hashSync(newPassword, saltRounds);
+          console.log(localPassword);
           await userModel.updateOne(
             { _id: user._id },
             {
-              newPassword,
+              localPassword,
               firstChangePass,
             }
           );

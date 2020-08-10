@@ -6,6 +6,7 @@ const writerRouter = require("./writer.router");
 const adminRouter = require("./admin.router");
 const editorRouter = require("./editor.router");
 const userRouter = require("./user.router");
+const formRouter = require("./form.router");
 
 const useLayout = (layout) => (req, res, next) => {
   req.app.locals.layout = layout; // set your layout here
@@ -17,4 +18,5 @@ router.use("/writer", useLayout("admin"), writerRouter);
 router.use("/admin", useLayout("admin"), adminRouter);
 router.use("/editor", useLayout("admin"), editorRouter);
 router.use("/user", useLayout("admin"), userRouter);
+router.use("/form", useLayout("form"), formRouter);
 module.exports = router;
