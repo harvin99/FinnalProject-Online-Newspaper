@@ -388,3 +388,61 @@ module.exports.delPost = async (req, res) => {
     res.redirect("/admin/posts");
   }
 };
+module.exports.publishPost = async (req, res) => {
+  let { slug } = req.params;
+  try {
+    let post = await postModel.findOneAndUpdate(
+      {
+        slug,
+      },
+      {
+        status: "Published",
+      }
+    );
+
+    if (post) {
+      req.session.editPost = {
+        success: true,
+      };
+    } else {
+      req.session.editPost = {
+        errors: "post not found",
+      };
+    }
+  } catch (error) {
+    req.session.editPost = {
+      errors: error.toString(),
+    };
+  } finally {
+    res.redirect("/admin/posts");
+  }
+};
+module.exports.draftPost = async (req, res) => {
+  let { slug } = req.params;
+  try {
+    let post = await postModel.findOneAndUpdate(
+      {
+        slug,
+      },
+      {
+        status: "NotPublished",
+      }
+    );
+
+    if (post) {
+      req.session.editPost = {
+        success: true,
+      };
+    } else {
+      req.session.editPost = {
+        errors: "post not found",
+      };
+    }
+  } catch (error) {
+    req.session.editPost = {
+      errors: error.toString(),
+    };
+  } finally {
+    res.redirect("/admin/posts");
+  }
+};

@@ -310,6 +310,60 @@ module.exports.searchPosts = async (req, res) => {
     res.render("errors/404", { errors: error.toString(), layout: false });
   }
 };
+module.exports.getPost = async (req, res) => {
+  let view = "home/postDetail";
+  let { categorySlug, postSlug: slug } = req.params;
+  try {
+    let post = await postModel
+      .findOne({ slug, "category.slug": categorySlug })
+      .lean({ virtuals: true });
+    let relativePosts = post
+      ? await postModel
+          .find(
+            {
+              $text: {
+                $search: post.title,
+              },
+            },
+            { score: { $meta: "textScore" } }
+          )
+          .sort({ score: { $meta: "textScore" } })
+          .limit(5)
+          .lean()
+      : [];
+    res.render(view, { post, relativePosts });
+  } catch (error) {
+    res.render("errors/404", { errors: error.toString(), layout: false });
+  }
+};
+module.exports.likePost = async (req, res) => {
+  let view = "home/postDetail";
+  let { categorySlug, postSlug: slug } = req.params;
+  let { user } = req;
+  try {
+    if (!user) {
+      throw new Error("Only the user can like the post");
+    }
+    //get post
+    let post = await postModel.findOne({ slug, "category.slug": categorySlug });
+
+    if (!post) {
+      throw new Error("Post not founded");
+    }
+    //check exists
+    let isLikedIndex = post.like.findIndex((i) => i._id == user._id);
+    if (isLikedIndex !== -1) {
+      post.like.splice(isLikedIndex, 1);
+    } else {
+      post.like.push(user);
+    }
+    await post.save();
+
+    res.redirect("back");
+  } catch (error) {
+    res.render("errors/404", { errors: error.toString(), layout: false });
+  }
+};
 module.exports.login = (req, res) => {
   res.locals.header = false;
   res.render("home/login");

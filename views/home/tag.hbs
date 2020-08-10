@@ -19,33 +19,37 @@
             </div>
             <ul class="posts__list">
                 {{#each posts}}
-                <li class="posts__item">
-                    <div class="post">
-                        <div class="post__avatar"><img src="{{avatar}}" alt="{{title}}"></div>
-                        <div class="post__info">
-                            <div class="post__meta__top">
-                               <a href="/categories/{{category.slug}}"
-                                    class="badge badge-secondary">{{category.name}}</a> -
-                                {{date timePost "MMM D, YYYYY"}}{{#if isPremium}} - <span
-                                    class="badge badge-warning">Premium</span>{{/if}}
-                            </div>
-                            <h3 class="post__title">{{title}}</h3>
-                            <p class="post__abstract">{{abstract}}</p>
-                            <div class="post__meta__bottom">
+                <li class="posts__item"><a href="/categories/{{category.slug}}/{{slug}}">
+                        <div class="post">
+                            <div class="post__avatar"><img src="{{avatar}}" alt="{{title}}"></div>
+                            <div class="post__info">
+                                <div class="post__meta__top">
+                                    <a href="/categories/{{category.slug}}"
+                                        class="badge badge-secondary">{{category.name}}</a> -
+                                    {{date timePost "MMM D, YYYYY"}}{{#if isPremium}} - <span
+                                        class="badge badge-warning">Premium</span>{{/if}}
+                                </div>
+                                <h3 class="post__title">{{title}}</h3>
+                                <p class="post__abstract">{{abstract}}</p>
+                                <div class="post__meta__bottom">
 
-                                <p class="tags">Tags:
-                                    {{#each tags}}{{#when @index "lt" 2}}{{#when @index "eq" 0}}{{else}},{{/when}} <a
-                                        href="/tags/{{slug}}">{{name}}</a>{{/when}}{{/each}}{{#when tags.length "gt" 1}},
-                                    ...{{/when}}
-                                </p>
 
-                                <div> <a href="" class="mr-4">{{view}} <i class="fa fa-eye" aria-hidden="true"></i></a>
-                                    <a href="" class="">{{commentCount}} <i class="fa fa-commenting-o"
-                                            aria-hidden="true"></i></a>
+                                    <p class="tags">Tags:
+                                        {{#each tags}}{{#when @index "lt" 2}}{{#when @index "eq" 0}}{{else}},{{/when}}
+                                        <a
+                                            href="/tags/{{slug}}">{{name}}</a>{{/when}}{{/each}}{{#when tags.length "gt" 1}},
+                                        ...{{/when}}
+                                    </p>
+
+                                    <div> <a href="" class="mr-4">{{view}} <i class="fa fa-eye"
+                                                aria-hidden="true"></i></a>
+                                        <a href="" class="">{{commentCount}} <i class="fa fa-commenting-o"
+                                                aria-hidden="true"></i></a>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </a>
                 </li>
                 {{/each}}
             </ul>

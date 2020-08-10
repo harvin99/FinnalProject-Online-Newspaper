@@ -58,7 +58,8 @@ postSchema.virtual("score").get(function (v) {
   let dateScore = Math.round(
     moment(this.timePost).diff(moment().subtract(7, "days"), "minutes") / 100
   );
-  return viewScore + likeScore + commentScore + dateScore;
+  let premiumScore = this.isPremium ? 100 : 0;
+  return viewScore + likeScore + commentScore + dateScore + premiumScore;
 });
 postSchema.plugin(mongooseLeanVirtuals);
 postSchema.statics = {

@@ -40,7 +40,6 @@ module.exports = function (app) {
     res.locals.tags = tags;
     res.locals.trendingPosts = trendingPosts;
     res.locals.now = new Date();
-    console.log(trendingPosts);
     next();
   });
 };
