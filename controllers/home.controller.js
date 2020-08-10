@@ -4,10 +4,16 @@ const { validationResult } = require("express-validator");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const { errorFormatter } = require("../validator");
-const { userModel, postModel, categoryModel, tagModel } = require("../models");
+const {
+  userModel,
+  postModel,
+  categoryModel,
+  tagModel,
+  commentModel,
+} = require("../models");
 const config = require("../config");
 const crypto = require("crypto");
-
+const { ObjectId } = require("mongodb");
 module.exports.getHome = async (req, res) => {
   let view = "home/home";
   try {
@@ -313,10 +319,14 @@ module.exports.searchPosts = async (req, res) => {
 module.exports.getPost = async (req, res) => {
   let view = "home/postDetail";
   let { categorySlug, postSlug: slug } = req.params;
+  let { user = {} } = req;
   try {
     let post = await postModel
       .findOne({ slug, "category.slug": categorySlug })
       .lean({ virtuals: true });
+
+    let islikedUser = post && !!post.like.find((i) => i._id.equals(user._id));
+
     let relativePosts = post
       ? await postModel
           .find(
@@ -328,10 +338,11 @@ module.exports.getPost = async (req, res) => {
             { score: { $meta: "textScore" } }
           )
           .sort({ score: { $meta: "textScore" } })
-          .limit(5)
+          .limit(6)
           .lean()
       : [];
-    res.render(view, { post, relativePosts });
+    relativePosts = relativePosts.slice(1);
+    res.render(view, { post, islikedUser, relativePosts });
   } catch (error) {
     res.render("errors/404", { errors: error.toString(), layout: false });
   }
@@ -351,7 +362,7 @@ module.exports.likePost = async (req, res) => {
       throw new Error("Post not founded");
     }
     //check exists
-    let isLikedIndex = post.like.findIndex((i) => i._id == user._id);
+    let isLikedIndex = post.like.findIndex((i) => i._id.equals(user._id));
     if (isLikedIndex !== -1) {
       post.like.splice(isLikedIndex, 1);
     } else {
@@ -360,6 +371,62 @@ module.exports.likePost = async (req, res) => {
     await post.save();
 
     res.redirect("back");
+  } catch (error) {
+    res.render("errors/404", { errors: error.toString(), layout: false });
+  }
+};
+module.exports.commentPost = async (req, res) => {
+  let view = "home/postDetail";
+  let { categorySlug, postSlug: slug } = req.params;
+  let { user } = req;
+  let { content, relyCommentId, fullName, email } = req.body;
+  let avatar = user && user.avatar;
+
+  try {
+    let formError = validationResult(req);
+    if (formError.isEmpty()) {
+      //get post
+      let post = await postModel.findOne({
+        slug,
+        "category.slug": categorySlug,
+      });
+      if (!post) {
+        throw new Error("Post not founded");
+      }
+      let newComment = new commentModel({
+        email,
+        fullName,
+        avatar,
+        content,
+      });
+      await newComment.save();
+      if (relyCommentId) {
+        let parentCommentIndex = post.comments.findIndex((i) =>
+          i._id.equals(relyCommentId)
+        );
+        if (parentCommentIndex != -1) {
+          let parentComment = await commentModel.findById(
+            post.comments[parentCommentIndex]._id
+          );
+          parentComment.relyComments.push(newComment);
+          await parentComment.save();
+          post.comments[parentCommentIndex] = parentComment;
+        } else {
+          throw new Error("Parent Comment not founded");
+        }
+      } else {
+        post.comments.push(newComment);
+      }
+      console.log("run parent comment");
+      post.markModified("comments");
+      let a = await post.save();
+
+      console.log("run parent comment 2", a);
+      res.redirect("back");
+    } else {
+      formError = formError.formatWith(errorFormatter).mapped();
+      res.render(view, { formError, username, password });
+    }
   } catch (error) {
     res.render("errors/404", { errors: error.toString(), layout: false });
   }

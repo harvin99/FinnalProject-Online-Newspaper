@@ -263,6 +263,11 @@
       .post__avatar img {
         max-width: 100%;
         min-width: 300px; } }
+.rely-comment {
+  margin: 0 50px; }
+  .rely-comment__list li {
+    padding: 10px; }
+
 body {
   font-family: "Roboto", sans-serif; }
   body a {

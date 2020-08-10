@@ -24,6 +24,13 @@ router.get("/register", homeController.register);
 router.get("/register/code", homeController.getRegisterCode);
 router.post("/register", registerValidator(), homeController.register_post);
 router.get("/logout", homeController.logout);
-router.get("/categories/:categorySLug/:postSlug", homeController.getPost);
-
+router.get("/categories/:categorySlug/:postSlug", homeController.getPost);
+router.post(
+  "/categories/:categorySlug/:postSlug/comment",
+  homeController.commentPost
+);
+router.get(
+  "/categories/:categorySlug/:postSlug/like",
+  homeController.likePost
+);
 module.exports = router;
