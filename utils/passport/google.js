@@ -1,6 +1,8 @@
 const passport = require("passport");
 const passportGoogle = require("passport-google-oauth20");
 const { userModel } = require("../../models");
+const config = require("./../../config");
+
 const GoogleStrategy = passportGoogle.Strategy;
 
 const strategy = (app) => {
@@ -27,6 +29,8 @@ const strategy = (app) => {
       email,
       fullName,
       avatar,
+      username: email,
+      password: config.authentication.defaultPassword,
     });
 
     return done(null, user);
