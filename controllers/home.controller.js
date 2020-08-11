@@ -7,6 +7,7 @@ const { errorFormatter } = require("../validator");
 const { userModel } = require("../models");
 const config = require("../config");
 const crypto = require("crypto");
+const { use } = require("passport");
 
 module.exports.getHome = (req, res) => {
   res.render("home/home");
@@ -31,7 +32,7 @@ module.exports.login_post = async (req, res) => {
       if (user) {
         let comparePasswordResult = await bcrypt.compare(
           password,
-          user.password
+          user.localPassword
         );
 
         if (comparePasswordResult) {

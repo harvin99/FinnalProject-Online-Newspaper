@@ -1,8 +1,8 @@
-const { ObjectId } = require("mongodb");
 const { jsHelper } = require("../utils");
 const moment = require("moment");
-const { categoryModel, postModel, tagModel } = require("../models");
+const { categoryModel, postModel, tagModel, userModel } = require("../models");
 const Category = require("../models/category.model");
+const { use } = require("passport");
 module.exports.getCategories = async (req, res) => {
   try {
     let { user } = req;
@@ -14,7 +14,7 @@ module.exports.getCategories = async (req, res) => {
         })
         .lean();
     }
-    res.render("editor/manager", { categories: categories });
+    res.render("editor/manager", { categories: categories, activeFeature: 1 });
   } catch (error) {
     res.render("errors/404", { errors: error.toString(), layout: false });
   }
@@ -94,7 +94,7 @@ module.exports.acceptPost_post = async (req, res) => {
     let { slug } = req.params;
     let { subCategory, tags, time } = req.body;
     let status = "Đã duyệt";
-    let timePost = moment(time).format('YYYY-MM-DD HH:mm:ss');
+    let timePost = moment(time).format("YYYY-MM-DD HH:mm:ss");
     console.log(timePost);
     if (slug) {
       await postModel.updateOne(
@@ -103,7 +103,7 @@ module.exports.acceptPost_post = async (req, res) => {
           subCategory,
           tags,
           timePost,
-          status
+          status,
         }
       );
     }
@@ -121,7 +121,7 @@ module.exports.cancelPost = async (req, res) => {
       await postModel.updateOne(
         { slug: slug },
         {
-          status
+          status,
         }
       );
     }

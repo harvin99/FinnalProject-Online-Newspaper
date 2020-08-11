@@ -1,10 +1,36 @@
 const express = require("express");
 const router = express.Router();
 const passport = require("passport");
-const { writerController, uploadController } = require("../controllers");
+const {
+  writerController,
+  uploadController,
+  userController,
+} = require("../controllers");
 const { addPostValidator } = require("../validator");
 const { needRole } = require("./../middlewares/auth.mdw");
 router.get("/", needRole("writer"), writerController.getPost);
+router.get("/profile", needRole("writer"), userController.getProfile);
+router.post(
+  "/profile/editname",
+  needRole("writer"),
+  userController.editNameProfile
+);
+router.post(
+  "/profile/editdob",
+  needRole("writer"),
+  userController.editDoBProfile
+);
+router.post(
+  "/profile/editavatar",
+  needRole("writer"),
+  uploadController.uploadImage.single("avatar"),
+  userController.editNameAvatar
+);
+router.post(
+  "/profile/editpassword",
+  needRole("writer"),
+  userController.editPasswordProfile
+);
 router.get("/posts/add", needRole("writer"), writerController.addPost);
 router.post(
   "/posts/add",
