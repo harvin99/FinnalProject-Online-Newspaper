@@ -1,0 +1,32 @@
+<div id="div" class="shadow p-4">
+    <p class=" text-success {{#when isError "eq" true}}text-danger{{/when}}">{{mess}}</p>
+    <div class="w-100 d-flex justify-content-end">
+        <a href="/" class="submit"><i class="fa fa-home" aria-hidden="true"></i> Home</a>
+    </div>
+
+</div>
+<style>
+    #div {
+        width: 500px;
+        margin: 200px auto 0;
+        color: black;
+    }
+
+    .submit {
+        border: none;
+        background-color: #f0a500;
+        color: white;
+        font-weight: bold;
+        padding: 0.5rem 1.5rem;
+        text-decoration: none !important;
+    }
+
+    .submit:hover {
+        color: white;
+        background-color: rgb(226, 169, 44);
+    }
+
+    .submita:hover {
+        text-decoration: underline;
+    }
+</style>

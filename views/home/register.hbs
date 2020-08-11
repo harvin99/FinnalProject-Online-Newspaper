@@ -38,7 +38,7 @@
                     {{/if}}
 
                     <input name="password" value="{{password}}"
-                        class="{{#if formError.password}}is-invalid{{else}}is-valid{{/if}}" type="text"
+                        class="{{#if formError.password}}is-invalid{{else}}is-valid{{/if}}" type="password"
                         placeholder="Password">
                     {{#if formError.password}} <div class="invalid-feedback mb-3 text-left">
                         {{formError.password}}
@@ -47,7 +47,7 @@
                     {{/if}}
 
                     <input name="confirmPassword" value="{{confirmPassword}}"
-                        class="{{#if formError.confirmPassword}}is-invalid{{else}}is-valid{{/if}}" type="text"
+                        class="{{#if formError.confirmPassword}}is-invalid{{else}}is-valid{{/if}}" type="password"
                         placeholder="confirmPassword">
                     {{#if formError.confirmPassword}} <div class="invalid-feedback mb-3 text-left">
                         {{formError.confirmPassword}}

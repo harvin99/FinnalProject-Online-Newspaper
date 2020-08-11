@@ -12,6 +12,8 @@ const userSchema = new mongoose.Schema(
     username: String,
     password: String,
     dob: Date,
+    localPassword: String,
+    firstChangePass: Boolean,
     role: {
       type: String,
       enum: allRoles,
