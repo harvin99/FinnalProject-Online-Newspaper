@@ -82,7 +82,7 @@
             <div class="text-center-with-line"><span>{{postCount}} posts founded</span></div>
             <ul class="posts__list">
                 {{#each posts}}
-                <li class="posts__item"><a href="/categories/{{category.slug}}/{{slug}}">
+              <li class="posts__item"><a href="/categories/{{category.slug}}/{{slug}}">
                         <div class="post">
                             <div class="post__avatar"><img src="{{avatar}}" alt="{{title}}"></div>
                             <div class="post__info">
@@ -91,9 +91,10 @@
                                         class="badge badge-secondary">{{category.name}}</a> -
                                     {{date timePost "MMM D, YYYYY"}}{{#if isPremium}} - <span
                                         class="badge badge-warning">Premium</span>{{/if}}
-                                </div>
-                                <h3 class="post__title">{{title}}</h3>
-                                <p class="post__abstract">{{abstract}}</p>
+                                </div><a href="/categories/{{category.slug}}/{{slug}}">
+                                    <h3 class="post__title">{{title}}</h3>
+                                    <p class="post__abstract">{{abstract}}</p>
+                                </a>
                                 <div class="post__meta__bottom">
 
 

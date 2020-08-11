@@ -23,7 +23,24 @@
                 </div>
             </div>
             <div class="post__content">
+                {{#if isPremium}}
+
+                {{#if user.isPremium}}
                 {{{content}}}
+                {{else}}
+                <div class="post__is-premium">
+                    <p class="post__abstract">
+                        {{abstract}}
+                    </p>
+                    <div class="message">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Officia suscipit
+                        maxime distinctio quasi nesciunt quo blanditiis ipsam enim explicabo quisquam delectus eius
+                        obcaecati maiores expedita eos fuga laboriosam, a veniam!</div>
+                </div>
+                {{/if}}
+
+                {{else}}
+                {{{content}}}
+                {{/if}}
             </div>
         </div>
         <div class="d-flex justify-content-between align-items-center bg--gray p-2">

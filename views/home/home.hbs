@@ -56,32 +56,33 @@
         <ul class="top-newspaper__list multiple-items">
 
             {{#each mostViewedPosts}} <li class="p-2">
-                <a href="/categories/{{category.slug}}/{{slug}}" class="text-white" style="text-decoration: none;">
-                    <div class="top-newspaper__item">
-                        <div class="item__bg" style="background-image: url({{avatar}});">
-                        </div>
-                        <div class="item__content p-4 justify-content-between text-white">
-                            <div>
-                                <p class="font-weight-bold">{{date timePost "MMM D,YYYY"}} - <a
-                                        href="/categories/{{category.slug}}"
-                                        class="badge badge-secondary">{{category.name}}</a></p>
-                                <h3 class="item__title ">{{title}}</h3>
-                            </div>
-                            <div class="item__content-bottom">
-                                <p class="tags">Tags:
-                                    {{#each tags}}{{#when @index "lt" 2}}{{#when @index "eq" 0}}{{else}},{{/when}} <a
-                                        href="/tags/{{slug}}">{{name}}</a>{{/when}}{{/each}}{{#when tags.length "gt" 1}},
-                                    ...{{/when}}
-                                </p>
 
-                                <div> <a href="" class="mr-4">{{view}} <i class="fa fa-eye" aria-hidden="true"></i></a>
-                                    <a href="" class="">{{commentCount}} <i class="fa fa-commenting-o"
-                                            aria-hidden="true"></i></a>
-                                </div>
+                <div class="top-newspaper__item">
+                    <div class="item__bg" style="background-image: url({{avatar}});">
+                    </div>
+                    <div class="item__content p-4 justify-content-between text-white">
+                        <div>
+                            <p class="font-weight-bold">{{date timePost "MMM D,YYYY"}} - <a
+                                    href="/categories/{{category.slug}}"
+                                    class="badge badge-secondary">{{category.name}}</a></p>
+                            <h3 class="item__title "> <a href="/categories/{{category.slug}}/{{slug}}"
+                                    class="text-white" style="text-decoration: none;">{{title}}</a></h3>
+                        </div>
+                        <div class="item__content-bottom">
+                            <p class="tags">Tags:
+                                {{#each tags}}{{#when @index "lt" 2}}{{#when @index "eq" 0}}{{else}},{{/when}} <a
+                                    href="/tags/{{slug}}">{{name}}</a>{{/when}}{{/each}}{{#when tags.length "gt" 1}},
+                                ...{{/when}}
+                            </p>
+
+                            <div> <a href="" class="mr-4">{{view}} <i class="fa fa-eye" aria-hidden="true"></i></a>
+                                <a href="" class="">{{commentCount}} <i class="fa fa-commenting-o"
+                                        aria-hidden="true"></i></a>
                             </div>
                         </div>
                     </div>
-                </a>
+                </div>
+
             </li>
             {{/each}}
 
@@ -94,33 +95,33 @@
         <ul class="top-newspaper__list multiple-items">
 
             {{#each lastestPosts}} <li class="p-2">
-                <a href="/categories/{{category.slug}}/{{slug}}" class="text-white" style="text-decoration: none;">
-                    <div class="top-newspaper__item">
-                        <div class="item__bg" style="background-image: url({{avatar}});">
+
+                <div class="top-newspaper__item">
+                    <div class="item__bg" style="background-image: url({{avatar}});">
+                    </div>
+                    <div class="item__content p-4 justify-content-between text-white">
+                        <div>
+                            <p class="font-weight-bold">{{date timePost "MMM D,YYYY"}} - <a
+                                    href="/categories/{{category.slug}}"
+                                    class="badge badge-secondary">{{category.name}}</a></p>
+                            <h3 class="item__title "> <a href="/categories/{{category.slug}}/{{slug}}"
+                                    class="text-white" style="text-decoration: none;">{{title}}</a></h3>
                         </div>
-                        <div class="item__content p-4 justify-content-between text-white">
-                            <div>
-                                <p class="font-weight-bold">{{date timePost "MMM D,YYYY"}} - <a
-                                        href="/categories/{{category.slug}}"
-                                        class="badge badge-secondary">{{category.name}}</a></p>
-                                <h3 class="item__title ">{{title}}</h3>
-                            </div>
-                            <div class="item__content-bottom">
-                                <p class="tags">Tags:
-                                    {{#each tags}}{{#when @index "lt" 2}}{{#when @index "eq" 0}}{{else}},{{/when}} <a
-                                        href="/tags/{{slug}}">{{name}}</a>{{/when}}{{/each}}{{#when tags.length "gt" 1}},
-                                    ...{{/when}}
-                                </p>
+                        <div class="item__content-bottom">
+                            <p class="tags">Tags:
+                                {{#each tags}}{{#when @index "lt" 2}}{{#when @index "eq" 0}}{{else}},{{/when}} <a
+                                    href="/tags/{{slug}}">{{name}}</a>{{/when}}{{/each}}{{#when tags.length "gt" 1}},
+                                ...{{/when}}
+                            </p>
 
-                                <div> <a href="" class="mr-4">{{view}} <i class="fa fa-eye" aria-hidden="true"></i></a>
-                                    <a href="" class="">{{commentCount}} <i class="fa fa-commenting-o"
-                                            aria-hidden="true"></i></a>
-                                </div>
-
+                            <div> <a href="" class="mr-4">{{view}} <i class="fa fa-eye" aria-hidden="true"></i></a>
+                                <a href="" class="">{{commentCount}} <i class="fa fa-commenting-o"
+                                        aria-hidden="true"></i></a>
                             </div>
                         </div>
                     </div>
-                </a>
+                </div>
+
             </li>
             {{/each}}
 
@@ -133,33 +134,33 @@
         <ul class="top-newspaper__list multiple-items">
 
             {{#each topCategoryPosts}} <li class="p-2">
-                <a href="/categories/{{category.slug}}/{{slug}}" class="text-white" style="text-decoration: none;">
-                    <div class="top-newspaper__item">
-                        <div class="item__bg" style="background-image: url({{avatar}});">
+
+                <div class="top-newspaper__item">
+                    <div class="item__bg" style="background-image: url({{avatar}});">
+                    </div>
+                    <div class="item__content p-4 justify-content-between text-white">
+                        <div>
+                            <p class="font-weight-bold">{{date timePost "MMM D,YYYY"}} - <a
+                                    href="/categories/{{category.slug}}"
+                                    class="badge badge-secondary">{{category.name}}</a></p>
+                            <h3 class="item__title "> <a href="/categories/{{category.slug}}/{{slug}}"
+                                    class="text-white" style="text-decoration: none;">{{title}}</a></h3>
                         </div>
-                        <div class="item__content p-4 justify-content-between text-white">
-                            <div>
-                                <p class="font-weight-bold">{{date timePost "MMM D,YYYY"}} - <a
-                                        href="/categories/{{category.slug}}"
-                                        class="badge badge-secondary">{{category.name}}</a></p>
-                                <h3 class="item__title ">{{title}}</h3>
-                            </div>
-                            <div class="item__content-bottom">
-                                <p class="tags">Tags:
-                                    {{#each tags}}{{#when @index "lt" 2}}{{#when @index "eq" 0}}{{else}},{{/when}} <a
-                                        href="/tags/{{slug}}">{{name}}</a>{{/when}}{{/each}}{{#when tags.length "gt" 1}},
-                                    ...{{/when}}
-                                </p>
+                        <div class="item__content-bottom">
+                            <p class="tags">Tags:
+                                {{#each tags}}{{#when @index "lt" 2}}{{#when @index "eq" 0}}{{else}},{{/when}} <a
+                                    href="/tags/{{slug}}">{{name}}</a>{{/when}}{{/each}}{{#when tags.length "gt" 1}},
+                                ...{{/when}}
+                            </p>
 
-                                <div> <a href="" class="mr-4">{{view}} <i class="fa fa-eye" aria-hidden="true"></i></a>
-                                    <a href="" class="">{{commentCount}} <i class="fa fa-commenting-o"
-                                            aria-hidden="true"></i></a>
-                                </div>
-
+                            <div> <a href="" class="mr-4">{{view}} <i class="fa fa-eye" aria-hidden="true"></i></a>
+                                <a href="" class="">{{commentCount}} <i class="fa fa-commenting-o"
+                                        aria-hidden="true"></i></a>
                             </div>
                         </div>
                     </div>
-                </a>
+                </div>
+
             </li>
             {{/each}}
 

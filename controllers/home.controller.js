@@ -321,9 +321,13 @@ module.exports.getPost = async (req, res) => {
   let { categorySlug, postSlug: slug } = req.params;
   let { user = {} } = req;
   try {
-    let post = await postModel
-      .findOne({ slug, "category.slug": categorySlug })
-      .lean({ virtuals: true });
+    let post = await postModel.findOne({ slug, "category.slug": categorySlug });
+
+    //inc view
+    post.view++;
+    await post.save();
+
+    post = post.toObject();
 
     let islikedUser = post && !!post.like.find((i) => i._id.equals(user._id));
 
