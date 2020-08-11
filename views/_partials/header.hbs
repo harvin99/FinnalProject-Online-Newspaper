@@ -7,7 +7,7 @@
             <li class="header__link"><i class="fa fa-linkedin" aria-hidden="true"></i></li>
         </ul>
         <p class="header__date">
-            Thứ 7, 6/6/2020
+            {{ today }}
         </p>
     </div>
     <a class="header__item d-flex justify-content-center">
@@ -21,14 +21,13 @@
 
         {{#if user}}
         <button class="border-0 bg-transparent text-uppercase sign_in">{{user.fullName}}</button>
+        <a href="/logout" class="border-0 bg-transparent text-uppercase sign_in">LOG OUT</a>
         {{else}}
         <button class="border-0 bg-transparent text-uppercase sign_in" data-toggle="modal" data-target="#signin_box"
             onclick="loadModal()">sign in</button>
         {{/if}}
-
     </div>
 </header>
-</div>
 <div class="container-fluid" id="nav">
     <nav class="navbar navbar-expand-lg navbar-light mt-3 bg-light">
         <a class="navbar-brand" href="#"></a>
@@ -39,7 +38,7 @@
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav d-flex justify-content-between w-100">
                 <li class="nav-item text-uppercase font-weight-bold text-center active">
-                    <a class="nav-link" href="#">trang chủ<span class="sr-only">(current)</span></a>
+                    <a class="nav-link" href="/">trang chủ<span class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item text-uppercase font-weight-bold text-center">
                     <a class="nav-link" href="#">xã hội</a>

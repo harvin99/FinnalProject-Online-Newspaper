@@ -9,7 +9,7 @@ const config = require("../config");
 const crypto = require("crypto");
 
 module.exports.getHome = (req, res) => {
-  res.render("home/home");
+  res.render("home/home", { today :  new Date().toDateString() });
 };
 module.exports.login = (req, res) => {
   res.locals.header = false;

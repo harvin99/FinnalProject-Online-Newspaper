@@ -197,6 +197,7 @@ module.exports.addUser_post = async (req, res) => {
     expirePremiumValue: expirePremium,
     assignedCategories,
     pseudonym,
+    password
   } = req.body;
   let { file: avatar, user } = req;
   avatar = avatar ? getFilePath(avatar) : avatarHolder;

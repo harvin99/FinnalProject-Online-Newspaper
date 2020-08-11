@@ -1,0 +1,75 @@
+{{#section "js"}}
+{{#if showMessageModal}}
+<script>$("#showMessageModal").modal('show')</script>
+{{/if}}
+{{/section}}
+<div class="top-title">
+    <h1> Dashboard </h1>
+</div>
+<div class="content">
+    <div class="content__header">
+        <h3>Summaries</h3>
+    </div>
+
+    <div class="content__data d-inline-flex">
+        <div class="card d-flex flex-row justify-content-around align-items-center mr-2">
+            <div class="card-body">
+                <h4 class="card-title">Category hiện có</h4>
+                <h2 class="card-text">{{categories}}</h2>
+                <a href="/admin/categories" class="card-link">Chi tiết >></a>
+            </div>
+            <i class="fa fa-bars fa-3x mr-3" aria-hidden="true"></i>
+        </div>
+        <div class="card d-flex flex-row justify-content-around align-items-center mr-2">
+            <div class="card-body">
+                <h4 class="card-title">Post hiện có</h4>
+                <h2 class="card-text">{{posts}}</h2>
+                <a href="/admin/posts" class="card-link">Chi tiết >></a>
+            </div>
+            <i class="fa fa-tasks fa-3x mr-3" aria-hidden="true"></i>
+
+            
+        </div>
+        <div class="card d-flex flex-row justify-content-around align-items-center mr-2">
+            <div class="card-body">
+                <h4 class="card-title">Tag hiện có</h4>
+                <h2 class="card-text">{{tags}}</h2>
+                <a href="/admin/tags" class="card-link">Chi tiết >></a>
+            </div>
+            <i class="fa fa-tags fa-3x mr-3" aria-hidden="true"></i>
+        </div>
+        <div class="card d-flex flex-row justify-content-around align-items-center mr-2">
+            <div class="card-body">
+                <h4 class="card-title">User hiện có</h4>
+                <h2 class="card-text">{{users}}</h2>
+                <a href="/admin/users" class="card-link">Chi tiết >></a>
+            </div>
+            <i class="fa fa-users fa-3x mr-3" aria-hidden="true"></i>
+        </div>
+    </div>
+</div>
+
+
+<!-- Modal -->
+{{#if showMessageModal}}
+<div class="modal fade" id="showMessageModal" tabindex="-1" role="dialog" aria-labelledby="modelTitleId"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            {{#with showMessageModal}}
+            <div class="modal-header">
+                <h5 class="modal-title">{{title}}</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="alert alert-{{type}}">{{message}}</div>
+            </div>
+            {{/with}}
+
+
+        </div>
+    </div>
+</div>
+{{/if}}

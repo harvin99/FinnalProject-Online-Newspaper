@@ -49,26 +49,26 @@
         <table class="table table-striped table-hover">
             <thead class="thead-dark">
                 <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">Username</th>
-                    <th scope="col">Email</th>
-                    <th scope="col">Fullname</th>
-                    <th scope="col">Role</th>
-                    <th scope="col">Action</th>
+                    <th scope="col" colspan="1">#</th>
+                    <th scope="col" colspan="1">Username</th>
+                    <th scope="col" colspan="2">Email</th>
+                    <th scope="col" colspan="2">Fullname</th>
+                    <th scope="col" colspan="1">Role</th>
+                    <th scope="col" colspan="2">Action</th>
                 </tr>
             </thead>
             <tbody>
                 {{#each users}}
                 <tr class="clickable-row" data-href="/admin/users/{{username}}">
-                    <th scope="row">{{calc @index "+" 1}}</th>
-                    <td>
+                    <td colspan="1" scope="row">{{calc @index "+" 1}}</td>
+                    <td colspan="1">
                         <div class="text-truncate">{{username}}
                         </div>
                     </td>
-                    <td>{{email}}</td>
-                    <td>{{fullName}}</td>
-                    <td>{{role}}</td>
-                    <td>
+                    <td colspan="2">{{email}}</td>
+                    <td colspan="2">{{fullName}}</td>
+                    <td colspan="1">{{role}}</td>
+                    <td colspan="2">
                         <div class="content__data-row__actions">
                             <a href="/admin/users/{{username}}/del" class="btn btn-danger"><i class="fa fa-trash"
                                     aria-hidden="true"></i></a>

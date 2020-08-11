@@ -1,3 +1,4 @@
+{{#if user}}
 <div class="logo"><img src="/images/logo-white.png" alt=""></div>
 <div class="user">
     {{#with user}}
@@ -32,9 +33,9 @@
             <a href="/admin/posts"><i class="fa fa-tasks" aria-hidden="true"></i> Posts</a>
         </li>
         <li class="features__menu-item {{#when activeFeature "eq" 5}}features__menu-item--active {{/when}}">
-            <a href="/admin/users"><i class="fa fa-user" aria-hidden="true"></i></i> Users</a>
+            <a href="/admin/users"><i class="fa fa-user" aria-hidden="true"></i> Users</a>
         </li>
-        {{/when}} <li class="features__menu-item {{#when activeFeature "eq" 0}}features__menu-item--active {{/when}}">
+        <li class="features__menu-item {{#when activeFeature "eq" 0}}features__menu-item--active {{/when}}">
             <a href="/logout"><i class="fa fa-sign-out" aria-hidden="true"></i> Logout</a>
         </li>
         {{/when}}
@@ -48,3 +49,4 @@
         {{/when}}
     </ul>
 </div>
+{{/if}}

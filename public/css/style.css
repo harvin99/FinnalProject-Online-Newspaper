@@ -575,5 +575,19 @@ body {
     grid-column: 1 / -1; } }
 .login-wrap {
   padding: 50px 20px 20px 20px; }
-
+header {
+  padding : 0 30px;
+}
+.logo img {
+  width : 250px;
+  height: 50px;
+  margin : 10px auto;
+}
+.features__menu-item a {
+  display : block;
+}
+.content__data {
+  display : flex;
+  
+}
 /*# sourceMappingURL=style.css.map */
