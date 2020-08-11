@@ -5,7 +5,83 @@ const saltRounds = 10;
 module.exports.getProfile = async (req, res) => {
   try {
     let { user } = req;
+    if (user.role === "user") {
+      const currentDate = moment(new Date());
+      const expirePremium = moment(user.expirePremium);
+      const timeRemaining = expirePremium.diff(currentDate);
+      if (timeRemaining < 0) {
+        const premium = {
+          isPremium: false,
+          timePremium: "Hết hạn.",
+        };
+        return res.render("home/profile", { user, activeFeature: 10, premium });
+      } else {
+        const premium = {
+          isPremium: true,
+          timePremium: expirePremium.format("DD-MM-YYYY HH:mm:ss"),
+        };
+        return res.render("home/profile", { user, activeFeature: 10, premium });
+      }
+    }
     res.render("home/profile", { user, activeFeature: 10 });
+  } catch (error) {
+    res.render("errors/404", { errors: error.toString(), layout: false });
+  }
+};
+
+module.exports.payPremium = (req, res) => {
+  try {
+    return res.render("home/payPremium");
+  } catch (error) {
+    res.render("errors/404", { errors: error.toString(), layout: false });
+  }
+};
+
+module.exports.payPremium_post = async (req, res) => {
+  try {
+    let { user } = req;
+    const { time } = req.params;
+    const timeRemaining = moment(user.expirePremium).diff(moment(new Date()));
+    if (timeRemaining < 0) {
+      let expirePremium = "";
+      switch (time) {
+        case "1w":
+          expirePremium = moment(new Date()).add(7, "d");
+          break;
+        case "2w":
+          expirePremium = moment(new Date()).add(14, "d");
+          break;
+        case "3w":
+          expirePremium = moment(new Date()).add(21, "d");
+          break;
+      }
+      await userModel.updateOne(
+        { _id: user._id },
+        {
+          expirePremium,
+        }
+      );
+    } else {
+      let expirePremium = "";
+      switch (time) {
+        case "1w":
+          expirePremium = moment(user.expirePremium).add(7, "d");
+          break;
+        case "2w":
+          expirePremium = moment(user.expirePremium).add(14, "d");
+          break;
+        case "3w":
+          expirePremium = moment(user.expirePremium).add(21, "d");
+          break;
+      }
+      await userModel.updateOne(
+        { _id: user._id },
+        {
+          expirePremium,
+        }
+      );
+    }
+    return res.redirect(`/${user.role}/profile`);
   } catch (error) {
     res.render("errors/404", { errors: error.toString(), layout: false });
   }
