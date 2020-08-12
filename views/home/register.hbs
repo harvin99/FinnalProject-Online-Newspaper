@@ -3,7 +3,7 @@
         <div class="buttonContainer d-flex justify-content-between align-items-center">
             <div class="buttonContainer d-flex justify-content-start align-items-center">
                 <a href="/login" class="text-uppercase font-weight-bold tab__item tab__item--gray">Login</a>
-                <a href="/register" class="text-uppercase font-weight-bold tab__item tab__item--active ">ReGisTer</a>
+                <a href="/register" class="text-uppercase font-weight-bold tab__item tab__item--active ">Register</a>
             </div>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
@@ -16,7 +16,7 @@
                 <div class="d-flex flex-column">
                     <input name="fullName" value="{{fullName}}"
                         class="{{#if formError.fullName}}is-invalid{{else}}is-valid{{/if}}" type="text"
-                        placeholder="fullName">
+                        placeholder="FullName">
                     {{#if formError.fullName}} <div class="invalid-feedback mb-3 text-left">
                         {{ formError.fullName}}
                     </div>{{/if}}
@@ -30,7 +30,7 @@
 
                     <input name="email" value="{{email}}"
                         class="{{#if formError.email}}is-invalid{{else}}is-valid{{/if}}" type="text"
-                        placeholder="email">
+                        placeholder="Email">
                     {{#if formError.email}} <div class="invalid-feedback mb-3 text-left">
                         {{formError.email}}
 
@@ -48,7 +48,7 @@
 
                     <input name="confirmPassword" value="{{confirmPassword}}"
                         class="{{#if formError.confirmPassword}}is-invalid{{else}}is-valid{{/if}}" type="password"
-                        placeholder="confirmPassword">
+                        placeholder="Confirm Password">
                     {{#if formError.confirmPassword}} <div class="invalid-feedback mb-3 text-left">
                         {{formError.confirmPassword}}
 
@@ -58,7 +58,7 @@
                 </div>
                 <div
                     class="d-flex align-items-center justify-content-start {{#if formError.confirmCode}}is-invalid{{else}}is-valid{{/if}}">
-                    <input name="confirmCode" type="text" placeholder="Confirm code">
+                    <input name="confirmCode" type="text" placeholder="Confirm Code">
                     <input id="codeInput" name="code" type="text" value="{{code}}" hidden>
                     <p id="codeView" class="view-code">{{code}}</p>
                     <p class="newcode" onclick="generateNewCode()">New Code</p>

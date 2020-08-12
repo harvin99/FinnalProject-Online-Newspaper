@@ -27,7 +27,7 @@
             <form action="">
                 <div class="input-group">
                     <input id="search-user-input" type="text" class="form-control" placeholder="Search this blog"
-                        {{#if q}} value="{{q}}" {{/if}}>
+                        {{#if q}} value="{{q}}" {{/if}}/>
                     <div class="input-group-append">
                         <button id="search-user-btn" class="btn btn-secondary" type="submit">
                             <i class="fa fa-search"></i>
@@ -70,7 +70,7 @@
                     <td colspan="1">{{role}}</td>
                     <td colspan="2">
                         <div class="content__data-row__actions">
-                            <a href="/admin/users/{{username}}/del" class="btn btn-danger"><i class="fa fa-trash"
+                            <a href="/admin/users/{{username}}/del" class="btn btn-danger mr-2"><i class="fa fa-trash"
                                     aria-hidden="true"></i></a>
                             <a href="/admin/users/edit/{{username}}" class="btn btn-info"><i class="fa fa-pencil"
                                     aria-hidden="true"></i></a>

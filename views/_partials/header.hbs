@@ -187,7 +187,7 @@
                     <div class="buttonContainer d-flex justify-content-start align-items-center">
                         <button class="text-uppercase font-weight-bold tab__item" onclick="showPanel(0)">Login</button>
                         <button class="text-uppercase font-weight-bold tab__item"
-                            onclick="showPanel(1)">ReGisTer</button>
+                            onclick="showPanel(1)">Register</button>
                     </div>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
@@ -195,7 +195,7 @@
                 </div>
                 <div class="tabPanel">
                     <h1 class="tabPanel__title text-uppercase mb-3">login</h1>
-                    <form action="login" method="POST" class="tabPanel__form">
+                    <form action="/login" method="POST" class="tabPanel__form">
                         <div class="d-flex flex-column">
 
                             <input name="username" type="text" placeholder="Username">
@@ -215,18 +215,26 @@
                 </div>
                 <div class="tabPanel">
                     <h1 class="tabPanel__title text-uppercase mb-3">register</h1>
-                    <form action="" class="tabPanel__form">
+                    <form action="/register" class="tabPanel__form">
                         <div class="d-flex flex-column">
                             <input type="text" placeholder="Full name">
                             <input type="text" placeholder="Username">
                             <input type="password" placeholder="Password">
                             <input type="password" placeholder="Confirm Password">
                         </div>
-                        <div class="d-flex align-items-center justify-content-start">
-                            <input type="text" placeholder="Confirm Password">
-                            <p class="view-code">ABC123</p>
-                            <p class="newcode">New Code</p>
+                        <div
+                            class="d-flex align-items-center justify-content-start {{#if formError.confirmCode}}is-invalid{{else}}is-valid{{/if}}">
+                            <input name="confirmCode" type="text" placeholder="Confirm Code">
+                            <input id="codeInput" name="code" type="text" value="{{code}}" hidden>
+                            <p id="codeView" class="view-code">{{code}}</p>
+                            <p class="newcode" onclick="generateNewCode()">New Code</p>
                         </div>
+                        {{#if formError.confirmCode}} <div class="invalid-feedback mb-3 text-left">
+                            {{formError.confirmCode}}
+                        
+                        </div>
+                        {{/if}}
+
                         <div class="mb-4 mt-4">
                             <button class="sumit" type="submit">Register</button>
                         </div>
@@ -242,3 +250,28 @@
         </div>
     </div>
 </div>
+
+{{#section "js"}}
+<script>
+    const getRegisterCode = async () => {
+        let code = await fetch(`/register/code`)
+        code = await code.json()
+        return code.code
+    }
+    const generateNewCode = async () => {
+        let code = await getRegisterCode()
+        let codeViewEl = $("#codeView")
+        let codeInputEl = $("#codeInput")
+        codeViewEl.text(code)
+        codeInputEl.val(code)
+    }
+    generateNewCode()
+    document.addEventListener("copy", function (evt) {
+        // Change the copied text if you want
+        evt.clipboardData.setData("text/plain", "no no no");
+
+        // Prevent the default copy action
+        evt.preventDefault();
+    }, false);
+</script>
+{{/section}}

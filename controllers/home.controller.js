@@ -32,9 +32,8 @@ module.exports.login_post = async (req, res) => {
       if (user) {
         let comparePasswordResult = await bcrypt.compare(
           password,
-          user.localPassword
+          user.password
         );
-
         if (comparePasswordResult) {
           let token = user.token();
 
@@ -75,7 +74,6 @@ module.exports.register_post = async (req, res) => {
     password,
     confirmPassword,
     fullName,
-
     confirmCode,
   } = req.body;
   try {
@@ -95,7 +93,6 @@ module.exports.register_post = async (req, res) => {
         password,
         confirmPassword,
         fullName,
-
         confirmCode,
       });
     } else {
@@ -107,7 +104,6 @@ module.exports.register_post = async (req, res) => {
         password,
         confirmPassword,
         fullName,
-
         confirmCode,
       });
     }

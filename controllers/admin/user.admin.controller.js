@@ -196,9 +196,10 @@ module.exports.addUser_post = async (req, res) => {
     isPremium,
     expirePremiumValue: expirePremium,
     assignedCategories,
-    pseudonym,
-    password
+    pseudonym
   } = req.body;
+  //Create user with default password 123456
+  let defaultPassword = "123456";
   let { file: avatar, user } = req;
   avatar = avatar ? getFilePath(avatar) : avatarHolder;
 
@@ -218,7 +219,9 @@ module.exports.addUser_post = async (req, res) => {
         categories: assignedCategories,
         pseudonym,
         role,
+        password : defaultPassword
       });
+      
       await newUser.save();
       req.session.addUser = {
         success: true,
@@ -226,7 +229,7 @@ module.exports.addUser_post = async (req, res) => {
       res.redirect("/admin/users");
     } else {
       formError = formError.formatWith(errorFormatter).mapped();
-      console.log(formError);
+      //console.log(formError);
       res.render(view, {
         formError,
         categories,

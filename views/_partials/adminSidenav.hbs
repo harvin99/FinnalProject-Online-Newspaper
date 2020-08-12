@@ -11,7 +11,7 @@
 </div>
 <div class="features">
     <ul class="features__menu">
-        {{#when user.role "eq" "writer" }}
+        {{#when user.role "eq" "Writer" }}
         <li class="features__menu-item {{#when activeFeature "eq" 1}}features__menu-item--active {{/when}}">
             <a href="/writer"><i class="fa fa-tasks" aria-hidden="true"></i> Posts</a>
         </li>
@@ -22,7 +22,7 @@
             <a href="/writer/profile"><i class="fa fa-tasks" aria-hidden="true"></i> Profile</a>
         </li>
         {{/when}}
-        {{#when user.role "eq" "admin" }}
+        {{#when user.role "eq" "Admin" }}
         <li class="features__menu-item {{#when activeFeature "eq" 1}}features__menu-item--active {{/when}}">
             <a href="/admin"><i class="fa fa-tachometer" aria-hidden="true"></i> Dashboard</a>
         </li>
@@ -38,13 +38,11 @@
         <li class="features__menu-item {{#when activeFeature "eq" 5}}features__menu-item--active {{/when}}">
             <a href="/admin/users"><i class="fa fa-user" aria-hidden="true"></i> Users</a>
         </li>
-        <li class="features__menu-item {{#when activeFeature "eq" 0}}features__menu-item--active {{/when}}">
-            <a href="/logout"><i class="fa fa-sign-out" aria-hidden="true"></i> Logout</a>
         <li class="features__menu-item {{#when activeFeature "eq" 10}}features__menu-item--active {{/when}}">
             <a href="/admin/profile"><i class="fa fa-tasks" aria-hidden="true"></i> Profile</a>
-        </li>
+        </li>   
         {{/when}}
-        {{#when user.role "eq" "editor" }}
+        {{#when user.role "eq" "Editor" }}
         <li class="features__menu-item {{#when activeFeature "eq" 1}}features__menu-item--active {{/when}}">
             <a href="/editor"><i class="fa fa-tasks" aria-hidden="true"></i> Management</a>
         </li>
@@ -52,7 +50,7 @@
             <a href="/editor/profile"><i class="fa fa-tasks" aria-hidden="true"></i> Profile</a>
         </li>
         {{/when}}
-        {{#when user.role "eq" "user" }}
+        {{#when user.role "eq" "Normal" }}
         <li class="features__menu-item {{#when activeFeature "eq" 10}}features__menu-item--active {{/when}}">
             <a href="/user/profile"><i class="fa fa-tasks" aria-hidden="true"></i> Profile</a>
         </li>
