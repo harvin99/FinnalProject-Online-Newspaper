@@ -5,7 +5,6 @@
         setQuery(e, "q", q, { deleteItems: ["page"] })
     })
     $("#select-post-status").change(function (e) {
-
         let status = $("#select-post-status").val()
         setQuery(e, "status", status, { deleteItems: ["page"] })
     })
@@ -27,7 +26,7 @@
             <form action="">
                 <div class="input-group">
                     <input id="search-post-input" type="text" class="form-control" placeholder="Search this blog"
-                        {{#if q}} value="{{q}}" {{/if}}>
+                        {{#if q}} value="{{q}}" {{/if}}/>
                     <div class="input-group-append">
                         <button id="search-post-btn" class="btn btn-secondary" type="submit">
                             <i class="fa fa-search"></i>
@@ -53,6 +52,7 @@
                     <th scope="col" colspan="10">Title</th>
                     <th scope="col" colspan="2">View</th>
                     <th scope="col" colspan="2">Comment</th>
+                    <th scope="col" colspan="2">Publish</th>
                     <th scope="col" colspan="2">Actions</th>
                 </tr>
             </thead>
@@ -67,9 +67,12 @@
                     </td>
                     <td colspan="2">{{view}}</td>
                     <td colspan="2">{{commentCount}}</td>
+                    <td colspan="2">{{#when status "eq" "Published"}}<a href="/admin/posts/{{slug}}/draft"
+                            class="btn btn-secondary">Draft it</a>{{else}}<a href="/admin/posts/{{slug}}/publish"
+                            class="btn btn-info">Publish it</a>{{/when}}</td>
                     <td colspan="2">
                         <div class="content__data-row__actions"><a href="/admin/posts/{{slug}}/del"
-                                class="btn btn-danger"><i class="fa fa-trash" aria-hidden="true"></i></a><button
+                                class="btn btn-danger mr-2"><i class="fa fa-trash" aria-hidden="true"></i></a><button
                                 class="btn btn-info"><i class="fa fa-external-link" aria-hidden="true"></i></button>
                         </div>
                     </td>

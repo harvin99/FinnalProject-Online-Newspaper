@@ -28,6 +28,8 @@ router.post(
   adminController.editPost_post
 );
 router.get("/:slug/del", needRole("admin"), adminController.delPost);
+router.get("/:slug/publish", needRole("admin"), adminController.publishPost);
+router.get("/:slug/draft", needRole("admin"), adminController.draftPost);
 router.post(
   "/upload-image",
   needRole("admin"),

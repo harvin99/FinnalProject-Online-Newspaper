@@ -99,7 +99,15 @@ userSchema.method({
 //static
 userSchema.statics = {
   allRoles,
-  async oAuthLogin({ service, id, email, fullName, avatar }) {
+  async oAuthLogin({
+    service,
+    id,
+    email,
+    fullName,
+    avatar,
+    username,
+    password,
+  }) {
     let user = await this.findOne({
       $or: [{ [`services.${service}`]: id }, { email }],
     });
@@ -111,6 +119,8 @@ userSchema.statics = {
         password: uuidv4(),
         fullName,
         avatar,
+        username,
+        password,
       });
     }
     let token = user.token();

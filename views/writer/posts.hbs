@@ -26,8 +26,8 @@
         <div class="content__search">
             <form action="">
                 <div class="input-group">
-                    <input id="search-post-input" type="text" class="form-control" placeholder="Search this blog"
-                        {{#if q}} value="{{q}}" {{/if}}>
+                    <input name="q" id="search-post-input" type="text" class="form-control"
+                        placeholder="Search this blog" {{#if q}} value="{{q}}" {{/if}}>
                     <div class="input-group-append">
                         <button id="search-post-btn" class="btn btn-secondary" type="submit">
                             <i class="fa fa-search"></i>

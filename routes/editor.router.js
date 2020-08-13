@@ -6,6 +6,7 @@ const {
   userController,
 } = require("../controllers");
 const { needRole } = require("./../middlewares/auth.mdw");
+
 router.get("/", needRole("editor"), editorController.getCategories);
 router.get("/profile", needRole("editor"), userController.getProfile);
 router.post(

@@ -5,7 +5,6 @@
         setQuery(e, "q", q, { deleteItems: ["page"] })
     })
 
-
 </script>
 {{#if showMessageModal}}
 <script>$("#showMessageModal").modal('show')</script>
@@ -23,7 +22,7 @@
             <form action="">
                 <div class="input-group">
                     <input id="search-post-input" type="text" class="form-control" placeholder="Search tags" {{#if q}}
-                        value="{{q}}" {{/if}}>
+                        value="{{q}}" {{/if}} />
                     <div class="input-group-append">
                         <button id="search-post-btn" class="btn btn-secondary" type="submit">
                             <i class="fa fa-search"></i>
@@ -41,7 +40,6 @@
                     <th scope="col" colspan="1">#</th>
                     <th scope="col" colspan="2">Name</th>
                     <th scope="col" colspan="2">Slug</th>
-
                     <th scope="col" colspan="2">Actions</th>
                 </tr>
             </thead>
@@ -57,7 +55,7 @@
 
                     <td colspan="2">
                         <div class="content__data-row__actions"><a href="/admin/tags/{{slug}}/del"
-                                class="btn btn-danger"><i class="fa fa-trash" aria-hidden="true"></i></a><button
+                                class="btn btn-danger mr-2"><i class="fa fa-trash" aria-hidden="true"></i></a><button
                                 class="btn btn-info"><i class="fa fa-external-link" aria-hidden="true"></i></button>
                         </div>
                     </td>
