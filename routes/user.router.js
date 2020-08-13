@@ -25,4 +25,10 @@ router.post(
   needRole("Normal"),
   userController.editPasswordProfile
 );
+router.get("/paypremium", needRole("user"), userController.payPremium);
+router.post(
+  "/paypremium/:time",
+  needRole("user"),
+  userController.payPremium_post
+);
 module.exports = router;

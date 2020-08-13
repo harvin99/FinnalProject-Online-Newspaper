@@ -17,6 +17,16 @@
     .modal.fade.error #mess-error {
         display: block;
     }
+
+    a {
+        outline: none;
+        text-decoration: none;
+        color: black;
+    }
+
+    a:hover {
+        color: rgb(60, 54, 54);
+    }
 </style>
 {{/section}}
 <div class="w-100" style="background-color: #dddddd;">
@@ -51,6 +61,14 @@
                             <i class="fa fa-pencil" aria-hidden="true"></i>
                         </button>
                     </div>
+                    {{#when user.role "eq" "user"}}<div>
+                        <label><span class="font-weight-bold">Premium:
+                            </span>
+                            <span
+                                class="{{#when premium.isPremium "eq" false}}text-danger{{/when}}">{{premium.timePremium}}</span>
+                        </label>
+                        <a href="/{{user.role}}/paypremium"><i class="fa fa-cc-paypal" aria-hidden="true"></i></a>
+                    </div>{{/when}}
                     <button style="width: 200px; border: none; outline: none" type="button" data-toggle="modal"
                         data-target="#modalPassword">Change Password
                         <i class="fa fa-pencil" aria-hidden="true"></i></button>
