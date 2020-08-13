@@ -1,0 +1,64 @@
+<div class="container-fluid">
+    <div class="container-fluid mt-4 banner">
+        <h1 class="text-warning text-uppercase font-weight-bold">{{category.name}}</h1>
+        <div class="posts">
+
+            <div class="posts__search">
+                <form action="/search">
+                    <div class="input-group">
+                        <input name="category" type="text" class="form-control" {{#if category}}
+                            value="{{category.slug}}" {{/if}} hidden>
+                        <input name="q" id="search-post-input" type="text" class="form-control"
+                            placeholder="Search post" {{#if q}} value="{{q}}" {{/if}} required>
+                        <div class="input-group-append">
+                            <button id="search-post-btn" class="btn btn-secondary" type="submit">
+                                <i class="fa fa-search"></i>
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+
+            <ul class="posts__list">
+                {{#each posts}}
+                <li class="posts__item"><a href="/categories/{{category.slug}}/{{slug}}">
+                        <div class="post">
+                            <div class="post__avatar"><img src="{{avatar}}" alt="{{title}}"></div>
+                            <div class="post__info">
+                                <div class="post__meta__top">
+                                    <a href="/categories/{{category.slug}}"
+                                        class="badge badge-secondary">{{category.name}}</a> -
+                                    {{date timePost "MMM D, YYYYY"}}{{#if isPremium}} - <span
+                                        class="badge badge-warning">Premium</span>{{/if}}
+                                </div><a href="/categories/{{category.slug}}/{{slug}}">
+                                    <h3 class="post__title">{{title}}</h3>
+                                    <p class="post__abstract">{{abstract}}</p>
+                                </a>
+                                <div class="post__meta__bottom">
+
+
+                                    <p class="tags">Tags:
+                                        {{#each tags}}{{#when @index "lt" 2}}{{#when @index "eq" 0}}{{else}},{{/when}}
+                                        <a
+                                            href="/tags/{{slug}}">{{name}}</a>{{/when}}{{/each}}{{#when tags.length "gt" 1}},
+                                        ...{{/when}}
+                                    </p>
+
+                                    <div> <a href="" class="mr-4">{{view}} <i class="fa fa-eye"
+                                                aria-hidden="true"></i></a>
+                                        <a href="" class="">{{commentCount}} <i class="fa fa-commenting-o"
+                                                aria-hidden="true"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </li>
+                {{/each}}
+            </ul>
+            {{>pagination}}
+        </div>
+    </div>
+
+</div>

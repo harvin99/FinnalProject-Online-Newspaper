@@ -5,5 +5,6 @@ module.exports = {
   authentication: {
     saltRounds: 8,
     jwtPrivateKey: "ahihi",
+    defaultPassword: "123456",
   },
 };

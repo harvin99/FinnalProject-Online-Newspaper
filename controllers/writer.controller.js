@@ -196,7 +196,7 @@ module.exports.addPost_post = async (req, res) => {
               slug,
             });
             await curTag.save();
-            inputTags[inputTagsIndex] = slug;
+            inputTags[inputTagIndex] = slug;
           }
           return curTag;
         })
@@ -290,7 +290,7 @@ module.exports.editPost_post = async (req, res) => {
               slug,
             });
             await curTag.save();
-            inputTags[inputTagsIndex] = slug;
+            inputTags[inputTagIndex] = slug;
           }
           return curTag;
         })

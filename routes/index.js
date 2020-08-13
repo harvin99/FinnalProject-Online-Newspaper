@@ -12,7 +12,6 @@ const useLayout = (layout) => (req, res, next) => {
   req.app.locals.layout = layout; // set your layout here
   next(); // pass control to the next handler
 };
-
 router.use("/", useLayout("main"), homeRouter);
 router.use("/writer", useLayout("admin"), writerRouter);
 router.use("/admin", useLayout("admin"), adminRouter);

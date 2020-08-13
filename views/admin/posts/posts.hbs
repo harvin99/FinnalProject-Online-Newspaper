@@ -52,6 +52,7 @@
                     <th scope="col" colspan="10">Title</th>
                     <th scope="col" colspan="2">View</th>
                     <th scope="col" colspan="2">Comment</th>
+                    <th scope="col" colspan="2">Publish</th>
                     <th scope="col" colspan="2">Actions</th>
                 </tr>
             </thead>
@@ -66,6 +67,9 @@
                     </td>
                     <td colspan="2">{{view}}</td>
                     <td colspan="2">{{commentCount}}</td>
+                    <td colspan="2">{{#when status "eq" "Published"}}<a href="/admin/posts/{{slug}}/draft"
+                            class="btn btn-secondary">Draft it</a>{{else}}<a href="/admin/posts/{{slug}}/publish"
+                            class="btn btn-info">Publish it</a>{{/when}}</td>
                     <td colspan="2">
                         <div class="content__data-row__actions"><a href="/admin/posts/{{slug}}/del"
                                 class="btn btn-danger mr-2"><i class="fa fa-trash" aria-hidden="true"></i></a><button

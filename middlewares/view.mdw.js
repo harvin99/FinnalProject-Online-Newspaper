@@ -21,7 +21,7 @@ module.exports = function (app) {
           return JSON.stringify(v);
         },
         date: function (date, format) {
-          console.log("run", date, format);
+         
           return date instanceof Date ? moment(date).format(format) : null;
         },
         when: function (operand_1, operator, operand_2, options) {

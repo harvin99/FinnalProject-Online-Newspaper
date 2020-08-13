@@ -1,0 +1,237 @@
+<div class="row container-fluid pr-0">
+    <div class="col-xl-9 pr-0 mt-4">
+        {{#with post}}
+        <div>
+            <img src="{{avatar}}" style="height: 70%; width: 100%;" class="img-fluid" alt="Responsive image">
+            <p class="text-warning font-weight-bold mt-4 mb-2">{{date timePost "dddd, M/D/YYYY"}}</p>
+            <h1>{{title}}</h1>
+            <div class="d-flex justify-content-start align-items-center text-secondary">
+                <div class="mr-4">
+                    <i class="fa fa-eye text-info" aria-hidden="true"></i>
+                    <span>{{view}}</span>
+                </div>
+                <div class="mr-4 ml-2">
+                    <i class="fa fa-commenting-o text-success" aria-hidden="true"></i>
+                    <span>{{comments.length}}</span>
+                </div>
+
+                <div class="mr-4 ml-2">
+                    <a href="./{{slug}}/like">
+                        <i class="fa fa-thumbs-up {{#if ../islikedUser}}text-primary{{else}}text-secondary{{/if}}"
+                            aria-hidden="true"></i>
+                        <span>{{like.length}}</span></a>
+                </div>
+            </div>
+            <div class="post__content">
+                {{#if isPremium}}
+
+                {{#if user.isPremium}}
+                {{{content}}}
+                {{else}}
+                <div class="post__is-premium">
+                    <p class="post__abstract">
+                        {{abstract}}
+                    </p>
+                    <div class="message">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Officia suscipit
+                        maxime distinctio quasi nesciunt quo blanditiis ipsam enim explicabo quisquam delectus eius
+                        obcaecati maiores expedita eos fuga laboriosam, a veniam!</div>
+                </div>
+                {{/if}}
+
+                {{else}}
+                {{{content}}}
+                {{/if}}
+            </div>
+        </div>
+        <div class="d-flex justify-content-between align-items-center bg--gray p-2">
+            <div class="d-flex justify-content-start align-items-center">
+                <p class="mr-2 mb-0 text-warning font-weight-bold">Posted in:</p>
+                <ul class="d-flex justify-content-start align-items-center mb-0 tag__list">
+                    {{#each tags}}
+                    <li class="mr-2 tag__item"><a href="/tags/{{slug}}">{{name}}</a></li>
+                    {{/each}}
+
+                </ul>
+            </div>
+            <div>
+                <ul class="header__links d-flex mb-0">
+                    <li class="header__link"><i class="fa fa-facebook" aria-hidden="true"></i></li>
+                    <li class="header__link"><i class="fa fa-google-plus" aria-hidden="true"></i></li>
+                    <li class="header__link"><i class="fa fa-twitter" aria-hidden="true"></i></li>
+                    <li class="header__link"><i class="fa fa-linkedin" aria-hidden="true"></i></li>
+                </ul>
+            </div>
+        </div>
+        {{/with}}
+        {{#with relativePosts.[0]}}
+        <div class="p-4 bg-dark mt-3 text-center">
+            <h5 class="text-white text-uppercase">{{title}}</h5>
+            <a class="text-muted font-weight-bold" href="/categories/{{category.slug}}/{{slug}}">NEXT POST <i
+                    class="fa fa-chevron-right" aria-hidden="true"></i></a>
+        </div>
+        {{/with}}
+
+        <div class="mt-4">
+            <h5 class="text-uppercase font-weight-bold">Comment</h5>
+            <ul>
+
+                {{#each post.comments}}
+                <li class="mt-2 p-2">
+                    <div class="d-flex align-items-center border p-2">
+                        <img class="rounded-circle"
+                            style="width: 100px; height: 100px; object-fit: cover; margin: 0 auto;"
+                            src="{{#if avatar}}{{avatar}}{{else}}/images/avatar.png{{/if}}" alt="">
+                        <div class="ml-4 flex-fill">
+                            <div class="d-flex align-items-center justify-content-between">
+                                <div class="d-flex align-items-baseline mb-2">
+                                    <h3 class="text-uppercase font-weight-bold text-dark mb-0">{{fullName}}</h3>
+                                    <a href=""
+                                        class="font-weight-bold text-warning text-uppercase ml-5">{{date createdAt "MMMM D, YYYY [at] HH:MM"}}</a>
+                                </div>
+                                <button class="text-uppercase text-warning font-weight-bold border-0"
+                                    style="background-color: transparent;" data-toggle="collapse"
+                                    data-target="#rely_{{@index}}">Reply</button>
+                            </div>
+                            <p class="text-muted">{{content}}</p>
+                        </div>
+
+                    </div>
+                    <div class="rely-comment">
+                        <div id="rely_{{@index}}" class="collapse rely-comment__form">
+                            <form action="./{{../post.slug}}/comment" class="form" method="POST">
+                                <div class="d-flex flex-column">
+                                    <input name="relyCommentId" value="{{_id}}" hidden type="text">
+                                    <input name="fullName" type="text" placeholder="NAME*:">
+                                    <input name="email" type="text" placeholder="EMAIL*:">
+                                    <textarea name="content" type="text" placeholder="YOUR COMMENT:"
+                                        rows="5"></textarea>
+                                </div>
+                                <div class="d-flex flex-column mb-4">
+                                    <P class="text-muted">Your email address will not be published. Required fields are
+                                        marked*
+                                    </P>
+                                    <div>
+                                        <button class="sumit" type="submit">POST COMMENT</button>
+                                    </div>
+
+                                </div>
+                            </form>
+                        </div>
+                        <ul class="rely-comment__list border-left ">
+
+                            {{#each relyComments}}
+                            <li class=" border-bottom">
+                                <div class="d-flex align-items-center">
+                                    <img class="rounded-circle"
+                                        style="width: 100px; height: 100px; object-fit: cover; margin: 0 auto;"
+                                        src="{{#if avatar}}{{avatar}}{{else}}/images/avatar.png{{/if}}" alt="">
+                                    <div class="ml-4 flex-fill">
+                                        <div class="d-flex align-items-center justify-content-between">
+                                            <div class="d-flex align-items-baseline mb-2">
+                                                <h3 class="text-uppercase font-weight-bold text-dark mb-0">{{fullName}}
+                                                </h3>
+                                                <a href=""
+                                                    class="font-weight-bold text-warning text-uppercase ml-5">{{date createdAt "MMMM D, YYYY [at] HH:MM"}}</a>
+                                            </div>
+
+                                        </div>
+                                        <p class="text-muted">{{content}}</p>
+                                    </div>
+
+                                </div>
+
+                            </li>
+                            {{/each}}
+                        </ul>
+
+                    </div>
+
+                </li>
+                {{/each}}
+            </ul>
+        </div>
+        <div class="mt-4">
+            <h5 class="text-uppercase font-weight-bold">Leave A Comment</h5>
+            <form action="./{{post.slug}}/comment" class="form" method="POST">
+                <div class="d-flex flex-column">
+                    <input name="fullName" type="text" placeholder="NAME*:">
+                    <input name="email" type="text" placeholder="EMAIL*:">
+                    <textarea name="content" type="text" placeholder="YOUR COMMENT:" rows="5"></textarea>
+                </div>
+                <div class="d-flex flex-column mb-4">
+                    <P class="text-muted">Your email address will not be published. Required fields are marked*
+                    </P>
+                    <div>
+                        <button class="sumit" type="submit">POST COMMENT</button>
+                    </div>
+
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="col-xl-3 pr-0 mt-4">
+        {{#with post.author}}
+        <div class="bg-img author">
+            <div class="bg-img author__bg"
+                style="background-image: url(https://images.pexels.com/photos/4121872/pexels-photo-4121872.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940);">
+            </div>
+            <div class="p-4 d-flex flex-column bg-rbga author__content">
+                <img class="rounded-circle mt-4" style="width: 150px; height: 150px; object-fit: cover; margin: 0 auto;"
+                    src="{{#if avatar}}{{avatar}}{{else}}/images/avatar.png{{/if}}" alt="">
+                <a href="" class="font-weight-bold text-warning text-uppercase mt-4 mb-3">Author news</a>
+                <h2 class="text-uppercase font-weight-bold text-white">{{fullName}}</h2>
+                <p class="mb-4 text-white-50">{{role}}</p>
+                <ul class="header__links d-flex mb-4">
+                    <li class="header__link"><i class="fa fa-facebook" aria-hidden="true"></i></li>
+                    <li class="header__link"><i class="fa fa-google-plus" aria-hidden="true"></i></li>
+                    <li class="header__link"><i class="fa fa-twitter" aria-hidden="true"></i></li>
+                    <li class="header__link"><i class="fa fa-linkedin" aria-hidden="true"></i></li>
+                </ul>
+            </div>
+        </div>
+        {{/with}}
+        <div class="tabFilter">
+
+            <div class="tabContent">
+                <div class="pl-3 pr-3 pb-3">
+                    <h4 class="text-center font-weight-bold border-after">RELATIVE</h4>
+                    <ul class="mt-4">
+
+                        {{#each relativePosts}}
+                        <li class="pb-3 mt-2">
+                            <a href="./{{slug}}"
+                                class="d-flex align-items-center text-uppercase font-weight-bold text-dark">
+                                <span class="text-gray" style="font-size: 35px;">{{calc @index "+" 1}}.</span>
+                                <span>{{title}}</span>
+                            </a>
+                        </li>
+                        {{/each}}
+
+                    </ul>
+                </div>
+                <div class="pl-3 pr-3 pb-3">
+                    <h4 class="text-center font-weight-bold border-after">CATEGORIES</h4>
+                    <ul>
+                        {{#each allCategories}}
+                        <li class="pb-1 mt-3">
+                            <a href="/categories/{{slug}}">
+                                <h5 class="text-uppercase font-weight-bold text-dark">{{name}}</h5>
+                            </a>
+                        </li>
+                        {{/each}}
+
+                    </ul>
+                </div>
+                {{!-- <div class="pl-3 pr-3 pb-3 text-center">
+                    <h4 class=" font-weight-bold border-after">JOIN</h4>
+                    <p class="text-muted">Lorem, ipsum dolor sit amet consectetur adipisicing elit.</p>
+                    <div class="pl-4 pr-4">
+                        <button class="w-100 mb-3 p-2 border-0 text-secondary">ENTER YOUR EMAIL....</button>
+                        <button class="w-100 p-2 border-0 bg-warning text-white font-weight-bold">SUBSCRIBE</button>
+                    </div>
+                </div> --}}
+            </div>
+        </div>
+    </div>
+</div>

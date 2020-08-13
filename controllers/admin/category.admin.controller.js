@@ -134,6 +134,7 @@ module.exports.addCategory_post = async (req, res) => {
         slug: customSlug || jsHelper.generateSlug(name),
         subCategories,
       });
+      console.log(newCategory);
       await newCategory.save();
       req.session.addCategory = {
         success: true,

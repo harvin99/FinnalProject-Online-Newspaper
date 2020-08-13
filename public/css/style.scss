@@ -1,8 +1,20 @@
 @import "admin";
 @import "user";
+@import "home";
 body {
   font-family: "Roboto", sans-serif;
+  a {
+    color: unset;
+
+    text-decoration: none;
+    &:hover {
+      color: unset;
+      text-decoration: none;
+      opacity: 0.7;
+    }
+  }
 }
+
 .bg--gray {
   background-color: #dddddd;
 }
