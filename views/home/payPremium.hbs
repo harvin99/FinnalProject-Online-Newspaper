@@ -1,0 +1,88 @@
+{{#section 'css'}}
+<style>
+    .my-card {
+        padding: 1rem 4rem;
+        color: #fff;
+        text-align: center;
+    }
+
+    .my-card h1 {
+        letter-spacing: 2px;
+    }
+
+    .buy {
+        text-transform: uppercase;
+        padding: .5rem 2rem;
+        outline: none;
+        border: none;
+        color: white;
+    }
+
+    .buy-a {
+        background-color: rgb(0, 202, 164);
+    }
+
+    .buy-a:hover {
+        opacity: 0.5;
+    }
+
+    .buy-b {
+        background-color: rgb(255, 186, 57);
+    }
+
+    .buy-b:hover {
+        opacity: 0.5;
+    }
+
+    .buy-c {
+        background-color: rgb(255, 109, 109);
+    }
+
+    .buy-c:hover {
+        opacity: 0.5;
+    }
+</style>
+{{/section}}
+<div class="w-100" style="background-color: #dddddd;">
+    <div class="bg-white w-100" style="height: 80px;"></div>
+    <div class="m-3 p-3 bg-white" style="height: 100vh;">
+        <div class="container mt-4">
+            <h2 class="text-center mb-4">Pay Premium</h2>
+            <form method="POST">
+                <div class="d-flex justify-content-around">
+                    <div class="shadow-lg">
+                        <div style="background-color:rgb(0,202,164);" class="my-card">
+                            <h5 class="text-uppercase font-weight-light">basic</h5>
+                            <h1>$199</h1>
+                            <h6 class="font-weight-light">1 week</h6>
+                        </div>
+                        <div class="text-center p-4">
+                            <button type="submit" formaction="/user/paypremium/1w" class="buy buy-a">buy now</button>
+                        </div>
+                    </div>
+                    <div class="shadow-lg">
+                        <div style="background-color:rgb(255,186,57);" class="my-card">
+                            <h5 class="text-uppercase font-weight-light">standart</h5>
+                            <h1>$299</h1>
+                            <h6 class="font-weight-light">2 week</h6>
+                        </div>
+                        <div class="text-center p-4">
+                            <button type="submit" formaction="/user/paypremium/2w" class="buy buy-b">buy now</button>
+                        </div>
+                    </div>
+                    <div class="shadow-lg">
+                        <div style="background-color:rgb(255,109,109);" class="my-card">
+                            <h5 class="text-uppercase font-weight-light">premium</h5>
+                            <h1>$399</h1>
+                            <h6 class="font-weight-light">3 week</h6>
+                        </div>
+                        <div class="text-center p-4">
+                            <button type="submit" formaction="/user/paypremium/3w" class="buy buy-c">buy now</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>
