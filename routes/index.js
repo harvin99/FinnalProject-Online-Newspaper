@@ -17,6 +17,6 @@ router.use("/", useLayout("main"), homeRouter);
 router.use("/writer", useLayout("admin"), writerRouter);
 router.use("/admin", useLayout("admin"), adminRouter);
 router.use("/editor", useLayout("admin"), editorRouter);
-router.use("/user", useLayout("admin"), userRouter);
+router.use("/normal", useLayout("admin"), userRouter);
 router.use("/form", useLayout("form"), formRouter);
 module.exports = router;

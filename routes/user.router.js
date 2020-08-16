@@ -2,33 +2,33 @@ const express = require("express");
 const router = express.Router();
 const { uploadController, userController } = require("../controllers");
 const { needRole } = require("./../middlewares/auth.mdw");
-router.get("/", needRole("user"), userController.getProfile);
-router.get("/profile", needRole("user"), userController.getProfile);
+router.get("/", needRole("normal"), userController.getProfile);
+router.get("/profile", needRole("normal"), userController.getProfile);
 router.post(
   "/profile/editname",
-  needRole("user"),
+  needRole("normal"),
   userController.editNameProfile
 );
 router.post(
   "/profile/editdob",
-  needRole("user"),
+  needRole("normal"),
   userController.editDoBProfile
 );
 router.post(
   "/profile/editavatar",
-  needRole("user"),
+  needRole("normal"),
   uploadController.uploadImage.single("avatar"),
   userController.editNameAvatar
 );
 router.post(
   "/profile/editpassword",
-  needRole("user"),
+  needRole("normal"),
   userController.editPasswordProfile
 );
-router.get("/paypremium", needRole("user"), userController.payPremium);
+router.get("/paypremium", needRole("normal"), userController.payPremium);
 router.post(
   "/paypremium/:time",
-  needRole("user"),
+  needRole("normal"),
   userController.payPremium_post
 );
 module.exports = router;
