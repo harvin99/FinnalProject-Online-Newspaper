@@ -64,7 +64,7 @@ module.exports.denialPost_post = async (req, res) => {
   try {
     let { reason } = req.body;
     let { slug } = req.params;
-    let status = "Từ chối";
+    let status = "Refused";
     await postModel.updateOne(
       { slug: slug },
       {
@@ -96,6 +96,11 @@ module.exports.acceptPost = async (req, res) => {
       })
       .lean();
     tags = await tagModel.find().lean();
+    for (i = 0; i < tags.length; i++) {
+      if (post.tags.indexOf(tags[i].slug) >= 0) {
+        tags[i].isSelected = true;
+      }
+    }
     res.render("editor/pass", { post, category, tags });
   } catch (error) {
     res.render("errors/404", { errors: error.toString(), layout: false });
@@ -107,22 +112,52 @@ module.exports.acceptPost_post = async (req, res) => {
     let { slug } = req.params;
     let { subCategory, tags, time } = req.body;
     const category = await categoryModel.findSubCategory(subCategory);
-    console.log(category);
-    let status = "Đã duyệt";
+    let status = "Approved";
     let timePost = moment(time).format("YYYY-MM-DD HH:mm:ss");
-    console.log(timePost);
-    if (slug) {
-      await postModel.updateOne(
-        { slug: slug },
-        {
-          category,
-          tags,
-          timePost,
-          status,
+    const timeRemaining = moment(timePost).diff(moment(new Date()));
+    if (timeRemaining > 0) {
+      if (slug) {
+        await postModel.updateOne(
+          { slug: slug },
+          {
+            category,
+            tags,
+            timePost,
+            status,
+          }
+        );
+      }
+      setTimeout(async function () {
+        const status = "Publised";
+        await postModel.updateOne(
+          { slug: slug },
+          {
+            status,
+          }
+        );
+      }, timeRemaining);
+      return res.redirect("/editor");
+    } else {
+      const post = await postModel
+        .findOne({
+          slug: slug,
+        })
+        .lean();
+      const category = await categoryModel
+        .findOne({
+          "subCategories.slug": post.category.slug,
+        })
+        .lean();
+      let tags = await tagModel.find().lean();
+      for (i = 0; i < tags.length; i++) {
+        if (post.tags.indexOf(tags[i].slug) >= 0) {
+          tags[i].isSelected = true;
         }
-      );
+      }
+      console.log(tags);
+      const messError = "Thời gian xuất bản không hợp lệ.";
+      res.render("editor/pass", { post, category, tags, messError });
     }
-    res.redirect("/editor");
   } catch (error) {
     res.render("errors/404", { errors: error.toString(), layout: false });
   }
@@ -131,7 +166,7 @@ module.exports.acceptPost_post = async (req, res) => {
 module.exports.cancelPost = async (req, res) => {
   try {
     let { slug } = req.params;
-    let status = "Chờ duyệt";
+    let status = "Not Approve";
     if (slug) {
       await postModel.updateOne(
         { slug: slug },

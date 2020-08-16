@@ -1,7 +1,7 @@
 {{#section 'css'}}
 <style>
-    .submit{
-        background-color: rgb(3,144,217);
+    .submit {
+        background-color: rgb(3, 144, 217);
         color: #ffff;
         border: none;
         padding: 5px 20px;
@@ -9,10 +9,12 @@
         outline: none;
         transition: background-color .25s linear;
     }
-    .submit:hover{
-        background-color: rgb(78,162,206);
+
+    .submit:hover {
+        background-color: rgb(78, 162, 206);
     }
-    .submit:focus{
+
+    .submit:focus {
         outline: 0;
     }
 </style>
@@ -22,7 +24,7 @@
     <div class="m-3 p-3 bg-white font-weight-bold" style="height: 100vh;">
         <h1>Response</h1>
         <p>Name Post: {{post.title}}</p>
-        <p>Writer: {{post.author}}</p>
+        <p>Writer: {{post.author.username}}</p>
         <p>Status: Từ chối</p>
         <form method="POST">
             <div class="form-group d-flex align-items-center">

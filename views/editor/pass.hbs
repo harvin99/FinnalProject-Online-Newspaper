@@ -32,7 +32,7 @@
     <div class="m-3 p-3 bg-white font-weight-bold" style="height: 100vh;">
         <h1>Response</h1>
         <p>Name Post: {{post.title}}</p>
-        <p>Writer: {{post.author}}</p>
+        <p>Writer: {{post.author.username}}</p>
         <p>Status: Duyệt</p>
         <form method="POST">
             <div class="form-group d-flex align-items-center">
@@ -49,14 +49,16 @@
                 <select name="tags" class="form-control ml-2 selectpicker" id="tagControlSelect" style="width: 300px;"
                     multiple data-live-search="true">
                     {{#each tags}}
-                    <option value="{{slug}}">#{{name}}</option>
+                    <option value="{{slug}}" {{#when isSelected "eq" true}}selected{{/when}}>#{{name}}</option>
                     {{/each}}
                 </select>
             </div>
-            <div class="form-group d-flex align-items-center">
-                <label for="exampleInputDateTime">Reason:</label>
-                <input name="time" type="datetime-local" class="form-control ml-2" id="exampleInputDateTime">
+            <div class="form-group d-flex align-items-center mb-0">
+                <label for="exampleInputDateTime" class="m-0">Time Post:</label>
+                <input style="max-width: 500px;" name="time" type="datetime-local" class="form-control ml-2"
+                    id="exampleInputDateTime">
             </div>
+            <small id="emailHelp" class="form-text text-danger mb-2">{{messError}}</small>
             <button type="submit" class="submit">Save</button>
         </form>
     </div>
