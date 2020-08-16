@@ -24,11 +24,19 @@ module.exports.getPosts = async (req, res) => {
   try {
     let { slug } = req.params;
     let posts;
+    const category = await categoryModel.findOne({
+      slug: slug,
+    });
+    let arrslug = [];
+    for (i = 0; i < category.subCategories.length; i++) {
+      arrslug.push(category.subCategories[i].slug);
+    }
     posts = await postModel
       .find({
-        "category.slug": slug,
+        "category.slug": arrslug,
       })
       .lean();
+    console.log(posts);
     res.render("editor/posts", { posts });
   } catch (error) {
     res.render("errors/404", { errors: error.toString(), layout: false });
@@ -82,8 +90,13 @@ module.exports.acceptPost = async (req, res) => {
         })
         .lean();
     }
+    const category = await categoryModel
+      .findOne({
+        "subCategories.slug": post.category.slug,
+      })
+      .lean();
     tags = await tagModel.find().lean();
-    res.render("editor/pass", { post, tags });
+    res.render("editor/pass", { post, category, tags });
   } catch (error) {
     res.render("errors/404", { errors: error.toString(), layout: false });
   }
@@ -93,6 +106,8 @@ module.exports.acceptPost_post = async (req, res) => {
   try {
     let { slug } = req.params;
     let { subCategory, tags, time } = req.body;
+    const category = await categoryModel.findSubCategory(subCategory);
+    console.log(category);
     let status = "Đã duyệt";
     let timePost = moment(time).format("YYYY-MM-DD HH:mm:ss");
     console.log(timePost);
@@ -100,7 +115,7 @@ module.exports.acceptPost_post = async (req, res) => {
       await postModel.updateOne(
         { slug: slug },
         {
-          subCategory,
+          category,
           tags,
           timePost,
           status,
@@ -125,7 +140,7 @@ module.exports.cancelPost = async (req, res) => {
         }
       );
     }
-    res.render("editor/");
+    res.redirect("/editor");
   } catch (error) {
     res.render("errors/404", { errors: error.toString(), layout: false });
   }
