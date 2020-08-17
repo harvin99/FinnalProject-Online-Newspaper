@@ -41,7 +41,6 @@ module.exports.getHome = async (req, res) => {
       .limit(10)
       .sort("-timePost")
       .lean({ virtuals: true });
-
     //top
     let top10Categories = await postModel.aggregate([
       {
@@ -57,7 +56,6 @@ module.exports.getHome = async (req, res) => {
           totalView: -1,
         },
       },
-
       { $limit: 10 },
     ]);
     top10Categories = top10Categories.map((i) => i._id);
