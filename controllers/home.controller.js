@@ -69,10 +69,12 @@ module.exports.getHome = async (req, res) => {
           .lean({ virtuals: true });
       })
     );
-      
-    let topCategoryPosts_sorted = topCategoryPosts.filter(post => post).sort((a, b) => {
-      return b.view - a.view;
-    });
+
+    let topCategoryPosts_sorted = topCategoryPosts
+      .filter((post) => post)
+      .sort((a, b) => {
+        return b.view - a.view;
+      });
     res.render(view, {
       featuredPosts,
       mostViewedPosts,
@@ -106,6 +108,7 @@ module.exports.getTag = async (req, res) => {
         "tags.slug": slug,
       })) || 1;
     let pageCount = Math.ceil(postCount / perPage);
+    posts = posts.sort((a, b) => b.isPremium - a.isPremium);
     res.render(view, {
       posts,
       tag,
@@ -167,6 +170,8 @@ module.exports.getCategory = async (req, res) => {
         "category.slug": slug,
       })) || 1;
     let pageCount = Math.ceil(postCount / perPage);
+    posts = posts.sort((a, b) => b.isPremium - a.isPremium);
+    console.log("log");
     res.render(view, {
       posts,
       category,
@@ -294,6 +299,7 @@ module.exports.searchPosts = async (req, res) => {
       .lean({ virtuals: true });
     let postCount = (await postModel.countDocuments(where)) || 0;
     let pageCount = Math.ceil(postCount / (perPage || 1));
+    posts = posts.sort((a, b) => b.isPremium - a.isPremium);
     res.render(view, {
       posts,
       category: categorySlug,
