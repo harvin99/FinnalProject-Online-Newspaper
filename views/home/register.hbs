@@ -93,6 +93,7 @@
 </div>
 {{#section "js"}}
 <script>
+    
     const getRegisterCode = async () => {
         let code = await fetch(`/register/code`)
         code = await code.json()
