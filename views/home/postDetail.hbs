@@ -25,16 +25,19 @@
             <div class="post__content">
                 {{#if isPremium}}
 
-                {{#if user.isPremium}}
+                {{#if user.isPremium  }}
+                    {{!-- {{#if  user.exprirePremium"eq" user.exprirePremium}}
+                        
+                    {{/if}} --}}
                 {{{content}}}
                 {{else}}
                 <div class="post__is-premium">
                     <p class="post__abstract">
                         {{abstract}}
                     </p>
-                    <div class="message">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Officia suscipit
-                        maxime distinctio quasi nesciunt quo blanditiis ipsam enim explicabo quisquam delectus eius
-                        obcaecati maiores expedita eos fuga laboriosam, a veniam!</div>
+                    <div class="message">Đây là bài viết <span class="badge badge-warning">Premium</span>, vui lòng <a class="text-primary" href="/Normal/paypremium">Nâng cấp</a> tài khoản để được xem bài viết!
+
+                    </div>
                 </div>
                 {{/if}}
 

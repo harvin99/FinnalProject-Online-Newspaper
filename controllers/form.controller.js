@@ -68,7 +68,7 @@ module.exports.resetpassword_post = async (req, res) => {
           await userModel.updateOne(
             { _id: decoded.idUser },
             {
-              localPassword,
+              password: localPassword,
             }
           );
           return res.redirect("/");

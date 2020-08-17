@@ -23,7 +23,7 @@ module.exports.getHome = async (req, res) => {
         status: "Published",
         timePost: {
           //Get posts from day create from subtract Day
-          $gte: moment().subtract(20, "days").toDate(),
+          $gte: moment().subtract(30, "days").toDate(),
         },
       })
       .limit(4)
@@ -73,7 +73,6 @@ module.exports.getHome = async (req, res) => {
     );
       
     let topCategoryPosts_sorted = topCategoryPosts.filter(post => post).sort((a, b) => {
-      console.log(b.view - a.view);
       return b.view - a.view;
     });
     res.render(view, {
