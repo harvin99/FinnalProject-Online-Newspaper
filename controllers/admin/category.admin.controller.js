@@ -10,7 +10,7 @@ const {
   categoryModel,
   tagModel,
 } = require("../../models");
-const { getFilePath } = require("../upload.Controller");
+const { getFilePath } = require("../upload.controller");
 const config = require("../../config");
 const crypto = require("crypto");
 const { ObjectId } = require("mongodb");
