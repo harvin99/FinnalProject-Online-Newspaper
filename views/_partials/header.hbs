@@ -54,24 +54,7 @@
                 <li class="nav-item text-uppercase font-weight-bold text-center active">
                     <a class="nav-link" href="/">trang chủ<span class="sr-only">(current)</span></a>
                 </li>
-                <li class="nav-item text-uppercase font-weight-bold text-center">
-                    <a class="nav-link" href="#">xã hội</a>
-                </li>
-                <li class="nav-item text-uppercase font-weight-bold text-center">
-                    <a class="nav-link" href="#">pháp luật</a>
-                </li>
-                <li class="nav-item text-uppercase font-weight-bold text-center">
-                    <a class="nav-link" href="#">kinh doanh</a>
-                </li>
-                <li class="nav-item text-uppercase font-weight-bold text-center">
-                    <a class="nav-link" href="#">giải trí</a>
-                </li>
-                <li class="nav-item text-uppercase font-weight-bold text-center">
-                    <a class="nav-link" href="#">thể thao</a>
-                </li>
-                <li class="nav-item text-uppercase font-weight-bold text-center">
-                    <a class="nav-link" href="#">du lịch</a>
-                </li>
+
                 {{#each allCategories}}
                 <li class="nav-item text-uppercase font-weight-bold text-center">
                     <a class="nav-link" href="/categories/{{slug}}">{{name}}</a>
@@ -177,13 +160,13 @@
                         <div
                             class="d-flex align-items-center justify-content-start {{#if formError.confirmCode}}is-invalid{{else}}is-valid{{/if}}">
                             <input name="confirmCode" type="text" placeholder="Confirm Code">
-                            <input id="codeInput" name="code" type="text" value="{{code}}" hidden>
-                            <p id="codeView" class="view-code">{{code}}</p>
+                            <input id="codeInputHeader" name="code" type="text" value="{{code}}" hidden>
+                            <p id="codeViewHeader" class="view-code">{{code}}</p>
                             <p class="newcode" onclick="generateNewCode()">New Code</p>
                         </div>
                         {{#if formError.confirmCode}} <div class="invalid-feedback mb-3 text-left">
                             {{formError.confirmCode}}
-                        
+
                         </div>
                         {{/if}}
 
@@ -212,10 +195,10 @@
     }
     const generateNewCode = async () => {
         let code = await getRegisterCode()
-        let codeViewEl = $("#codeView")
-        let codeInputEl = $("#codeInput")
-        codeViewEl.text(code)
-        codeInputEl.val(code)
+        let codeViewHeaderEl = $("#codeViewHeader")
+        let codeInputHeaderEl = $("#codeInputHeader")
+        codeViewHeaderEl.text(code)
+        codeInputHeaderEl.val(code)
     }
     generateNewCode()
     document.addEventListener("copy", function (evt) {
