@@ -20,7 +20,7 @@ const needRole = (x) => {
   if (typeof roles === "string") {
     roles = [roles];
   }
-
+  roles = roles.map((i) => i.toLowerCase());
   if (roles instanceof Array) {
     return (req, res, next) => {
       let { user } = req;
