@@ -115,6 +115,7 @@ module.exports.acceptPost_post = async (req, res) => {
       await postModel.updateOne(
         { slug: slug },
         {
+          subCategory,
           category,
           tags,
           timePost,
