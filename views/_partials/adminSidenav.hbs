@@ -1,5 +1,5 @@
 {{#if user}}
-<div class="logo"><img src="/images/logo-white.png" alt=""></div>
+<div class="logo"><a href="/"><img src="/images/logo-white.png" alt=""></a></div>
 <div class="user">
     {{#with user}}
     <div class="user__avatar"><img src="{{#if avatar}}{{avatar}}{{else}}/images/avatar.png{{/if}}" alt=""></div>
@@ -52,7 +52,7 @@
         {{/when}}
         {{#when user.role "eq" "Normal" }}
         <li class="features__menu-item {{#when activeFeature "eq" 10}}features__menu-item--active {{/when}}">
-            <a href="/user/profile"><i class="fa fa-tasks" aria-hidden="true"></i> Profile</a>
+            <a href="/Normal/profile"><i class="fa fa-tasks" aria-hidden="true"></i> Profile</a>
         </li>
         {{/when}}
         <li class="features__menu-item {{#when activeFeature "eq" 0}}features__menu-item--active {{/when}}">

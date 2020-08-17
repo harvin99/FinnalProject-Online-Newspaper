@@ -41,10 +41,10 @@
                 {{#each posts}}
                 <tr>
                     <td class="text-center">{{title}}</td>
-                    <td class="text-center">{{author}}</td>
+                    <td class="text-center">{{author.username}}</td>
                     <td class="text-center">{{status}}</td>
                     <td class="text-center">
-                        {{#when status "eq" "Chờ duyệt" }}
+                        {{#when status "eq" "WaitingForPublication" }}
                         <a href="{{slug}}/accept">
                             <button type="button" class="link">Duyệt</button>
                         </a>
@@ -52,7 +52,7 @@
                             <button type="button" class="link link-cancel">Từ chối</button>
                         </a>
                          {{/when}}
-                        {{#when status "eq" "Đã duyệt" }}
+                        {{#when status "eq" "Published" }}
                         <a href="{{slug}}/cancel">
                             <button type="button" class="link link-cancel">Hủy duyệt</button>
                         </a>

@@ -9,7 +9,6 @@
         let role = $("#select-user-role").val()
         setQuery(e, "role", role, { deleteItems: ["page"] })
     })
-
 </script>
 {{#if showMessageModal}}
 <script>$("#showMessageModal").modal('show')</script>
@@ -41,8 +40,6 @@
                 {{#each userRoles}}
                 <option value="{{this}}" {{#when this "eq" ../role}}selected{{/when}}>{{this}}</option>
                 {{/each}}
-
-
             </select></div>
     </div>
     <div class="content__data">
@@ -78,10 +75,8 @@
                     </td>
                 </tr>
                 {{/each}}
-
             </tbody>
         </table>
-
         {{>pagination}}
         {{!-- add new --}}
         <div class="add-new">
@@ -89,7 +84,6 @@
         </div>
     </div>
 </div>
-
 <!-- Modal -->
 {{#if showMessageModal}}
 <div class="modal fade" id="showMessageModal" tabindex="-1" role="dialog" aria-labelledby="modelTitleId"
@@ -107,8 +101,6 @@
                 <div class="alert alert-{{type}}">{{message}}</div>
             </div>
             {{/with}}
-
-
         </div>
     </div>
 </div>

@@ -23,12 +23,12 @@ module.exports.getHome = async (req, res) => {
         status: "Published",
         timePost: {
           //Get posts from day create from subtract Day
-          $gte: moment().subtract(8, "days").toDate(),
+          $gte: moment().subtract(30, "days").toDate(),
         },
       })
       .limit(4)
       .lean({ virtuals: true });
-      
+
     featuredPosts = featuredPosts.sort((a, b) => b.score - a.score);
     let featuredAuthor = featuredPosts[0].author;
     let mostViewedPosts = await postModel
@@ -73,7 +73,6 @@ module.exports.getHome = async (req, res) => {
     );
       
     let topCategoryPosts_sorted = topCategoryPosts.filter(post => post).sort((a, b) => {
-      console.log(b.view - a.view);
       return b.view - a.view;
     });
     res.render(view, {
@@ -339,6 +338,7 @@ module.exports.getPost = async (req, res) => {
               $text: {
                 $search: post.title,
               },
+              "category.slug": post.category.slug,
             },
             { score: { $meta: "textScore" } }
           )
@@ -347,7 +347,10 @@ module.exports.getPost = async (req, res) => {
           .lean()
       : [];
     relativePosts = relativePosts.slice(1);
-    res.render(view, { post, islikedUser, relativePosts });
+    let isPremiumUser =
+      user.isPremium &&
+      moment(user.expirePremium).diff(moment(), "seconds") > 0;
+    res.render(view, { post, islikedUser, relativePosts, isPremiumUser });
   } catch (error) {
     res.render("errors/404", { errors: error.toString(), layout: false });
   }
