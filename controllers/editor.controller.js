@@ -27,16 +27,16 @@ module.exports.getPosts = async (req, res) => {
     const category = await categoryModel.findOne({
       slug: slug,
     });
-    let arrslug = [];
+    let arrSlug = [];
     for (i = 0; i < category.subCategories.length; i++) {
-      arrslug.push(category.subCategories[i].slug);
+      arrSlug.push(category.subCategories[i].slug);
     }
+    
     posts = await postModel
       .find({
-        "category.slug": arrslug,
+        "category.slug": arrSlug,
       })
       .lean();
-    console.log(posts);
     res.render("editor/posts", { posts });
   } catch (error) {
     res.render("errors/404", { errors: error.toString(), layout: false });
@@ -64,7 +64,7 @@ module.exports.denialPost_post = async (req, res) => {
   try {
     let { reason } = req.body;
     let { slug } = req.params;
-    let status = "Từ chối";
+    let status = "Denied";
     await postModel.updateOne(
       { slug: slug },
       {
@@ -107,8 +107,8 @@ module.exports.acceptPost_post = async (req, res) => {
     let { slug } = req.params;
     let { subCategory, tags, time } = req.body;
     const category = await categoryModel.findSubCategory(subCategory);
-    console.log(category);
-    let status = "Đã duyệt";
+    //console.log(category);
+    let status = "Published";
     let timePost = moment(time).format("YYYY-MM-DD HH:mm:ss");
     console.log(timePost);
     if (slug) {
@@ -131,7 +131,7 @@ module.exports.acceptPost_post = async (req, res) => {
 module.exports.cancelPost = async (req, res) => {
   try {
     let { slug } = req.params;
-    let status = "Chờ duyệt";
+    let status = "WaitingForPublication";
     if (slug) {
       await postModel.updateOne(
         { slug: slug },

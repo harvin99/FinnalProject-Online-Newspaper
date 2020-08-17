@@ -5,7 +5,7 @@ const saltRounds = 10;
 module.exports.getProfile = async (req, res) => {
   try {
     let { user } = req;
-    if (user.role === "user") {
+    if (user.role === "Normal") {
       const currentDate = moment(new Date());
       const expirePremium = moment(user.expirePremium);
       const timeRemaining = expirePremium.diff(currentDate);

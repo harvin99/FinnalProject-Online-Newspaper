@@ -4,7 +4,8 @@ const moment = require("moment");
 const jwt = require("jsonwebtoken");
 const { userModel } = require("../models");
 const mailgun = require("mailgun-js");
-const DOMAIN = "sandboxedd93c4724f34a0d8bc6a83d67328cec.mailgun.org";
+
+const DOMAIN = "sandboxbd5d77e98bba40fc90395378395024de.mailgun.org";
 const mg = mailgun({ apiKey: process.env.MAILGUM_API_KEY, domain: DOMAIN });
 module.exports.forget = (req, res) => {
   res.locals.header = false;
@@ -25,7 +26,7 @@ module.exports.forget_post = async (req, res) => {
       { expiresIn: "3m" }
     );
     const data = {
-      from: "1760404@student.hcmus.edu.vn",
+      from: "1760323@student.hcmus.edu.vn",
       to: email,
       subject: "Account Actication Link",
       html: `<h2>Please click on given link to reset you account</h2>
