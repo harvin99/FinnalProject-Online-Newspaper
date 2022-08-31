@@ -22,7 +22,7 @@
     "lru-cache": "^5.1.1",
     "mailgun-js": "^0.22.0",
     "moment": "^2.27.0",
-    "moment-timezone": "^0.5.31",
+    "moment-timezone": "^0.5.35",
     "mongoose": "^5.9.21",
     "mongoose-lean-virtuals": "^0.6.8",
     "mongoose-slug-updater": "^3.2.3",
