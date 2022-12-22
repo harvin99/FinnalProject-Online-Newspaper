@@ -18,7 +18,7 @@
     "express-session": "^1.17.1",
     "express-validator": "^6.6.0",
     "handlebars-paginate": "^0.1.0",
-    "jsonwebtoken": "^8.5.1",
+    "jsonwebtoken": "^9.0.0",
     "lru-cache": "^5.1.1",
     "mailgun-js": "^0.22.0",
     "moment": "^2.27.0",
